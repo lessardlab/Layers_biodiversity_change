@@ -1,0 +1,3364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix A — Trait-based inference of ecological network assembly – Layers of Biodiversity Change.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Supplementary_material/S2_functional_asymmetry.html" rel="next">
+<link href="../references.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-77205cbbef6a5b90ba72edc25dea2156.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/core-js-2.5.3/shim.min.js"></script>
+
+<script src="../site_libs/react-18.2.0/react.min.js"></script>
+
+<script src="../site_libs/react-18.2.0/react-dom.min.js"></script>
+
+<script src="../site_libs/reactwidget-2.0.0/react-tools.js"></script>
+
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="../site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+
+<script src="../site_libs/reactable-binding-0.4.4/reactable.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Supplementary_material/S1_trait_based_assembly.html">Appendices</a></li><li class="breadcrumb-item"><a href="../Supplementary_material/S1_trait_based_assembly.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Trait-based inference of ecological network assembly</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Layers of Biodiversity Change.</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Manuscript based thesis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Front matter</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fm/00_Title_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Understanding the layers of biodiversity change</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_thesis_abstract.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Abstract</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro/07_Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Chapters</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/trait_based_assembly/manuscript.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Trait-based inference of ecological network assembly: A conceptual framework and a methodological toolbox</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/functional_asymmetry/manuscript.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Distinct functional responses of consumers and their producers to climate drive mutualistic network asymmetry</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/fossil_turnover/manuscript.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Historical Paleoclimates and the Genesis of Regional Biotas</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11_general_conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Supplementary_material/S1_trait_based_assembly.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Trait-based inference of ecological network assembly</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Supplementary_material/S2_functional_asymmetry.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Distinct functional responses of consumers and producers to climate drive mutualistic network asymmetry</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Supplementary_material/S3_historical_biogeography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Climate change drove the deep-time assembly of biodiversity</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#simulating-resource-consumer-network-assembly" id="toc-simulating-resource-consumer-network-assembly" class="nav-link active" data-scroll-target="#simulating-resource-consumer-network-assembly"><span class="header-section-number">A.1</span> Simulating resource-consumer network assembly</a>
+  <ul class="collapse">
+  <li><a href="#step-1-defining-the-species-pools" id="toc-step-1-defining-the-species-pools" class="nav-link" data-scroll-target="#step-1-defining-the-species-pools"><span class="header-section-number">A.1.1</span> Step 1: Defining the species pools</a></li>
+  <li><a href="#step-2-creating-local-communities" id="toc-step-2-creating-local-communities" class="nav-link" data-scroll-target="#step-2-creating-local-communities"><span class="header-section-number">A.1.2</span> Step 2: Creating local communities</a></li>
+  <li><a href="#step-2.1-simulating-community-assembly-processes" id="toc-step-2.1-simulating-community-assembly-processes" class="nav-link" data-scroll-target="#step-2.1-simulating-community-assembly-processes"><span class="header-section-number">A.1.3</span> Step 2.1: Simulating community assembly processes</a></li>
+  <li><a href="#step-3-assembling-resource-consumer-networks" id="toc-step-3-assembling-resource-consumer-networks" class="nav-link" data-scroll-target="#step-3-assembling-resource-consumer-networks"><span class="header-section-number">A.1.4</span> Step 3: Assembling resource-consumer networks</a></li>
+  <li><a href="#step-4-quantifying-resource-consumer-network-structure" id="toc-step-4-quantifying-resource-consumer-network-structure" class="nav-link" data-scroll-target="#step-4-quantifying-resource-consumer-network-structure"><span class="header-section-number">A.1.5</span> Step 4: Quantifying resource-consumer network structure</a></li>
+  <li><a href="#step-5-quantifying-the-effects-of-trait-based-assembly-processes-on-network-structure" id="toc-step-5-quantifying-the-effects-of-trait-based-assembly-processes-on-network-structure" class="nav-link" data-scroll-target="#step-5-quantifying-the-effects-of-trait-based-assembly-processes-on-network-structure"><span class="header-section-number">A.1.6</span> Step 5: Quantifying the effects of trait-based assembly processes on network structure</a></li>
+  <li><a href="#step-6-quantifying-the-drivers-of-variation-in-bipartite-network-structure" id="toc-step-6-quantifying-the-drivers-of-variation-in-bipartite-network-structure" class="nav-link" data-scroll-target="#step-6-quantifying-the-drivers-of-variation-in-bipartite-network-structure"><span class="header-section-number">A.1.7</span> Step 6: Quantifying the drivers of variation in bipartite network structure</a></li>
+  <li><a href="#step-7-quantifying-network-assembly-mode-bottom-up-and-top-down-effects-on-network-structure" id="toc-step-7-quantifying-network-assembly-mode-bottom-up-and-top-down-effects-on-network-structure" class="nav-link" data-scroll-target="#step-7-quantifying-network-assembly-mode-bottom-up-and-top-down-effects-on-network-structure"><span class="header-section-number">A.1.8</span> Step 7: Quantifying network assembly mode (bottom-up and top-down) effects on network structure</a></li>
+  <li><a href="#additional-simulation-results" id="toc-additional-simulation-results" class="nav-link" data-scroll-target="#additional-simulation-results"><span class="header-section-number">A.1.9</span> Additional simulation results</a></li>
+  <li><a href="#additional-simulation-discussion" id="toc-additional-simulation-discussion" class="nav-link" data-scroll-target="#additional-simulation-discussion"><span class="header-section-number">A.1.10</span> Additional simulation discussion</a></li>
+  </ul></li>
+  <li><a href="#detailed-methods-and-additional-results-for-the-case-study" id="toc-detailed-methods-and-additional-results-for-the-case-study" class="nav-link" data-scroll-target="#detailed-methods-and-additional-results-for-the-case-study"><span class="header-section-number">A.2</span> Detailed methods and additional results for the case study</a>
+  <ul class="collapse">
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection"><span class="header-section-number">A.2.1</span> Data collection</a></li>
+  <li><a href="#delineation-of-the-regional-species-pool" id="toc-delineation-of-the-regional-species-pool" class="nav-link" data-scroll-target="#delineation-of-the-regional-species-pool"><span class="header-section-number">A.2.2</span> Delineation of the regional species pool</a></li>
+  <li><a href="#applying-the-null-model-approach-to-the-observational-data" id="toc-applying-the-null-model-approach-to-the-observational-data" class="nav-link" data-scroll-target="#applying-the-null-model-approach-to-the-observational-data"><span class="header-section-number">A.2.3</span> Applying the null model approach to the observational data</a></li>
+  <li><a href="#sensitivity-analyses" id="toc-sensitivity-analyses" class="nav-link" data-scroll-target="#sensitivity-analyses"><span class="header-section-number">A.2.4</span> Sensitivity analyses</a></li>
+  <li><a href="#applying-the-null-model-approach-to-observational-data-stepwise-results" id="toc-applying-the-null-model-approach-to-observational-data-stepwise-results" class="nav-link" data-scroll-target="#applying-the-null-model-approach-to-observational-data-stepwise-results"><span class="header-section-number">A.2.5</span> Applying the null model approach to observational data: stepwise results</a></li>
+  <li><a href="#future-case-studies" id="toc-future-case-studies" class="nav-link" data-scroll-target="#future-case-studies"><span class="header-section-number">A.2.6</span> Future case studies</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Supplementary_material/S1_trait_based_assembly.html">Appendices</a></li><li class="breadcrumb-item"><a href="../Supplementary_material/S1_trait_based_assembly.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Trait-based inference of ecological network assembly</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Appendix A — Trait-based inference of ecological network assembly</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="simulating-resource-consumer-network-assembly" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="simulating-resource-consumer-network-assembly"><span class="header-section-number">A.1</span> Simulating resource-consumer network assembly</h2>
+<p>We applied our conceptual framework to assess the influence of community and interaction assembly processes on network structure. To this end, we simulated the assembly of probabilistic bipartite networks under different combinations of stochastic and deterministic (trait-based) assembly processes within and between trophic levels (Figure 2 in the main text; Table S1). Trait-based simulations of network assembly allow exploring the relationships between trait based assembly processes and emergent network structures. Moreover, simulations help to avoid empirical biases when inferring network assembly processes. Such biasses include correlations among traits and potentially hidden traits and niches when testing for neutrality or environmental filtering (Barabás et al.&nbsp;2013). Below we describe the steps we followed for a trait-based simulation of network assembly processes:</p>
+<section id="step-1-defining-the-species-pools" class="level3" data-number="A.1.1">
+<h3 data-number="A.1.1" class="anchored" data-anchor-id="step-1-defining-the-species-pools"><span class="header-section-number">A.1.1</span> Step 1: Defining the species pools</h3>
+<p>We simulated regional species pools separately for resource and consumer trophic levels. Each pool consisted of <span class="math inline">\(5{,}000\)</span> individuals, distributed uniformly among <span class="math inline">\(500\)</span> species. As such, the relative abundance for all species was <span class="math inline">\(1/500\)</span>. Each consumer species, <span class="math inline">\(c\)</span>, and each resource species, <span class="math inline">\(r\)</span>, was assigned a trait mean (<span class="math inline">\(t_c\)</span> and <span class="math inline">\(t_r\)</span>, respectively) from a uniform distribution ranging from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>. Each consumer individual, <span class="math inline">\(i\)</span>, was assigned a trait value of <span class="math inline">\(t_{ci}\)</span>, drawn from a normal distribution around <span class="math inline">\(t_c\)</span> (<span class="math inline">\(\sigma = 0.001\)</span>). Each resource individual, <span class="math inline">\(j\)</span>, was assigned a trait value of <span class="math inline">\(t_{rj}\)</span>, drawn from a normal distribution around <span class="math inline">\(t_r\)</span> (<span class="math inline">\(\sigma = 0.001\)</span>). We considered one-dimensional trait distributions in this simulation in order to represent the combined effects of several response traits from <span class="math inline">\(n\)</span>-dimensional hypervolumes (Blonder et al.&nbsp;2014).</p>
+</section>
+<section id="step-2-creating-local-communities" class="level3" data-number="A.1.2">
+<h3 data-number="A.1.2" class="anchored" data-anchor-id="step-2-creating-local-communities"><span class="header-section-number">A.1.2</span> Step 2: Creating local communities</h3>
+<p>We used a coalescent-based algorithm (Munoz et al.&nbsp;2018) to assemble local consumer and resource communities individuals from the regional species pool. Each local community numbered 500 individuals. Under this algorithm, the occurrence and abundance of a species in a local community depends on the successful immigration of ancestor individuals from the species pool and subsequent survival of descendant individuals. The algorithm is governed by a migratory rate parameter, m, that ranges from 0 to 1 (Hubbell 2001, Munoz et al.&nbsp;2018) where higher values of m increase the effect of offspring on the final composition of local communities. That is, the simulation of the local communities has an element of temporal evolution determined by the migratory rate parameter. However, when building the resource-consumer networks in the later steps, we only consider the resulting local communities, not the genealogy leading to them. The coalescent-based assembly algorithm is part of the ecolottery package (Munoz et al.&nbsp;2018) for the R software (version 3.5.3; R Core Team 2019). To explore variation in network structure under various ecological conditions, we varied the simulation parameters to represent variation in community and interaction assembly processes. We simulated a total of 108 unique bipartite network assembly scenarios. Seventyeight assembly scenarios had the same community assembly process at both trophic levels and 30 assembly scenarios had a trait-based community assembly process at one and a stochastic community assembly process at the other trophic level (Table S1). To vary the community assembly process, we modified the function governing the probability of an individual successfully immigrating from the species pool to the local assemblage (pci for consumer individuals and prj for resource individuals) to simulate the stochastic assembly and/or trait-based assembly at each trophic level.</p>
+</section>
+<section id="step-2.1-simulating-community-assembly-processes" class="level3" data-number="A.1.3">
+<h3 data-number="A.1.3" class="anchored" data-anchor-id="step-2.1-simulating-community-assembly-processes"><span class="header-section-number">A.1.3</span> Step 2.1: Simulating community assembly processes</h3>
+<section id="step-2.1.1-stochastic-community-assembly" class="level4" data-number="A.1.3.1">
+<h4 data-number="A.1.3.1" class="anchored" data-anchor-id="step-2.1.1-stochastic-community-assembly"><span class="header-section-number">A.1.3.1</span> Step 2.1.1: Stochastic community assembly</h4>
+<p>We simulated two processes of stochastic assembly, namely ecological drift (Vellend 2010) and demographic stochasticity (Hubbell 2001). We simulated ecological drift by choosing a uniform immigration probability distribution that was independent of individuals’ trait values. Specifically, all individuals had an equal probability, <span class="math inline">\(p_{ci} = p_{rj} = 0.1\)</span>, of being sampled from the regional species pool. Replacement probabilities of simulated mortality events during community formation were accounted for to simulate the effects of ecological drift and demographic stochasticity (Etienne and Olff 2004). After a simulated mortality event during community coalescence, individuals can be replaced with the offspring of the remaining individuals in the local community <span class="math inline">\((J - 1)\)</span> or with a new immigrant individual from the species pool with probability <span class="math inline">\((1 - m)\)</span>. The competition of local offspring and immigrants to replace dead individuals in the community is commonly referred to as the immigration parameter <span class="math inline">\(I\)</span>. The immigration parameter <span class="math inline">\(I\)</span> depends on both <span class="math inline">\(m\)</span> (migratory rate parameter) and <span class="math inline">\(J\)</span> (number of individuals in the community), such that <span class="math inline">\(I = m(J - 1)/(1 - m)\)</span> (Etienne and Olff 2004). In our simulations, we set <span class="math inline">\(m = 0.5\)</span> to reduce the effect of genealogy on the local community and thus mimic conditions where local communities are formed mainly by the initial migrant individuals. In addition, no trait-based constraints were imposed on the immigration probabilities of individuals from the species pool to the community (Munoz et al.&nbsp;2018). Further work can explore changes in the immigration parameter in order to parameterize models of network assembly along the genealogy of communities (Etienne and Olff 2004; Etienne 2009; Munoz et al.&nbsp;2018).</p>
+</section>
+<section id="step-2.1.2-environmental-filtering" class="level4" data-number="A.1.3.2">
+<h4 data-number="A.1.3.2" class="anchored" data-anchor-id="step-2.1.2-environmental-filtering"><span class="header-section-number">A.1.3.2</span> Step 2.1.2: Environmental filtering</h4>
+<p>We simulated trait-based processes as trait-dependent individual based immigration probabilities from the regional pool. Specifically, to simulate environmental filtering, we assigned probabilities of successful immigration of individuals from a normal distribution around an arbitrarily centered trait optimum, <span class="math inline">\(t_{opt}\)</span> = 0.2, with a standard deviation of <span class="math inline">\(σ_{opt}\)</span> . (Figure 2 in the main text; Munoz et al.&nbsp;2018). That is:</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[p_{ij} = e^{-\frac{\left(t_{c i}-t_{\mathrm{opt}}\right)^2}{\left(2\sigma_{\mathrm{opt}}\right)^2}}
+\]</span></p>
+</div>
+</div>
+<p>We modulated the intensity of environmental filtering by varying <span class="math inline">\(σ_{opt}\)</span>, where more intense filtering was simulated by a narrower distribution. We used five different values of σopt, from weak <span class="math inline">\(σ_{opt}\)</span> to strong ( <span class="math inline">\(σ_{opt}\)</span> = 0.1), to simulate a gradient of filtering intensities, i.e.&nbsp;process strengths.</p>
+<p>We simulated distinct (im)balances of deterministic resource and consumer assembly processes by independently varying the intensities of trait-based community assembly at consumer (σoptc) and resource trophic levels (σoptr). We computed process strength asymmetry (PSA) calculated as the natural logarithm of the ratio of consumer and resource process strengths (Equation S2). We considered process strengths to be asymmetrical when PSA ≠ 0. Symmetry of process strengths between trophic levels occurs at all same magnitude combinations of σoptc and σoptr, which renders PSA = 0.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[PSA = log_e(σ_{opt_c} / σ_{opt_r})\]</span></p>
+</div>
+</div>
+</section>
+<section id="step-2.2-simulating-interaction-assembly-processes" class="level4" data-number="A.1.3.3">
+<h4 data-number="A.1.3.3" class="anchored" data-anchor-id="step-2.2-simulating-interaction-assembly-processes"><span class="header-section-number">A.1.3.3</span> Step 2.2 Simulating interaction assembly processes</h4>
+<p>After generating the local resource and consumer communities, we simulated interaction assembly processes between the two trophic levels. We calculated the probability, pc,r, of interaction between for resource and consumer species modelled at the species individual level for distinct interaction assembly process types ranging from stochastic (density-dependent) to deterministic (trait-based).</p>
+</section>
+<section id="step-2.2.1-stochastic-interaction-assembly" class="level4" data-number="A.1.3.4">
+<h4 data-number="A.1.3.4" class="anchored" data-anchor-id="step-2.2.1-stochastic-interaction-assembly"><span class="header-section-number">A.1.3.4</span> Step 2.2.1 Stochastic interaction assembly</h4>
+<p>We modelled stochastic interaction assembly as purely density dependent probabilities. This ecologically emulates random encounter probabilities between individuals of the species in the community, assuming a well-mixed system. As a consequence, <span class="math inline">\(p\)</span>, is independent from the species’ trait values. The probability that consumer species <span class="math inline">\(c\)</span> and resource species <span class="math inline">\(r\)</span> interact is only driven by the change in their relative abundances, such that the interactions that occur most frequently are those between the most abundant species (Morales-Castilla et al.&nbsp;2015, Chacoff et al.&nbsp;2018) (Equation S3).</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[p = A_c\times A_r\]</span></p>
+<p>where <span class="math inline">\(A_c\)</span> is the abundance of consumer species <span class="math inline">\(c\)</span> relative to total local consumer abundance, and <span class="math inline">\(A_r\)</span>is the abundance of resource species <span class="math inline">\(r\)</span> relative to the total local resource abundance.</p>
+</div>
+</div>
+</section>
+<section id="step-2.2.2-functional-trait-matching" class="level4" data-number="A.1.3.5">
+<h4 data-number="A.1.3.5" class="anchored" data-anchor-id="step-2.2.2-functional-trait-matching"><span class="header-section-number">A.1.3.5</span> Step 2.2.2 Functional trait matching</h4>
+<p>To simulate trait-based interaction processes between trophic levels, pairwise interaction probabilities, pc,r, were dependent on the species individuals’ trait values. We modelled pairwise interaction probabilities by simulating two distinct types of functional trait matching: forbidden links and morphological matching. Forbidden links is a type of deterministic interaction assembly process whereby interaction partners are constrained to species within a certain range of traits (Morales-Castilla et al.&nbsp;2015). Within this constrained set of potential partners, species’ relative abundances define pairwise interaction probabilities. This mimics interactions that occur in nature as if, for example, resource selection is gape-limited (e.g., small-beaked birds cannot eat large fruits, but largebeaked birds can eat fruits of all sizes). Thus, we simulated interaction assembly governed by forbidden links as:</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>if <span class="math display">\[t_c \leq t_r \rightarrow p_{c,r} = 0\]</span></p>
+<p>if <span class="math display">\[t_c &gt; t_r \rightarrow p_{c,r} = A\]</span></p>
+</div>
+</div>
+<p>Morphological matching is another type of deterministic interaction assembly process. Here, pairwise interactions occur only whenever there is a strong trait match between the values of functional traits of species individuals (Maglianesi et al.&nbsp;2014, Sazatornil et al.&nbsp;2016). In our simulations under morphological matching, the effect of the trait-based interaction assembly modifies the probability of abundance driven interactions between species. In nature, morphological matching arises due to the evolution of functional specialization between6 interacting species pairs (e.g., insect proboscis length - corolla length; Sazatornil et al.&nbsp;2016) or represents cases where optimal foraging governs the ecological interactions between species (Maglianesi et al.&nbsp;2014, Sazatornil et al.&nbsp;2016). Our definition of morphological matching reflects the definitions presented by preceding literature (e.g., Maglianesi et al.&nbsp;2014) such that we considered the strength of trait matching to be fixed instead of varying the trait matching strength. That is, we did not consider scenarios of adaptive foraging or the context dependency of pairwise interactions. Such processes could be introduced in the simulations by regulating trait matching strength with a sigma parameter similarly to environmental filtering simulations (section S2.1.2). Thus, we simulated interaction probabilities to depend on the difference in trait values between consumer and resource species as well as on the relative abundances within trophic levels (A).</p>
+<p>That is:</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[p = A(1-|t_c-t_r|)\]</span></p>
+</div>
+</div>
+</section>
+</section>
+<section id="step-3-assembling-resource-consumer-networks" class="level3" data-number="A.1.4">
+<h3 data-number="A.1.4" class="anchored" data-anchor-id="step-3-assembling-resource-consumer-networks"><span class="header-section-number">A.1.4</span> Step 3: Assembling resource-consumer networks</h3>
+<p>As a result of our simulations, we obtained a set of probabilistic interaction networks at the species level. We collapse these initial probabilistic networks into binary networks by considering as realized interactions (<span class="math inline">\(p = 1\)</span>) those interactions whose pairwise interaction probability falls above the fourth-largest quantile of the whole probability distribution, and by assigning interactions under that threshold a value of <span class="math inline">\(p = 0\)</span>. Species that were present in the probabilistic network but not linked to any species after the threshold were not considered part of the “observed” interaction network. We recognize that thresholding probabilistic networks may lead to an under-representation of rare interaction events (see Poisot et al.&nbsp;2015), but we expect those effects to be minimal and unlikely to change the larger patterns of network structure under distinct assembly process types.</p>
+</section>
+<section id="step-4-quantifying-resource-consumer-network-structure" class="level3" data-number="A.1.5">
+<h3 data-number="A.1.5" class="anchored" data-anchor-id="step-4-quantifying-resource-consumer-network-structure"><span class="header-section-number">A.1.5</span> Step 4: Quantifying resource-consumer network structure</h3>
+<p>We selected two widely used metrics of network structure for binary bipartite networks: modularity and nestedness. Modularity is a measure of the degree to which a network is divided into modules. Modules are clusters of network nodes (species) with many links amongst themselves and few links to nodes in other modules. In highly modular networks, there are7 cohesive sub-clusters of species interacting more with each other than with other species present in the network (Olesen et al. 2007). We quantified the modularity of our simulated networks using the Q metric (Barber 2007). This metric is calculated using a label-propagation algorithm (Liu and Murata 2010, Beckett 2015) which maximizes Barber’s modularity (Barber 2007). Nestedness is a measure of the degree to which nodes with few links share a subset of the links of nodes with many links. In perfectly nested networks, interaction partners of specialists are subsets of the interaction partners of generalists (Bascompte et al.&nbsp;2003). In the case of consumer-resource networks, it is a measure of the degree to which specialists consume a subset of the resources consumed by generalists. We quantified the nestedness of our simulated networks using the NODF metric (Almeida-Neto et al.&nbsp;2008). The functions to calculate modularity and nestedness were implemented from the bipartite package for R (Dormann et al.&nbsp;2009).</p>
+<p>Modularity (<span class="math inline">\(Q\)</span>) and nestedness (<span class="math inline">\(NODF\)</span>) values are dependent on intrinsic network properties, such as network size and connectance (Fortuna et al.&nbsp;2010; Beckett 2015; Simmons et al.&nbsp;2018; Song et al.&nbsp;2019). We expected the effect of network size on network metric variation to be minimal because we simulated our networks to vary little in their species richness and connectance. However, to minimize any issues related to network size and to ensure that our network structure metrics are comparable across simulation scenarios, we standardized modularity and nestedness using Z-scores for the network structural indices. We did this by subtracting the observed metric values from the expected mean values of a null distribution and dividing by the standard deviation of that null distribution. We selected two swapping algorithms to generate this null distribution of expected network metric values from <span class="math inline">\(100\)</span> independent network rewires. We used two different rewiring models that keep network size and row and column totals constant. The first, the DegreeProbable–DegreeProbable model, shuffles individual elements <span class="math inline">\(d_{i,kj}\)</span> of the pairwise interaction matrix based on the probability <span class="math inline">\(p_{ij}\)</span> that corresponds to:</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br>
+<span class="math display">\[p_{ij} = 0.5 \times (d_j/rows + k_i /cols)\]</span></p>
+<p>where <span class="math inline">\(d_j\)</span> is the degree of column <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> is the degree of row <span class="math inline">\(i\)</span>. <span class="math inline">\(rows\)</span> and <span class="math inline">\(cols\)</span> are the total number of rows and columns respectively (Bascompte et al.&nbsp;2003, Beckett 2015, Mariani et al.&nbsp;2019).</p>
+</div>
+</div>
+<p>Additionally, to ensure that the choice of rewiring method does not influence the estimated network metric values, we separately used the “curveball” rewiring algorithm (Strona et al.&nbsp;2014) to calculate network metric Z-scores. This algorithm also maintains row and column sum totals constant but swaps elements in a stepwise manner. First, the algorithm lists all the column elements occurring on each row. Second, it “trades” the non-occurring elements between two of the random of the previously created lists and reiterates this process a number of times. Finally, it reconstructs a presence-absence matrix from the reshuffled list (Strona et al.&nbsp;2014). We found that the two rewiring methods produced parallel results and do not present the results of the “curveball” method here.</p>
+<p>To test for the effects of connectance on network metric variance, we calculated the correlation of modularity <span class="math inline">\(Q\)</span> Z-scores and nestedness <span class="math inline">\(NODF\)</span> Z-scores with connectance for all simulated networks using Spearman rank correlations. Our thresholding approach produced similarly sized networks with typical levels of connectance in natural resource–consumer networks (<span class="math inline">\(0.2\)</span>–<span class="math inline">\(0.4\)</span>; Valdovinos et al.&nbsp;2016). Networks assembled under stochastic interaction and forbidden-links assembly had similar connectance levels (NL: mean <span class="math inline">\(= 0.29\)</span>, sd <span class="math inline">\(= 0.03\)</span>; FL: mean <span class="math inline">\(= 0.28\)</span>, sd <span class="math inline">\(= 0.04\)</span>) that were higher than those for networks assembled with morphological matching (MM: mean <span class="math inline">\(= 0.22\)</span>, sd <span class="math inline">\(= 0.04\)</span>). We expected slightly lower connectance levels for morphological matching networks, since morphological trait matching increases the overall level of specialization of pairwise interactions. We found weak correlations between connectance and nestedness <span class="math inline">\(NODF\)</span> Z-scores (<span class="math inline">\(\rho = 0.32\)</span>, <span class="math inline">\(p = 0.004\)</span>) and between connectance and modularity <span class="math inline">\(Q\)</span> Z-scores (<span class="math inline">\(\rho = -0.17\)</span>, <span class="math inline">\(p = 0.11\)</span>) across the simulated networks. We used binary modularity and nestedness because they represent contrasting properties of network structure and are commonly used to summarize the dynamics of ecological networks, such as robustness and stability (Staniczenko et al.&nbsp;2013; Grilli et al.&nbsp;2016; Guzman et al.&nbsp;2020). However, our framework can equally be applied to other measures of network structure, including quantitative metrics (e.g., network-level specialization, <span class="math inline">\(H_2'\)</span>; Blüthgen et al.&nbsp;2008; spectral radius <span class="math inline">\(\rho(\cdot)\)</span>; Staniczenko et al.&nbsp;2013).</p>
+</section>
+<section id="step-5-quantifying-the-effects-of-trait-based-assembly-processes-on-network-structure" class="level3" data-number="A.1.6">
+<h3 data-number="A.1.6" class="anchored" data-anchor-id="step-5-quantifying-the-effects-of-trait-based-assembly-processes-on-network-structure"><span class="header-section-number">A.1.6</span> Step 5: Quantifying the effects of trait-based assembly processes on network structure</h3>
+<p>To quantify the effect of trait-based assembly processes on network structure, we first defined a two-dimensional space of modularity (<span class="math inline">\(Q\)</span> Z-score on the <span class="math inline">\(x\)</span>-axis) and nestedness (<span class="math inline">\(NODF\)</span> Z-score on the <span class="math inline">\(y\)</span>-axis) (Figure 3 in the main text). Mean modularity and nestedness across simulation replicates of all simulated networks were mapped in this network-structure space. Thus, the standardized mean differences among networks represented their overall structural differences. We quantified the effect of trait-based interaction assembly as the pairwise distances between networks that share the same community assembly process but differ in their trait-based interaction assembly. Specifically, we calculated the standardized mean differences between networks assembled under forbidden links and morphological matching relative to the corresponding networks assembled under stochastic interaction assembly. Within each trait-based interaction assembly type (i.e., clusters of symbols in Figure 3 in the main text), we quantified the effect of trait-based community assembly as the standardized mean differences between networks assembled under environmental filtering and networks assembled under stochastic community assembly (i.e., standardized distances of symbols relative to the cluster cross in Figure 3 of the main text).</p>
+</section>
+<section id="step-6-quantifying-the-drivers-of-variation-in-bipartite-network-structure" class="level3" data-number="A.1.7">
+<h3 data-number="A.1.7" class="anchored" data-anchor-id="step-6-quantifying-the-drivers-of-variation-in-bipartite-network-structure"><span class="header-section-number">A.1.7</span> Step 6: Quantifying the drivers of variation in bipartite network structure</h3>
+<p>Using multiple regression, we first modelled the relationship between each stochastic or trait-based community and interaction assembly process and network structure for those 78 network scenarios with the same community assembly process at both trophic levels. We did this separately for modularity (<span class="math inline">\(Q\)</span> Z-score mean) and nestedness (<span class="math inline">\(NODF\)</span> Z-score mean) and for each interaction assembly type, totaling six different linear models. For each of these linear models, we used commonality analysis (Nimon et al.&nbsp;2008; Ray-Mukherjee et al.&nbsp;2014) to decompose the explained variance (<span class="math inline">\(R^2\)</span>) in network structure metrics and effects on network structure into components of independent variation attributable to explanatory variables. We carried out this variance partitioning for simulated networks with the same community assembly process at both trophic levels (1) across all scenarios and (2) separately for subsets based on interaction assembly process type. We used these subsets to remove the effect of interaction assembly process on network structure, because the large relative effect of the type of interaction assembly (neutral, morphological matching, forbidden links) absorbed most of the variation and did not allow showing the remaining effect that process strength asymmetry had on network structure (Appendix S2: Figures S1 and S2, Table S1). We used regression commonality analysis because it allows obtaining both the unique and shared effects of entangled community and interaction assembly processes on network structure. This property of the analysis is highly relevant in the context of our conceptual framework, as the effects of community and interaction assembly processes on network structure are likely entangled. Multiple regressions and commonality coefficients were obtained using the packages <strong>stats</strong> (R Core Team 2019) and <strong>yhat</strong> (Nimon et al.&nbsp;2008) for the R environment (version 3.6.3; R Core Team 2019).</p>
+<p>Next, to understand how process strength asymmetry influences network structure within a given interaction assembly type, we used GLMs with modularity (<span class="math inline">\(Q\)</span> Z-scores) and nestedness (<span class="math inline">\(NODF\)</span> Z-scores) as response variables. In these models, process strength asymmetry (<span class="math inline">\(PSA\)</span>), interaction assembly type, and their interaction were included as predictor variables. As a next step, we sought to separate the effect of process strength asymmetry on network structure from the total effect of deterministic community assembly processes on networks. To this end, we computed standardized differences in modularity and nestedness between networks assembled under asymmetrical resource and consumer assembly process strengths (i.e., <span class="math inline">\(PSA \neq 0\)</span>) and networks assembled under symmetrical resource and consumer assembly process strengths (i.e., <span class="math inline">\(PSA = 0\)</span>).</p>
+<p>Finally, we explored the interplay of process strength asymmetry and network assembly mode determining network structure. More specifically, to test for bottom-up and top-down assembly effects on network structure, we excluded either the effect of deterministic (trait-based) resource or consumer community assembly by “switching off” deterministic and “switching on” stochastic community assembly processes. We then compared the structure of the networks where both trophic levels were assembled under the same community assembly process to the networks where the two trophic levels were assembled under contrasting community assembly processes (i.e., with stochastic assembly at one and deterministic assembly at the other trophic level) (Table S1). Thereby, we obtained the effect of network assembly mode on network structure across a gradient of process strength asymmetries. To better understand the interactions11 of community and interaction assembly processes, we compared the relationships between assembly mode and the effects of process strength asymmetry on network structure among interaction assembly types.</p>
+</section>
+<section id="step-7-quantifying-network-assembly-mode-bottom-up-and-top-down-effects-on-network-structure" class="level3" data-number="A.1.8">
+<h3 data-number="A.1.8" class="anchored" data-anchor-id="step-7-quantifying-network-assembly-mode-bottom-up-and-top-down-effects-on-network-structure"><span class="header-section-number">A.1.8</span> Step 7: Quantifying network assembly mode (bottom-up and top-down) effects on network structure</h3>
+<p>We compared the network metrics of the networks assembled under environmental filtering process at both trophic levels to the network metrics of the corresponding networks assembled with environmental filtering process at one trophic level and stochastic process at the other trophic level. We did this to quantify the bottom-up and top-down effects on network structure. The bottom-up effects were inferred by comparing networks with environmental filtering process at both trophic levels to networks with environmental filtering process at consumer trophic level and stochastic process at resource trophic level. The top-down effects were inferred by comparing networks with environmental filtering process at both trophic levels to networks with environmental filtering process at resource trophic level and stochastic process at consumer trophic level. We calculated effect sizes (SESNET) that corresponded to the standardized mean differences between the compared network metrics (Equation S7.1, S7.2). Finally, we computed network assembly mode as the log-ratio of SESNET between the two trophic levels. That is, the assembly mode was top-down if the log-ratio was positive and bottom-up if the log-ratio was negative (Equation 7.3).</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 7.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+SES_{net} = (mean_{EF}- mean{EF_{nl/ef}})/SD_{pooled}
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 7.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[SE_{pooled} = \sqrt{(sd_{EF})^2 + (sd_{NL/EF})^2}\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Equation 7.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+log(SES_{net_{c}}/SES_{net_{r}})
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Table S1. Scenarios simulating stochastic and trait-based network assembly.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Stochastic scenarios were simulated under stochastic community assembly (i.e., stochastically assembled resource and consumer communities). Trait-based scenarios were simulated under environmental filtering of different filtering intensities (σ) at resource and consumer trophic levels. Mixed scenarios were simulated with stochastic community assembly at one trophic level and traitbased community assembly at the other trophic level. Pairwise interactions were assembled under different types of functional trait matching or under stochastic interaction assembly (i.e., morphological matching, forbidden links, and stochastically assembled interactions). Each scenario was replicated 100 independent times.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item" id="htmlwidget-1078b5937015799bb26a" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1078b5937015799bb26a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"consumer_assembly":["Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stochastic Community Assembly","Stochastic Community Assembly","Stochastic Community Assembly","Stochastic Community Assembly","Stochastic Community Assembly","Stochastic Community Assembly"],"resource_assembly":["Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stabilizing Environmental Filtering","Stochastic Community Assembly","Stochastic Community Assembly","Stochastic Community Assembly"],"interaction_assembly":["Forbidden Links","Morphological Matching","Stochastically Assembled Interactions","Forbidden Links","Morphological Matching","Stochastically Assembled Interactions","Forbidden Links","Morphological Matching","Stochastically Assembled Interactions"],"scenario_id":[1,2,3,4,5,6,7,8,9]},"columns":[{"id":".details","name":"","type":null,"sortable":false,"resizable":false,"filterable":false,"searchable":false,"width":45,"align":"center","details":[{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]},{"name":"Reactable","attribs":{"data":{"sigma_consumer":[0,0,0,0,0,0,0.1,0.1,0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3,0.3,0.3,0.5,0.5,0.5,0.5,0.5,0.5,0.7,0.7,0.7,0.7,0.7,0.7,0.9,0.9,0.9,0.9,0.9,0.9],"sigma_resource":[0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9,0,0.1,0.3,0.5,0.7,0.9]},"columns":[{"id":"sigma_consumer","name":"σconsumer","type":"numeric"},{"id":"sigma_resource","name":"σresource","type":"numeric"}],"bordered":true,"compact":true,"dataKey":"ce42709e6d443188b756a9d28f0e30ca","static":false,"nested":true},"children":[]}]},{"id":"consumer_assembly","name":"Consumer assembly process","type":"character"},{"id":"resource_assembly","name":"Resource assembly process","type":"character"},{"id":"interaction_assembly","name":"Interaction assembly process","type":"character"},{"id":"scenario_id","name":"scenario_id","type":"numeric"}],"searchable":true,"dataKey":"112d4e2f93a92644e83baebc1b76017b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="additional-simulation-results" class="level3" data-number="A.1.9">
+<h3 data-number="A.1.9" class="anchored" data-anchor-id="additional-simulation-results"><span class="header-section-number">A.1.9</span> Additional simulation results</h3>
+<p><strong>Does spatial variation in the relative strengths of community and interaction assembly processes lead to predictable variation in network structures?</strong></p>
+<p>Both community and interaction assembly processes significantly influenced the structure of resource-consumer networks (Figure S1A). However, we found that the type of interaction assembly process had the strongest effect on network structure. The effects of trait-based interaction assembly, namely morphological matching and forbidden links, on network structure were equally strong and both deviated from the effects of stochastic interaction assembly (compare delineated clusters in Figure S1A). Both morphological matching and forbidden links resulted in more nested and less modular networks, whereas the opposite was the case for stochastic interaction assembly. When we quantified the effects of community and interaction assembly separately using commonality analysis, we found that changes in the type of interaction assembly process explained 70% and 81% of the total variation in modularity and nestedness, respectively. In contrast, changes in the type of community assembly process explained only 0.2% of the total variation in both modularity and nestedness. Similarly, variation in process strength asymmetry (PSA), explained only 2% and 0.1% of the total variation in modularity and nestedness, respectively. However,2 when we repeated this variance partitioning for subsets of networks under the same interaction assembly type (e.g., forbidden links), 36-64% of the variance in network structure was explained by PSA (Figure S1, Table S1).</p>
+<p><strong>How does the relative influence of bottom-up and top-down assembly modes on network structure vary along environmental gradients?</strong></p>
+<p>Asymmetry in the relative strength of community assembly processes between the resource and consumer trophic levels (PSA) induced variation in network structures (distribution of points along x-axes in Figure S1B-C). The extent of such variation was larger for network modularity, while the variation was more clearly attributed to interaction assembly type for nestedness (Figure S1B-C). Moreover, the simulated networks varied along the assembly mode gradient (distribution of points along y-axes in Figure S1B-C). For example, networks assembled under forbidden links tended to have a bottom-up assembly mode in terms of network modularity. When considering the variation along PSA and network assembly mode gradients simultaneously, the GLM model showed a significant interaction between the effect of PSA and that of interaction assembly type on modularity and only when pairwise interactions were assembled under forbidden links (Figure S1B-C, Table S1). Process strength asymmetry and network assembly mode had contrasting influences on network structure (Spearman correlation between PSA and assembly mode: r nestedness = -0.02, r modularity = -0.14; calculated for points in Figure S1B-C). Given the negative correlations between</p>
+<p>PSA and assembly mode effects on network structure, the mode of network assembly can dampen the overall effect of process strength asymmetry on network structure, particularly for network modularity. We note that we did not pre-determine the assembly mode in the simulations. Rather, we set different strengths of community assembly to resource and consumer trophic levels that can lead to varying assembly modes in the networks. Moreover, given that we quantify the assembly mode relative to a scenario where the community assembly strengths do not differ between trophic levels, the assembly mode in our simulations represents the distances between symmetric and asymmetric community assembly process simulation scenarios in our structural space (defined by modularity and nestedness).3</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-124885081.png" class="img-fluid figure-img" width="800"></p>
+<figcaption><strong>Figure S1. Community and interaction assembly processes define the structure of simulated resource-consumer networks.</strong> Panel A shows the simulated networks in a two-dimensional network structure space of modularity and nestedness. Convex hulls delineate the limits and variance of network structures for each simulated interaction assembly type. The color of the lines, symbols and bars across the panels indicate the interaction assembly type. Each symbol corresponds to the mean network structure metric value of 10 independent network replicates with deterministic resource and consumer community assembly processes. The effect of deterministic community assembly (here, stabilizing environmental filtering) on network structure is illustrated as the deviation of the colored symbol from the correspondingly colored cross. Cross axis lengths indicate the standard deviation in modularity (horizontal cross axis) and nestedness (vertical cross axis) under stochastic community assembly at both trophic levels. The further a symbol is from the cross, the stronger the effect of environmental filtering on network structure. The convex hull areas represent the magnitude of the effect that deterministic community assembly processes have on network structure when interaction assembly type is constant. Deterministic community assembly within each interaction assembly type varies in process strength asymmetry between trophic levels (PSA; log-ratio between the strengths of deterministic resource and consumer assembly processes). Panels B and C illustrate the relationships between the network assembly mode (y-axis) and PSA effect on network structure (x-axis). Positive and negative network assembly values indicate that the network is predominantly assembled under deterministic top-down and bottom-up assembly processes, respectively. If the relative magnitudes of bottom-up and top-down assembly modes are equivalent, the assembly mode = 0. The effect of PSA on network structure is quantified as the4 standardized mean deviation of the network structure metric from the expected mean network structure metric of the set of networks assembled under symmetrical process strengths. For additional details on the simulation methods, see Appendix S1.</figcaption>
+</figure>
+</div>
+</section>
+<section id="additional-simulation-discussion" class="level3" data-number="A.1.10">
+<h3 data-number="A.1.10" class="anchored" data-anchor-id="additional-simulation-discussion"><span class="header-section-number">A.1.10</span> Additional simulation discussion</h3>
+<p>Our simulations reveal that in general, interaction assembly matters more than community assembly in shaping networks. Perhaps the most exciting result is that when functional trait matching is the main driver of network assembly, process strength asymmetry dictates the predominance of bottom-up or top-down effects, which is consistent with previous empirical work (Albrecht et al.&nbsp;2018). In natural networks, process strength asymmetry may be the result of differences in how trophic levels respond to abiotic and biotic drivers (e.g., along climatic gradients; Van Der Plas et al.&nbsp;2012). Because abiotic and biotic drivers vary spatially, the strength of bottom-up and top-down effects is likely to do so as well (Gripenberg and Roslin 2007). Our simulations show how this variation in the assembly mode can modify network structure through an assembly cascade that emerges from the interdependence of community and interaction assembly processes. That is, assembly processes shaping the composition of one trophic level indirectly govern the assembly of another trophic level, but the magnitude of this cascade depends on the interaction assembly type. Earlier studies have reported somewhat analogous trophic cascades from apex predators to lower trophic levels via resource use (e.g., Ripple &amp; Beschta 2012), but they have focused on single populations (i.e., single species) at each trophic level, rather than communities. Furthermore, they have not considered which and how particular processes within and between trophic levels mediate the observed cascade. Identifying and quantifying such processes is now possible with the help of our framework.5</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3372733236.png" class="img-fluid figure-img" width="800"></p>
+<figcaption><strong>Figure S2. Relationships of mean modularity (Q Z-scores) and nestedness (NODF Z-scores) with varying strengths of environmental filtering asymmetry. Each</strong> point represents the averaged network metric Z-score means (upper panels) and standard deviations (SD; lower panels) for 10 independent replicates of simulated networks under environmental filtering of differing strengths at resource and consumer trophic levels (Appendix S1).6 Table S1. Modelling the synergic influence of community and interaction assembly processes on network structure. The table shows the results of two generalized linear models (GLMs) explaining the changes in network structure as a function of the interaction between the effects of process strength asymmetry and interaction assembly process types. Those 78 scenarios with the same community assembly process at both trophic levels were included in the models. Modularity (Q) and nestedness (NODF) were measured as mean Z-scores across 10 replicate networks. PSA = Process strength asymmetry, IA = Interaction assembly type, FL = Forbidden links, MM = Morphological matching.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Table S2. Regression results for network structure metrics under interaction assembly and PSA effects.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The table summarizes model performance and coefficient estimates for Modularity and Nestedness fitted with an interaction between the interaction-assembly term (IA) and PSA (model structure: PSA × IA). Coefficients for FL (forbidden links) and MM (morphological matching) quantify main effects of interaction-assembly constraints, while interaction terms (FL × PSA; MM × PSA) test whether the influence of PSA varies with IA mechanisms. Abbreviations: FL = Forbidden Links; MM = Morphological Matching; PSA = predictor included as a main effect and in interaction with IA.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="vldyearvol" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vldyearvol table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vldyearvol thead, #vldyearvol tbody, #vldyearvol tfoot, #vldyearvol tr, #vldyearvol td, #vldyearvol th {
+  border-style: none;
+}
+
+#vldyearvol p {
+  margin: 0;
+  padding: 0;
+}
+
+#vldyearvol .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #D3D3D3;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-left-color: #D3D3D3;
+}
+
+#vldyearvol .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vldyearvol .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vldyearvol .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vldyearvol .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vldyearvol .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vldyearvol .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vldyearvol .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vldyearvol .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vldyearvol .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vldyearvol .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vldyearvol .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vldyearvol .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vldyearvol .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vldyearvol .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vldyearvol .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vldyearvol .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vldyearvol .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vldyearvol .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vldyearvol .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vldyearvol .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vldyearvol .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vldyearvol .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vldyearvol .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vldyearvol .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vldyearvol .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vldyearvol .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vldyearvol .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vldyearvol .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vldyearvol .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vldyearvol .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vldyearvol .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vldyearvol .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vldyearvol .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vldyearvol .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vldyearvol .gt_left {
+  text-align: left;
+}
+
+#vldyearvol .gt_center {
+  text-align: center;
+}
+
+#vldyearvol .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vldyearvol .gt_font_normal {
+  font-weight: normal;
+}
+
+#vldyearvol .gt_font_bold {
+  font-weight: bold;
+}
+
+#vldyearvol .gt_font_italic {
+  font-style: italic;
+}
+
+#vldyearvol .gt_super {
+  font-size: 65%;
+}
+
+#vldyearvol .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vldyearvol .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vldyearvol .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vldyearvol .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vldyearvol .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vldyearvol .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vldyearvol .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vldyearvol .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vldyearvol div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="8" class="gt_heading gt_title gt_font_normal">Model results for network structure metrics</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Interaction assembly (IA) effects and interaction with PSA</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row header">
+<th colspan="3" id="Model summary" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Model summary
+</div></th>
+<th colspan="5" id="Coefficient table" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Coefficient table
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="model_structure" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Model structure</th>
+<th id="pseudo_r2" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Pseudo R²</th>
+<th id="model_p" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Model p-value</th>
+<th id="predictor" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Predictor variable</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Estimate</th>
+<th id="ci_lower" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">CI lower</th>
+<th id="ci_upper" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">CI upper</th>
+<th id="p_value" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">p-value</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="gt_group_heading_row odd">
+<td colspan="8" id="Modularity" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Modularity</td>
+</tr>
+<tr class="gt_row_group_first even">
+<td class="gt_row gt_left" headers="Modularity  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Modularity  pseudo_r2">0.78</td>
+<td class="gt_row gt_left" headers="Modularity  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Modularity  predictor">Intercept</td>
+<td class="gt_row gt_right" headers="Modularity  estimate">111.10</td>
+<td class="gt_row gt_right" headers="Modularity  ci_lower">107.51</td>
+<td class="gt_row gt_right" headers="Modularity  ci_upper">114.68</td>
+<td class="gt_row gt_left" headers="Modularity  p_value">&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Modularity  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Modularity  pseudo_r2">0.78</td>
+<td class="gt_row gt_left" headers="Modularity  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Modularity  predictor">PSA</td>
+<td class="gt_row gt_right" headers="Modularity  estimate">0.63</td>
+<td class="gt_row gt_right" headers="Modularity  ci_lower">−6.67</td>
+<td class="gt_row gt_right" headers="Modularity  ci_upper">7.92</td>
+<td class="gt_row gt_left" headers="Modularity  p_value">0.867</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Modularity  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Modularity  pseudo_r2">0.78</td>
+<td class="gt_row gt_left" headers="Modularity  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Modularity  predictor">FL</td>
+<td class="gt_row gt_right" headers="Modularity  estimate">−33.22</td>
+<td class="gt_row gt_right" headers="Modularity  ci_lower">−38.29</td>
+<td class="gt_row gt_right" headers="Modularity  ci_upper">−28.15</td>
+<td class="gt_row gt_left" headers="Modularity  p_value">&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Modularity  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Modularity  pseudo_r2">0.78</td>
+<td class="gt_row gt_left" headers="Modularity  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Modularity  predictor">MM</td>
+<td class="gt_row gt_right" headers="Modularity  estimate">−35.29</td>
+<td class="gt_row gt_right" headers="Modularity  ci_lower">−40.35</td>
+<td class="gt_row gt_right" headers="Modularity  ci_upper">−30.22</td>
+<td class="gt_row gt_left" headers="Modularity  p_value">&lt; 0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Modularity  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Modularity  pseudo_r2">0.78</td>
+<td class="gt_row gt_left" headers="Modularity  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Modularity  predictor">FL * PSA</td>
+<td class="gt_row gt_right" headers="Modularity  estimate">18.63</td>
+<td class="gt_row gt_right" headers="Modularity  ci_lower">8.31</td>
+<td class="gt_row gt_right" headers="Modularity  ci_upper">28.95</td>
+<td class="gt_row gt_left" headers="Modularity  p_value">0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Modularity  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Modularity  pseudo_r2">0.78</td>
+<td class="gt_row gt_left" headers="Modularity  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Modularity  predictor">MM * PSA</td>
+<td class="gt_row gt_right" headers="Modularity  estimate">−4.16</td>
+<td class="gt_row gt_right" headers="Modularity  ci_lower">−14.48</td>
+<td class="gt_row gt_right" headers="Modularity  ci_upper">6.17</td>
+<td class="gt_row gt_left" headers="Modularity  p_value">0.433</td>
+</tr>
+<tr class="gt_group_heading_row even">
+<td colspan="8" id="Nestedness" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">Nestedness</td>
+</tr>
+<tr class="gt_row_group_first odd">
+<td class="gt_row gt_left" headers="Nestedness  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Nestedness  pseudo_r2">0.81</td>
+<td class="gt_row gt_left" headers="Nestedness  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Nestedness  predictor">Intercept</td>
+<td class="gt_row gt_right" headers="Nestedness  estimate">51.94</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_lower">43.84</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_upper">60.03</td>
+<td class="gt_row gt_left" headers="Nestedness  p_value">&lt; 0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Nestedness  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Nestedness  pseudo_r2">0.81</td>
+<td class="gt_row gt_left" headers="Nestedness  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Nestedness  predictor">PSA</td>
+<td class="gt_row gt_right" headers="Nestedness  estimate">−1.66</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_lower">−18.16</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_upper">14.83</td>
+<td class="gt_row gt_left" headers="Nestedness  p_value">0.844</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Nestedness  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Nestedness  pseudo_r2">0.81</td>
+<td class="gt_row gt_left" headers="Nestedness  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Nestedness  predictor">FL</td>
+<td class="gt_row gt_right" headers="Nestedness  estimate">91.57</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_lower">80.12</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_upper">103.02</td>
+<td class="gt_row gt_left" headers="Nestedness  p_value">&lt; 0.001</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Nestedness  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Nestedness  pseudo_r2">0.81</td>
+<td class="gt_row gt_left" headers="Nestedness  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Nestedness  predictor">MM</td>
+<td class="gt_row gt_right" headers="Nestedness  estimate">91.08</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_lower">79.63</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_upper">102.53</td>
+<td class="gt_row gt_left" headers="Nestedness  p_value">&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Nestedness  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Nestedness  pseudo_r2">0.81</td>
+<td class="gt_row gt_left" headers="Nestedness  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Nestedness  predictor">FL * PSA</td>
+<td class="gt_row gt_right" headers="Nestedness  estimate">9.03</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_lower">−14.29</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_upper">32.36</td>
+<td class="gt_row gt_left" headers="Nestedness  p_value">0.450</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Nestedness  model_structure">PSA * IA</td>
+<td class="gt_row gt_right" headers="Nestedness  pseudo_r2">0.81</td>
+<td class="gt_row gt_left" headers="Nestedness  model_p">&lt; 0.01</td>
+<td class="gt_row gt_center" headers="Nestedness  predictor">MM * PSA</td>
+<td class="gt_row gt_right" headers="Nestedness  estimate">5.02</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_lower">−18.30</td>
+<td class="gt_row gt_right" headers="Nestedness  ci_upper">28.35</td>
+<td class="gt_row gt_left" headers="Nestedness  p_value">0.6747</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="8" class="gt_sourcenote">FL = Forbidden Links; MM = Morphological Matching; PSA = predictor included as main effect and in interaction with IA.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="detailed-methods-and-additional-results-for-the-case-study" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="detailed-methods-and-additional-results-for-the-case-study"><span class="header-section-number">A.2</span> Detailed methods and additional results for the case study</h2>
+<section id="data-collection" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="data-collection"><span class="header-section-number">A.2.1</span> Data collection</h3>
+<p>Data describing frugivore-plant interaction networks were collected at three elevational bands (1000, 2000 and 3000 m a.s.l.) in montane forest habitats in Southern Ecuador (Quitián et al.&nbsp;2018, 2019). This resulted in six study sites along an elevational gradient. Each study site included three plots, 30 meters x 100 meters in size. Seed removal interactions by frugivorous birds were recorded at all plant species bearing fleshy fruits in each plot. Sampling was conducted four times at each study site in 2014 and 2015, twice during the most humid months and twice during the least humid months. Interactions in each plot were observed on four consecutive days for 25 hours in total. Finally, observations were pooled by combining observations of all plots within each study site. The total observation effort for each study site was 300 hours.</p>
+<p>Plants were identified to species or morphospecies level and birds were identified to species level. In each plot, each fruiting plant was observed for a similar amount of time. An interaction was recorded when a bird individual consumed at least one fruit of the plant species. The number of visits between bird and plant species was recorded to build a quantitative network.Data for key functional traits were collected for both plants and frugivores. For plants, fruit length, fruit width, fruit mass and plant height were measured for individuals sampled from the study plots. For birds, bill length, bill width, body mass and hand-wing index were measured for museum specimens. These matching traits correspond between the trophic levels in terms of size, morphology, energy provisioning and requirements, and foraging behavior. For more details on data collection, see Quitián et al.&nbsp;(2018, 2019).</p>
+</section>
+<section id="delineation-of-the-regional-species-pool" class="level3" data-number="A.2.2">
+<h3 data-number="A.2.2" class="anchored" data-anchor-id="delineation-of-the-regional-species-pool"><span class="header-section-number">A.2.2</span> Delineation of the regional species pool</h3>
+<p>To apply the null model approach to the case study data, we constructed a process-based regional species pool to sample plant and frugivore species from the pool to the local null communities (Figure S1). First, species pool delineation should be specific to a particular community (Lessard et al.&nbsp;2012). Second, it should consider both the probability of species’ dispersal from the regional pool into the local community as well as the probability of species successful establishment, which is contingent on the species’ ability to tolerate environmental conditions following colonization. Ideally, data describing the geographic distribution, traits, and interactions of all resource and consumer species in a study region would ideally be employed to construct the most realistic species pools (Lessard et al.&nbsp;2012, 2016), but we often lack the data needed to attain such complexity of species pools. As such, it’s often needed to make our best approximation using data available at the moment of analysis. To characterize the environmental variation we used slope and elevation data derived from a digital elevation model (SRTM shuttle; Farr et al.&nbsp;2007) and the WorldClim database (version 1; Hijmans et al.&nbsp;2005) to obtain mean annual temperature and mean annual precipitation for each study site.</p>
+<p>In our probabilistic species pool, we defined site-specific sampling probabilities as a function of geographical and environmental distances. We used geographical distances as proxies for the dispersal probabilities of species among sites. We computed geographical distances as least-cost path (LCP) distances penalized by layers of variables describing the topography of the terrain (slope), elevation, mean annual temperature (MAT), and mean annual precipitation (MAP). As proxies for the probabilities of successful establishment of species in a given site, we usedEuclidean distances in multivariate environmental space. We constructed this multivariate environmental space with and computed Euclidean distances between sites in the plane formed by the first two axes of a Principal Components Analysis (PCA) that synthesized the main gradients from slope, elevation, MAT, MAP. Finally, the probability matrix of study sites corresponded to the product of geographical and environmental distance matrices such that both matrices were assigned equal weights (0.5). Clustering analysis of this probability matrix revealed the presence of two clusters with high probability of species exchange within sites. As such, there was a separation of species pool for the high elevation containing the sites at 3000 m.a.s.l. and for the mid-low elevation containing the sites within the range of 1000 to 2000 m.a.s.l.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4233056281.png" class="img-fluid figure-img" width="500"></p>
+<figcaption><strong>Figure S3. A process-based procedure to delineate probabilistic species pools.</strong> In panel A, we show the environmental layers used to build the species pool are shown as maps. Points show the geographical location of the study sites. In panel B, we show our computed probabilities of dispersal and establishment. Dispersal probabilities are calculated as the inverse of the least-cost path distances between sites, penalized by the environmental variables. Establishment probabilities are the inverse of the Euclidean distances in multivariate environmental spaceobtained with PCA, representing the similarity of environmental niches among sites. In panel C, These dispersal and establishment probabilities among sites are combined together to form our probabilistic species pool. A matrix for the probabilistic selection of species when sampling from the regional pool to create local null communities.</figcaption>
+</figure>
+</div>
+</section>
+<section id="applying-the-null-model-approach-to-the-observational-data" class="level3" data-number="A.2.3">
+<h3 data-number="A.2.3" class="anchored" data-anchor-id="applying-the-null-model-approach-to-the-observational-data"><span class="header-section-number">A.2.3</span> Applying the null model approach to the observational data</h3>
+<p>We scaled the multidimensional variance of traits between plant and frugivore trophic levels with an RLQ analysis in a metanetwork consisting of all species and interactions observed across all local networks (Dehling et al.&nbsp;2014; Dray et al.&nbsp;2014; Albrecht et al.&nbsp;2018). Broadly speaking, the RLQ analysis is an ordination method that can be used to quantify the multivariate links between two matrices, <span class="math inline">\(R\)</span> and <span class="math inline">\(Q\)</span>, via a third matrix <span class="math inline">\(L\)</span> (Dolédec et al.&nbsp;1996). We combined the RLQ ordination with a fourth-corner analysis, which integrates a permutation approach designed to test whether the associations between matrices <span class="math inline">\(R\)</span> and <span class="math inline">\(Q\)</span> via <span class="math inline">\(L\)</span> are statistically different from a given null model (Dray et al.&nbsp;2014). In our case, we adopted a combination of the RLQ and fourth-corner analyses to test for functional relationships between the multidimensional trait spaces of plants and frugivores in the mutualistic networks. More specifically, the RLQ analysis builds on the simultaneous ordination of three tables: a table <span class="math inline">\(R\)</span> (<span class="math inline">\(m \times p\)</span>) describing <span class="math inline">\(p\)</span> traits for <span class="math inline">\(m\)</span> plant species, a table <span class="math inline">\(Q\)</span> (<span class="math inline">\(n \times a\)</span>) describing <span class="math inline">\(a\)</span> traits for <span class="math inline">\(n\)</span> frugivore species, and a third table <span class="math inline">\(L\)</span> (<span class="math inline">\(m \times n\)</span>) containing qualitative or quantitative information about the occurrence or frequency of pairwise interactions between the <span class="math inline">\(m\)</span> plant and <span class="math inline">\(n\)</span> frugivore species. We then applied the fourth-corner permutation test (model <span class="math inline">\(6\)</span> with <span class="math inline">\(9{,}999\)</span> permutations; ter Braak et al.&nbsp;2012) to evaluate the statistical significance of the associations between plant and frugivore trait spaces. For further details, see Albrecht et al.&nbsp;(2018).</p>
+<p>We tested for associations between plant and frugivore trait spaces at the regional level, where a significant association implies the presence of a trait-based interaction assembly process (Dehling et al.&nbsp;2014, Dray et al.&nbsp;2014, Albrecht et al.&nbsp;2018). We used the scores of each plant and frugivore species along the first axis of this trait space as a one-dimensional summary of their trait space (Figure S2; Figure 4 in the main text). Note that due to data limitations, we used this one-dimensional summary of the trait space both as response and matching trait in the following steps.To detect the presence of environmental filtering in the plant and frugivore communities within each local network, we compared standard deviations of the RLQ trait values of the local communities to a distribution of standard deviations from 1000 null communities. To produce these null communities, we iteratively sampled one random species from the regional pool until the null community had the same species richness as the respective observed community using a probability-weighted resampling (see Lessard et al. 2012; Figure S1).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1773732375.png" class="img-fluid figure-img" width="500"></p>
+<figcaption><strong>Figure S4. Trait matching in a plant-frugivore regional meta-web aggregated from local networks sampled across an elevational gradient in the Ecuadorian Andes.</strong> Panel a) illustrates the multivariate RLQ shared trait space between frugivores and plants. Colored vectors in the two-dimensional trait space represent the scaled covariate coefficients of plant (blue) and frugivore (red) traits along the first two synthetic RLQ axes. Similar direction andmagnitude between vectors of distinct colors indicate the presence of trait-matching between trophic levels. Different types of traits relevant for interactions, energy provisioning for plants and requirements of frugivores, and stratum in plants and mobility in frugivores are illustrated with solid and dashed lines. The histogram of RLQ eigenvalues shows the percentage from total cross-covariance between plant and frugivore multidimensional trait spaces is explained by each of the RLQ axes. Panel B shows the aggregated plant-frugivore metaweb embedded in the multivariate trait space. Point coordinates in trait-space are in function of the plants (blue) and frugivores (red) scores in the 2 first RLQ axes, whereas grey lines between points denote pairwise interactions. Points area is a function of the relative number of interactions of individual species (i.e., generalist-specialist).</figcaption>
+</figure>
+</div>
+<p>We quantified standardized effect sizes of plant and frugivore communities on the standard deviation of the respective trait distribution. We considered a smaller standard deviation than the null expectation to imply environmental filtering, whereas larger standard deviation from the null expectation signaled overdispersion. We then used the trophic level-specific effect sizes of community assembly processes to calculate process strength asymmetry as the log-ratio of community assembly process strengths between plant and frugivore trophic levels (Appendix S1, Equation S2).</p>
+<p>Second, we inferred the effect of trait-based assembly processes on network structure. For each observed network, we generated four sets of null networks, each set with <span class="math inline">\(100\)</span> replicates: <span class="math inline">\(R_{\mathrm{Obs}},C_{\mathrm{Obs}},I_{\mathrm{Null}}\)</span>, <span class="math inline">\(R_{\mathrm{Null}},C_{\mathrm{Obs}},I_{\mathrm{Null}}\)</span>, <span class="math inline">\(R_{\mathrm{Obs}},C_{\mathrm{Null}},I_{\mathrm{Null}}\)</span>, and <span class="math inline">\(R_{\mathrm{Null}},C_{\mathrm{Null}},I_{\mathrm{Null}}\)</span>. To produce these null networks, we simulated plant and frugivore communities with the same species and interaction richness as in the observed communities. For communities with simulated stochastic community assembly processes, we randomly sampled species by sampling individuals from the same cumulative distribution of the <span class="math inline">\(1{,}000\)</span> plant or frugivore null communities that were used to test for environmental filtering. In other words, we simulated relative abundances based on immigration probabilities, such that species that are more likely to immigrate are also more abundant. For communities with simulated trait-based processes, we maintained the same observed plant or frugivore species composition with uniform relative abundances of species. In all four sets of null networks, we simulated stochastic interaction assembly processes; that is, we set the interaction probabilities as functions of local species’ abundances. We transformed our probabilistic networks into binary ones by sampling interactions based on the calculated pairwise interaction probabilities, such that each null network had the same total pairwise interaction richness as the respective observed network.</p>
+<p>After assembling the required null networks, we quantified the network structure of each observed and null network as modularity (Q Z-scores) and nestedness (NODF Z-scores) using the ‘bipartite’ package in R (Dormann et al.&nbsp;2009). We compared modularity and nestedness values between observed and null networks and estimated the standardized effect sizes (SESNET) of the pairwise differences in network metrics.</p>
+<p>By comparing the SESNET derived from each set of null networks, we inferred the relative effects of trait-based resource, consumer, and interaction assembly (Table 1b in the main text). The <span class="math inline">\(R_{Obs},C_{Obs},I_{Null}\)</span> null network simulates only interaction assembly as a stochastic process; therefore, the SESNET of <span class="math inline">\(R_{Obs},C_{\mathrm{Obs}},I_{\mathrm{Null}}\)</span> represents the effect of trait-based interaction assembly on network structure. The SESNET of <span class="math inline">\(R_{\mathrm{Obs}},C_{\mathrm{Null}},I_{\mathrm{Null}}\)</span> includes both the interaction assembly effect and the effect of consumer trait-based assembly. Consequently, <span class="math inline">\(\mathrm{SESNET}_{R_{\mathrm{Obs}},C_{\mathrm{Null}},I_{\mathrm{Null}}} - \mathrm{SESNET}_{R_{\mathrm{Obs}},C_{\mathrm{Obs}},I_{\mathrm{Null}}}\)</span> constitutes the effect of trait-based consumer assembly on network structure. Similarly, <span class="math inline">\(\mathrm{SESNET}_{R_{\mathrm{Null}},C_{\mathrm{Obs}},I_{\mathrm{Null}}} - \mathrm{SESNET}_{R_{\mathrm{Obs}},C_{\mathrm{Obs}},I_{\mathrm{Null}}}\)</span> constitutes the effect of trait-based resource assembly on network structure.</p>
+<p>constitutes the effect of trait-based resource assembly on network structure. constitutes the effect of trait-based resource assembly on network structure. The SESNET of <span class="math inline">\(R_{\mathrm{Null}},C_{\mathrm{Null}},I_{\mathrm{Null}}\)</span> represents the total effect of all trait-based assembly processes on network structure, including their non-additive effects due to interactions among processes. The difference between this total effect and the sum of the interaction, consumer, and resource effects indicates the magnitude and direction of the non-additive effect.</p>
+<p>We computed the network assembly mode for each of the networks sampled as the log-ratio of the SESNET of consumers (frugivores) and the SESNET of resources (plants). Similar to our simulation results. Positive values indicate predominant effects in network structure of the deterministic assembly of consumer communities whereas negative values indicate predominant effects in network structure of the deterministic assembly of resource communities.</p>
+</section>
+<section id="sensitivity-analyses" class="level3" data-number="A.2.4">
+<h3 data-number="A.2.4" class="anchored" data-anchor-id="sensitivity-analyses"><span class="header-section-number">A.2.4</span> Sensitivity analyses</h3>
+<p>Firstly, to account for the potential effects of particular species pool delineation when applying our null network model approach, we conducted a sensitivity analysis with distinct definitions of sampling probabilities of species from the regional pool to the local networks (Lessard et al.&nbsp;2012). In addition to the process-based delineation described above, we simulated local communities by iteratively sampling one random species from any given site until the null community had the same species richness as the respective observed community.</p>
+<p>Secondly, we accounted for the potential effects of choosing particular metrics of trait distributions to calculate standardized effect sizes to test for environmental filtering. In addition to using standard deviation as a metric of trait distribution within plant and frugivore communities, we used trait range.</p>
+<p>As a result, we applied the null model approach to two different species pool delineations and two different trait distribution metrics. In total, we generated four distinct scenarios to be compared: 1) process-based regional pool + standard deviations of trait distributions (results reported in the main text); 2) process-based regional pool + ranges of trait distributions; 3) randomized regional pool + standard deviations of trait distributions; 4) randomized regional pool + ranges of trait distributions.</p>
+<p>We found that the delineation method of the species pool did not strongly affect the estimated community assembly process of either plants or frugivores along the elevational gradient. However, using trait range as a trait distribution metric resulted in community assembly processes that can be interpreted as stochastic community assembly at both trophic levels, whereas using standard deviation of the trait distribution as a trait distribution metric resulted in a tendency towards environmental filtering as the community assembly process for both trophic levels.</p>
+<p>We found that the delineation method of the species pool caused variation in the process strength asymmetry direction and magnitude along the elevational gradient (Figure S3). However, independent of the regional pool delineation, the process strength asymmetry was consistentlypredominated by the plant community assembly process strength (Figure S3). The choice of trait distribution metric also caused variation in the process strength asymmetry direction and magnitude (Figure S3). In addition, the choice of trait distribution metric influenced the overall pattern of process strength asymmetry direction, indicating a more frugivore-inclined asymmetry (Figure S3). We conclude that the choice of methodology in defining the regional species pool and the trait distribution metric should be considered carefully to correspond to the ecological question and the focal study system.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1127940194.png" class="img-fluid figure-img" width="800"></p>
+<figcaption><strong>Figure S5. Process strength asymmetry variation along the elevational gradient.</strong> Plots illustrate three different process strength asymmetry distribution scenarios based on the regional pool delineations and trait distribution metrics. Panel A illustrates process-based regional pool + ranges of trait distributions (Proc + range). Panel B illustrates randomized regional pool + ranges of trait distributions (Random + range). Panel C illustrates randomized regional pool + standard deviations of trait distributions (Random + sd). Red symbols denote frugivores and blue symbols denote plants.</figcaption>
+</figure>
+</div>
+<p>To test the robustness of the results with weighted network metrics and to illustrate the use of quantitative networks with our framework, we repeated the case study calculations using weighted interaction data (based on interaction frequencies) and weighted modularity as a metric of network structure (weighted Q; Beckett 2016). We calculated the weighted version of modularity Q relative to the ‘quasi_swap’ null rewire model (‘vegan’ package; Oksanen et al.2013). We did not find qualitative differences in the network assembly results between the analyses using binary and weighted versions of modularity (Table S1, Figure S4).</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Table S3. Standardized effect size (<span class="math inline">\(SES_{NET}\)</span>) summaries for each trait-based effect
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The network structure is quantified as weighted modularity (Q). The variables correspond to the traitbased effects described and interpreted in Table 1 in the main text.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="ylfxnkpuds" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ylfxnkpuds table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ylfxnkpuds thead, #ylfxnkpuds tbody, #ylfxnkpuds tfoot, #ylfxnkpuds tr, #ylfxnkpuds td, #ylfxnkpuds th {
+  border-style: none;
+}
+
+#ylfxnkpuds p {
+  margin: 0;
+  padding: 0;
+}
+
+#ylfxnkpuds .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #D3D3D3;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-left-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ylfxnkpuds .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ylfxnkpuds .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ylfxnkpuds .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ylfxnkpuds .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ylfxnkpuds .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ylfxnkpuds .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ylfxnkpuds .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ylfxnkpuds .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ylfxnkpuds .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ylfxnkpuds .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ylfxnkpuds .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ylfxnkpuds .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ylfxnkpuds .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ylfxnkpuds .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ylfxnkpuds .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ylfxnkpuds .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ylfxnkpuds .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ylfxnkpuds .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ylfxnkpuds .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ylfxnkpuds .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ylfxnkpuds .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ylfxnkpuds .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ylfxnkpuds .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ylfxnkpuds .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ylfxnkpuds .gt_left {
+  text-align: left;
+}
+
+#ylfxnkpuds .gt_center {
+  text-align: center;
+}
+
+#ylfxnkpuds .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ylfxnkpuds .gt_font_normal {
+  font-weight: normal;
+}
+
+#ylfxnkpuds .gt_font_bold {
+  font-weight: bold;
+}
+
+#ylfxnkpuds .gt_font_italic {
+  font-style: italic;
+}
+
+#ylfxnkpuds .gt_super {
+  font-size: 65%;
+}
+
+#ylfxnkpuds .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ylfxnkpuds .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ylfxnkpuds .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ylfxnkpuds .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ylfxnkpuds .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ylfxnkpuds .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ylfxnkpuds .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ylfxnkpuds .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ylfxnkpuds div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="6" class="gt_heading gt_title gt_font_normal">Site-level effects by assembly component</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Decomposed contributions across plant, frugivore, and interaction processes</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="site" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Site</th>
+<th rowspan="2" id="elevation_m" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Elevation (m)</th>
+<th colspan="4" id="Assembly contributions" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Assembly contributions
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="plant_assembly" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Plant assembly</th>
+<th id="frugivore_assembly" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Frugivore assembly</th>
+<th id="interaction_assembly" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Interaction assembly</th>
+<th id="interaction_among_effects" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Interaction among effects</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="site">Bombuscaro</td>
+<td class="gt_row gt_right" headers="elevation_m">1000</td>
+<td class="gt_row gt_right" headers="plant_assembly">0.05</td>
+<td class="gt_row gt_right" headers="frugivore_assembly">0.02</td>
+<td class="gt_row gt_right" headers="interaction_assembly">2.07</td>
+<td class="gt_row gt_right" headers="interaction_among_effects">−0.03</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="site">Copalinga</td>
+<td class="gt_row gt_right" headers="elevation_m">1000</td>
+<td class="gt_row gt_right" headers="plant_assembly">−0.65</td>
+<td class="gt_row gt_right" headers="frugivore_assembly">−0.95</td>
+<td class="gt_row gt_right" headers="interaction_assembly">9.22</td>
+<td class="gt_row gt_right" headers="interaction_among_effects">7.58</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="site">ECSF</td>
+<td class="gt_row gt_right" headers="elevation_m">2000</td>
+<td class="gt_row gt_right" headers="plant_assembly">−1.47</td>
+<td class="gt_row gt_right" headers="frugivore_assembly">1.81</td>
+<td class="gt_row gt_right" headers="interaction_assembly">11.28</td>
+<td class="gt_row gt_right" headers="interaction_among_effects">6.92</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="site">Finca</td>
+<td class="gt_row gt_right" headers="elevation_m">2000</td>
+<td class="gt_row gt_right" headers="plant_assembly">7.60</td>
+<td class="gt_row gt_right" headers="frugivore_assembly">5.79</td>
+<td class="gt_row gt_right" headers="interaction_assembly">11.11</td>
+<td class="gt_row gt_right" headers="interaction_among_effects">10.75</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="site">Bellavista</td>
+<td class="gt_row gt_right" headers="elevation_m">3000</td>
+<td class="gt_row gt_right" headers="plant_assembly">7.46</td>
+<td class="gt_row gt_right" headers="frugivore_assembly">1.64</td>
+<td class="gt_row gt_right" headers="interaction_assembly">7.73</td>
+<td class="gt_row gt_right" headers="interaction_among_effects">−4.88</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="site">Cajanuma</td>
+<td class="gt_row gt_right" headers="elevation_m">3000</td>
+<td class="gt_row gt_right" headers="plant_assembly">0.92</td>
+<td class="gt_row gt_right" headers="frugivore_assembly">0.63</td>
+<td class="gt_row gt_right" headers="interaction_assembly">5.50</td>
+<td class="gt_row gt_right" headers="interaction_among_effects">0.47</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4244714630.png" class="img-fluid figure-img" width="500"></p>
+<figcaption><strong>Figure S6. Network assembly along an elevational gradient.</strong> The figure shows the variation in network assembly mode (x-axis) along the elevational gradient (y-axis) when network structureis measured as weighted modularity (Q). Network assembly mode is quantified as the log-ratio between the absolute effect magnitudes of deterministic plant and frugivore assembly processes on network structure, quantified as modularity and nestedness. In bottom-up and top-down assembly modes, plant and frugivore community assembly effects are predominant, respectively. If the relative magnitudes of bottom-up and top-down assembly modes are equivalent, the network assembly mode = 0.</figcaption>
+</figure>
+</div>
+</section>
+<section id="applying-the-null-model-approach-to-observational-data-stepwise-results" class="level3" data-number="A.2.5">
+<h3 data-number="A.2.5" class="anchored" data-anchor-id="applying-the-null-model-approach-to-observational-data-stepwise-results"><span class="header-section-number">A.2.5</span> Applying the null model approach to observational data: stepwise results</h3>
+<p>In step 1 of the null model approach, we quantified the type and strength of community and interaction assembly processes. Regarding community assembly, we found that plant and frugivore communities were functionally less dispersed than random expectations in one study site at lowest elevation, suggestive of environmental filtering (Figure 5 in the main text). At higher elevations, both plant and frugivore communities were more stochastically assembled, but the tendency was towards environmental filtering rather than limiting similarity. Regarding interaction assembly, we found signals of trait-based interaction assembly in the form of functional trait matching (Figure S2, Figure 4B in the main text).</p>
+<p>In step 2 of the null model approach, we inferred the trait-based effects of community and interaction assembly on network structure. We did this by calculating the SESNET for each observed network against all four null networks in terms of modularity and nestedness (Table S2). Table S2. Standardized effect size (SESNET) summaries for each trait-based effect on the six plant-frugivore network structure along elevational gradient. The variables correspond to the null networks and the trait-based effects described and interpreted in Table 1 in the main text.</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Table S4. Standardized effect sizes (SESNET) of assembly processes on network modularity and nestedness.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The table reports mean standardized effect sizes (SESNET) and 95% confidence intervals for modularity and nestedness under different null-model configurations and derived assembly components. Rows labeled <em>R Obs/C Obs/I Null</em>, <em>R Null/C Obs/I Null</em>, and <em>R Obs/C Null/I Null</em> correspond to null networks isolating interaction, consumer, and resource trait assembly effects, respectively, whereas <em>R Null/C Null/I Null</em> represents a fully randomized baseline. Derived rows summarize total trait effects, interaction assembly, plant assembly, frugivore assembly, and interaction among effects, calculated from contrasts among null models. Positive SESNET values indicate higher-than-expected structure relative to null expectations, while negative values indicate reduced structure. Confidence intervals are shown after standardizing lower and upper bounds for consistency.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="radstzcaxv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#radstzcaxv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#radstzcaxv thead, #radstzcaxv tbody, #radstzcaxv tfoot, #radstzcaxv tr, #radstzcaxv td, #radstzcaxv th {
+  border-style: none;
+}
+
+#radstzcaxv p {
+  margin: 0;
+  padding: 0;
+}
+
+#radstzcaxv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #D3D3D3;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-left-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#radstzcaxv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#radstzcaxv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#radstzcaxv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#radstzcaxv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#radstzcaxv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#radstzcaxv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#radstzcaxv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#radstzcaxv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#radstzcaxv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#radstzcaxv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#radstzcaxv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#radstzcaxv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#radstzcaxv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#radstzcaxv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#radstzcaxv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#radstzcaxv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#radstzcaxv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#radstzcaxv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#radstzcaxv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#radstzcaxv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#radstzcaxv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#radstzcaxv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#radstzcaxv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#radstzcaxv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#radstzcaxv .gt_left {
+  text-align: left;
+}
+
+#radstzcaxv .gt_center {
+  text-align: center;
+}
+
+#radstzcaxv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#radstzcaxv .gt_font_normal {
+  font-weight: normal;
+}
+
+#radstzcaxv .gt_font_bold {
+  font-weight: bold;
+}
+
+#radstzcaxv .gt_font_italic {
+  font-style: italic;
+}
+
+#radstzcaxv .gt_super {
+  font-size: 65%;
+}
+
+#radstzcaxv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#radstzcaxv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#radstzcaxv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#radstzcaxv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#radstzcaxv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#radstzcaxv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#radstzcaxv .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#radstzcaxv .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#radstzcaxv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="7" class="gt_heading gt_title gt_font_normal">SESNET effects on modularity and nestedness</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="7" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Means with 95% confidence intervals</th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th colspan="3" id="Modularity" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Modularity
+</div></th>
+<th colspan="3" id="Nestedness" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Nestedness
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="mean_mod" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean SESNET modularity</th>
+<th id="mod_95_low" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">95% CI (low)</th>
+<th id="mod_95_high" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">95% CI (high)</th>
+<th id="mean_nest" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean SESNET nestedness</th>
+<th id="nest_95_low" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">95% CI (low)</th>
+<th id="nest_95_high" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">95% CI (high)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">R Obs C Obs I Null</td>
+<td class="gt_row gt_right" headers="mean_mod">−2.66</td>
+<td class="gt_row gt_right" headers="mod_95_low">−4.09</td>
+<td class="gt_row gt_right" headers="mod_95_high">−1.22</td>
+<td class="gt_row gt_right" headers="mean_nest">2.83</td>
+<td class="gt_row gt_right" headers="nest_95_low">−0.60</td>
+<td class="gt_row gt_right" headers="nest_95_high">6.27</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">R Null C Obs I Null</td>
+<td class="gt_row gt_right" headers="mean_mod">−2.79</td>
+<td class="gt_row gt_right" headers="mod_95_low">−4.40</td>
+<td class="gt_row gt_right" headers="mod_95_high">−1.17</td>
+<td class="gt_row gt_right" headers="mean_nest">−0.99</td>
+<td class="gt_row gt_right" headers="nest_95_low">−2.17</td>
+<td class="gt_row gt_right" headers="nest_95_high">0.18</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">R Obs C Null I Null</td>
+<td class="gt_row gt_right" headers="mean_mod">−2.28</td>
+<td class="gt_row gt_right" headers="mod_95_low">−3.61</td>
+<td class="gt_row gt_right" headers="mod_95_high">−0.96</td>
+<td class="gt_row gt_right" headers="mean_nest">3.66</td>
+<td class="gt_row gt_right" headers="nest_95_low">−0.35</td>
+<td class="gt_row gt_right" headers="nest_95_high">7.68</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">R Null C Null I Null</td>
+<td class="gt_row gt_right" headers="mean_mod">−0.82</td>
+<td class="gt_row gt_right" headers="mod_95_low">−1.10</td>
+<td class="gt_row gt_right" headers="mod_95_high">−0.55</td>
+<td class="gt_row gt_right" headers="mean_nest">0.66</td>
+<td class="gt_row gt_right" headers="nest_95_low">−1.52</td>
+<td class="gt_row gt_right" headers="nest_95_high">0.19</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">Total trait effects</td>
+<td class="gt_row gt_right" headers="mean_mod">14.43</td>
+<td class="gt_row gt_right" headers="mod_95_low">6.57</td>
+<td class="gt_row gt_right" headers="mod_95_high">22.30</td>
+<td class="gt_row gt_right" headers="mean_nest">15.54</td>
+<td class="gt_row gt_right" headers="nest_95_low">7.68</td>
+<td class="gt_row gt_right" headers="nest_95_high">23.41</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">Interaction assembly</td>
+<td class="gt_row gt_right" headers="mean_mod">17.55</td>
+<td class="gt_row gt_right" headers="mod_95_low">9.38</td>
+<td class="gt_row gt_right" headers="mod_95_high">25.73</td>
+<td class="gt_row gt_right" headers="mean_nest">8.69</td>
+<td class="gt_row gt_right" headers="nest_95_low">−1.67</td>
+<td class="gt_row gt_right" headers="nest_95_high">19.07</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">Plant assembly</td>
+<td class="gt_row gt_right" headers="mean_mod">−3.71</td>
+<td class="gt_row gt_right" headers="mod_95_low">−10.31</td>
+<td class="gt_row gt_right" headers="mod_95_high">2.88</td>
+<td class="gt_row gt_right" headers="mean_nest">7.89</td>
+<td class="gt_row gt_right" headers="nest_95_low">0.92</td>
+<td class="gt_row gt_right" headers="nest_95_high">14.85</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">Frugivore assembly</td>
+<td class="gt_row gt_right" headers="mean_mod">0.79</td>
+<td class="gt_row gt_right" headers="mod_95_low">−7.38</td>
+<td class="gt_row gt_right" headers="mod_95_high">8.96</td>
+<td class="gt_row gt_right" headers="mean_nest">0.05</td>
+<td class="gt_row gt_right" headers="nest_95_low">−4.15</td>
+<td class="gt_row gt_right" headers="nest_95_high">4.27</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">Interaction among effects</td>
+<td class="gt_row gt_right" headers="mean_mod">−7.62</td>
+<td class="gt_row gt_right" headers="mod_95_low">−15.13</td>
+<td class="gt_row gt_right" headers="mod_95_high">−0.12</td>
+<td class="gt_row gt_right" headers="mean_nest">14.68</td>
+<td class="gt_row gt_right" headers="nest_95_low">3.48</td>
+<td class="gt_row gt_right" headers="nest_95_high">25.88</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="7" class="gt_sourcenote">CI bounds were standardized so the low column is the minimum and the high column is the maximum of the two reported 95% values.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>In step 3 of the null model approach, we interpreted the community and interaction assembly process effects on network structure by linking step 1 and step 2 (Figure S5). To visualize this, we scaled the additive partitioning to sum to 1 by normalizing the effect sizes of interaction assembly, consumer community assembly, and resource community assembly by the total deterministic effects. We recognize this spreads the synergistic effects among the three assembly components relative to the total deterministic effects. However, normalizing allows spreading the synergistic effects evenly for all assembly components. We interpreted that trait-based assembly effects increased both modularity and nestedness of plant-frugivore networks (‘Total trait effects’ in Table S2). Interaction assembly effects on modularity were largest in comparison to plant, frugivore, and non-additive assembly effects (Table S2). Interaction assembly effects on nestedness were also larger than the effects of plant and frugivore assembly, but smaller than the interactive effects (Table S2). Based on steps 1 and 2, we interpret that trait matching plays the most important role in shaping the frugivory network structure. There was a slight tendency toward environmental filtering in step 1 for both plant and frugivore trophic levels, indicating that environmental filtering plays a smaller, but somewhat significant direct role in shaping network structure. However, the filtering strength asymmetry had an indirect effect on the network structure.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2773727696.png" class="img-fluid figure-img" width="500"></p>
+<figcaption><strong>Figure S7. Ecological assembly processes shape the structure of empirical plant-frugivore networks along an elevational gradient.</strong> Triplot illustrates the relative influences of deterministic community and interaction assembly processes on network structure for six plantfrugivore networks along an elevational gradient in Ecuador. Symbol coordinates in the diagram space are drawn as a function of the relative contributions of each assembly process as percentage contributions to the total effect driving changes in network structure for each of the networks sampled. To identify the relative magnitude of a given process for a given network, start from the symbol position and follow each colored grid line until it meets its corresponding axis color. We plotted separately the relative contribution of assembly effects on modularity and nestedness (indicated with symbol color). Elevation of the observed network is indicated with the shape of the symbol.</figcaption>
+</figure>
+</div>
+</section>
+<section id="future-case-studies" class="level3" data-number="A.2.6">
+<h3 data-number="A.2.6" class="anchored" data-anchor-id="future-case-studies"><span class="header-section-number">A.2.6</span> Future case studies</h3>
+<p>The generality of the results obtained with the case study on plant-frugivore interactions along an elevational gradient can be tested using other datasets and different study systems. We list some potential other big questions to be explored with the framework and the analytical steps outlined in our work (Table S3).</p>
+<div class="callout callout-style-simple callout-none no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Table S5. Conceptual links between major questions in community ecology and a trait-based network assembly framework
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The table outlines broad, recurring questions in community ecology, the analytical steps required to address each question within a trait-based multitrophic network framework, and illustrative example research questions. Together, these examples demonstrate how decomposing networks into community and interaction assembly components enables comparative analyses across interaction types, environmental gradients, and temporal scales, and facilitates inference on network structure, stability, and specialization.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="vspxuxksyj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vspxuxksyj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vspxuxksyj thead, #vspxuxksyj tbody, #vspxuxksyj tfoot, #vspxuxksyj tr, #vspxuxksyj td, #vspxuxksyj th {
+  border-style: none;
+}
+
+#vspxuxksyj p {
+  margin: 0;
+  padding: 0;
+}
+
+#vspxuxksyj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #D3D3D3;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-left-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vspxuxksyj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vspxuxksyj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vspxuxksyj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vspxuxksyj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vspxuxksyj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vspxuxksyj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vspxuxksyj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vspxuxksyj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vspxuxksyj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vspxuxksyj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vspxuxksyj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vspxuxksyj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vspxuxksyj .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vspxuxksyj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vspxuxksyj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vspxuxksyj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vspxuxksyj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vspxuxksyj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vspxuxksyj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vspxuxksyj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vspxuxksyj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vspxuxksyj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vspxuxksyj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vspxuxksyj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vspxuxksyj .gt_left {
+  text-align: left;
+}
+
+#vspxuxksyj .gt_center {
+  text-align: center;
+}
+
+#vspxuxksyj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vspxuxksyj .gt_font_normal {
+  font-weight: normal;
+}
+
+#vspxuxksyj .gt_font_bold {
+  font-weight: bold;
+}
+
+#vspxuxksyj .gt_font_italic {
+  font-style: italic;
+}
+
+#vspxuxksyj .gt_super {
+  font-size: 65%;
+}
+
+#vspxuxksyj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vspxuxksyj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vspxuxksyj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vspxuxksyj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vspxuxksyj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vspxuxksyj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vspxuxksyj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vspxuxksyj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vspxuxksyj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="3" class="gt_heading gt_title gt_font_normal">Big questions in community ecology</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">How to address them with a trait-based framework, with example study questions</th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="general_question" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">General question</th>
+<th id="addressing_the_question" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Addressing the question</th>
+<th id="example_question" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Example question</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="general_question">How are multitrophic communities assembled?</td>
+<td class="gt_row gt_left" headers="addressing_the_question">• Determine assembly processes of each bipartite component network • Compare assembly of all component networks</td>
+<td class="gt_row gt_left" headers="example_question">What is the relative influence of community and interaction assembly processes on food web structure?</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="general_question">Are antagonistic and mutualistic networks assembled differently?</td>
+<td class="gt_row gt_left" headers="addressing_the_question">• Determine assembly processes for different networks • Compare network metrics of differently assembled networks</td>
+<td class="gt_row gt_left" headers="example_question">Which community and interaction assembly processes shape host–parasite and pollination network structure?</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="general_question">Which abiotic and biotic factors explain geographic variation in bottom-up and top-down effects?</td>
+<td class="gt_row gt_left" headers="addressing_the_question">• Evaluate strength of trait-based community assembly • Quantify process strength asymmetry and assembly mode • Relate trophic level assembly imbalance to abiotic and biotic gradients</td>
+<td class="gt_row gt_left" headers="example_question">How does the relative influence of plant and hummingbird community assembly on network structure vary along environmental gradients?</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="general_question">How does network assembly vary in time?</td>
+<td class="gt_row gt_left" headers="addressing_the_question">• Determine assembly processes for each time point • Compare effects of community and interaction assembly on network structure in each time point</td>
+<td class="gt_row gt_left" headers="example_question">Does the influence of community assembly on predator–prey network structure vary temporally?</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="general_question">Which combinations of assembly processes produce the most stable networks?</td>
+<td class="gt_row gt_left" headers="addressing_the_question">• Compare network metric values between differently assembled networks to find those with highest values of stability-related metric</td>
+<td class="gt_row gt_left" headers="example_question">How does the intensity of environmental filtering of animals affect the stability of seed dispersal networks?</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="general_question">How does the degree of specialization influence assembly cascades?</td>
+<td class="gt_row gt_left" headers="addressing_the_question">• Quantify network structure as degree of specialization • Determine assembly processes for different networks • Compare networks of different assembly modes and degrees of specialization</td>
+<td class="gt_row gt_left" headers="example_question">Do highly specialized host–parasite networks undergo assembly cascade?</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="3" class="gt_sourcenote">Data describing pairwise interactions, regional species pools, and response and matching traits for all species in the regional pool are required to address these questions.</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../references.html" class="pagination-link" aria-label="References">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Supplementary_material/S2_functional_asymmetry.html" class="pagination-link" aria-label="Distinct functional responses of consumers and producers to climate drive mutualistic network asymmetry">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Distinct functional responses of consumers and producers to climate drive mutualistic network asymmetry</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

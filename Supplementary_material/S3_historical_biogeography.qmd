@@ -1,0 +1,254 @@
+---
+format: html
+---
+
+# Climate change drove the deep-time assembly of biodiversity
+
+## Fossil data
+
+#### Assigning fossil locations to a period in the Neogene
+
+Fossil occurrences were assigned to discrete Neogene stages based on the midpoint of their reported geological age ranges (Ma). Midpoint ages were intersected with the standard Neogene chronostratigraphic framework (Aquitanian–Piacenzian). Midpoint ages within a single stage were assigned directly to that stage. This discretization facilitates stage-level comparisons while acknowledging that fossil ages are inherently uncertain.
+
+![\*\*Figure X. Temporal distribution of Neogene fossil assemblages.\*\* Points show individual fossil assemblage ages (Ma) plotted by Neogene stage, arranged using stage midpoints on the y-axis. Blue points represent assemblage mid-age estimates, while red ticks indicate the full temporal range of age uncertainty for each assemblage. Horizontal black lines summarize the overall age span represented within each stage. The figure illustrates both the concentration of fossil data through time and the variation in temporal uncertainty across Neogene intervals.](images/clipboard-1496738460.png)
+
+#### Evaluating sampling effort
+
+Sampling effort was evaluated as the relationship between the number of sampled fossil localities and observed generic richness for every stage in the Neogene. Sampling–richness relationships were examined within each Neogene stage to assess how efficiently additional localities contributed to the recovery of new genera and to identify stages showing evidence of saturation versus continued sampling dependence.
+
+![\*\*Figure X. Sampling–richness relationships across Neogene stages.\*\* Panels show the relationship between sampling effort and observed generic richness for each Neogene stage. Black points represent individual paleoassemblages, blue lines depict fitted smooth relationships, and grey ribbons indicate 95% confidence intervals. Across stages, richness generally increases with sampling effort but with marked differences in slope and saturation, highlighting temporal variation in sampling completeness and the efficiency with which taxonomic richness is recovered through the Neogene.](images/clipboard-525139519.png)
+
+#### Richness estimates
+
+![\*\*Figure X. Temporal variation in family-level taxonomic richness through the Neogene.\*\* The line depicts changes in the richness of families across the Neogene plotted against geological age (Ma). The stratigraphic bar below the plot indicates Neogene stages and their grouping within the Neogene period, providing temporal context for observed richness fluctuations. The figure highlights both short-term variability among stages and longer-term trends in family-level diversity through Neogene time.](images/clipboard-1108257504.png)
+
+![\*\*Figure X. Rarefied family-level richness across Neogene stages.\*\* Bars show mean rarefied richness of families for each Neogene stage, with error bars indicating uncertainty around the estimates (e.g., ±1 SE). Rarefaction accounts for differences in sampling intensity among stages, allowing direct comparison of family-level diversity through the Neogene. The results indicate higher standardized richness during the early to middle Neogene and a decline toward the late Neogene.](images/clipboard-1370459882.png)
+
+![\*\*Figure X. Temporal variation in generic richness through the Neogene.\*\* The line shows changes in observed genus-level richness plotted against geological age (Ma) across the Neogene. The stratigraphic bar below the plot delineates individual Neogene stages and their grouping within the Neogene period, providing temporal context for richness fluctuations. The figure illustrates pronounced stage-to-stage variability in generic diversity superimposed on broader Neogene-scale trends.](images/clipboard-874659174.png)
+
+![\*\*Figure X. Rarefied genus-level richness across Neogene stages.\*\* Bars show mean rarefied generic richness for each Neogene stage, with error bars indicating uncertainty around the estimates (e.g., ±1 SE). By standardizing for sampling effort, rarefaction allows direct comparison of genus-level diversity through time, revealing highest standardized richness during the middle Neogene and a decline toward the late Neogene.](images/clipboard-2178958226.png)
+
+### Spatial binning
+
+#### Paleoreotation of fossil coordinates
+
+Present-day geographic coordinates of fossil localities were converted to paleogeographic coordinates using plate tectonic rotation models to relocate fossil occurrences to their estimated positions at the time of deposition, based on their assigned geological ages (midpoint estimates). Paleorotation was performed independently for each fossil occurrence using its stage-level age assignment, ensuring temporal consistency between spatial location and geological period. The rotation model (MERDITH2021) accounts for large-scale plate motions through time and produces paleolongitude and paleolatitude estimates that are directly comparable across Neogene stages.
+
+![Figure S1: Spatial distribution of mammalian fossil localities across eight Neogene time intervals (Aquitanian–Piacenzian) in Europe and North America. Each panel represents the geographic occurrence of fossil assemblages within a 1° grid. Present-day (black) and rotated (red) paleoocordinates are shown.](images/clipboard-990372967.png)
+
+#### Grid aggregation of fossil data
+
+Paleorotated coordinates were subsequently used to assign fossil occurrences to a discrete grid cells of approximately 100 × 100 km in paleogeographic space. Grid aggregation reduces the influence of uneven spatial sampling density and local clustering of fossil localities, while retaining sufficient spatial resolution to capture broad-scale paleobiogeographic structure. Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single paleoassemblage, which served as the fundamental unit for subsequent diversity, compositional, and network analyses.
+
+![\*\*Figure X. Geographic distribution of fossil assemblage centroids.\*\* Points represent the longitude–latitude coordinates of paleoassemblage grid-cell centroids included in the analysis. Assemblages are concentrated in two main regions corresponding broadly to North America (western cluster) and Europe–western Eurasia (eastern cluster), reflecting the spatial coverage of the fossil record used in this study. The figure highlights both the geographic extent and the uneven spatial sampling underlying subsequent analyses.](images/clipboard-2312117507.png)
+
+### Taxonomic summary
+
+::: callout
+#### Table C1. Summary of fossil sampling and taxonomic richness across Neogene stages in Europe and North America.
+
+For each stage, the table reports the number of fossil observations, observed species and genera richness, number of sampled locations (grid-cell paleoassemblages), and sampling intensity (genera per location). Values are shown separately for Europe and North America to facilitate comparison of temporal changes in sampling coverage and taxonomic recovery through the Neogene.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(gt)
+library(tibble)
+library(dplyr)
+
+# Build the table
+tbl <- tribble(
+  ~Descriptor, ~Continent, ~Aquitanian, ~Burdigalian, ~Langhian, ~Serravallian,
+  ~Tortonian, ~Messinian, ~Zanclean, ~Piacenzian,
+  
+  "Number of observations", "Europe",         192, 1018, 1124, 1075, 1752, 1536, 207, 856,
+  "Number of observations", "North America",  177,  524,  440,  826,  373,  495, 231, 240,
+  
+  "Number of species",      "Europe",          73,  161,  174,  199,  400,  293, 103, 183,
+  "Number of species",      "North America",  106,  191,  169,  231,  146,  147,  73,  71,
+  
+  "Number of genera",       "Europe",          50,   87,   94,  124,  198,  139,  68,  98,
+  "Number of genera",       "North America",   62,  105,   89,  104,   83,   88,  51,  46,
+  
+  "Number of locations",    "Europe",          45,  203,  170,  225,  381,  207,  46, 130,
+  "Number of locations",    "North America",   31,   83,   45,   95,   56,   70,  43,  53,
+  
+  "Genera per location",    "Europe",        1.11, 0.43, 0.55, 0.55, 0.52, 0.67, 1.48, 0.75,
+  "Genera per location",    "North America",  2.00, 1.26, 1.97, 1.09, 1.48, 1.25, 1.18, 0.86
+)
+
+# GT table
+gt_tbl <- tbl %>%
+  gt(
+    rowname_col = "Descriptor",
+    groupname_col = "Continent"
+  ) %>%
+  tab_spanner(
+    label = "Neogene Epoch",
+    columns = Aquitanian:Piacenzian
+  ) %>%
+  cols_label(
+    Aquitanian   = "Aquitanian\n(23–20 Ma)",
+    Burdigalian  = "Burdigalian\n(20–16 Ma)",
+    Langhian     = "Langhian\n(15–13 Ma)",
+    Serravallian = "Serravallian\n(13–11 Ma)",
+    Tortonian    = "Tortonian\n(11–7 Ma)",
+    Messinian    = "Messinian\n(7–5 Ma)",
+    Zanclean     = "Zanclean\n(5–3 Ma)",
+    Piacenzian   = "Piacenzian\n(3–2 Ma)"
+  ) %>%
+  fmt_number(
+    columns = Aquitanian:Piacenzian,
+    decimals = 0
+  ) %>%
+  fmt_number(
+    rows = Descriptor == "Genera per location",
+    columns = Aquitanian:Piacenzian,
+    decimals = 2
+  ) %>%
+  tab_options(
+    row_group.as_column = TRUE,
+    table.font.size = px(12),
+    heading.align = "left"
+  )
+
+gt_tbl
+```
+:::
+
+## Paleoclimatic data
+
+### Temporal binning of climatic rasters (1 Ma) within Neogene stages
+
+Paleoclimate reconstructions were organized into discrete, stage-specific climate stacks by **binning rasters at 1 Ma resolution** within each Neogene stage (Aquitanian–Piacenzian). For each stage, we identified all paleoatmospheric temperature rasters whose time stamps fell within that stage’s chronostratigraphic boundaries and grouped them into a single multi-layer object (e.g., “Temp.1”, “Temp.2”, … in Fig. S3). This procedure preserves within-stage temporal information while ensuring that all climatic summaries are computed from time slices that are chronologically consistent with the fossil data assigned to that stage. Because stages differ in duration, the number of 1 Ma rasters per stage varies, reflecting the amount of temporal coverage available within each interval.
+
+![\*\*Figure S3. Paleotemperature reconstructions for the Neogene.\*\* Spatial reconstructions of paleoatmospheric temperature for eight Neogene stages (Aquitanian–Piacenzian), shown separately for North America and Europe. For each stage, multiple temperature layers (“Temp” fields) represent alternative reconstructions or time slices within the stage, capturing spatial heterogeneity and within-stage climatic variability. Color scales denote reconstructed temperature (°C), illustrating the persistence and evolution of large-scale temperature gradients through the Neogene.](images/clipboard-664722752.png)
+
+These stage-specific raster stacks were subsequently used to derive three complementary climatic descriptors for each grid cell: **(i)** the mean temperature across all 1 Ma slices within the stage (capturing average climatic conditions), **(ii)** the temporal slope of temperature through the stage (capturing directional change), and **(iii)** temporal instability, quantified as within-stage variability among 1 Ma slices (capturing fluctuations around the mean). These variables capture average conditions, directional climatic change, and within-stage variability, respectively, and together describe the climatic context experienced by fossil assemblages. Together, this temporal binning strategy allows climate to be summarized in a way that matches the temporal granularity of Neogene stages while retaining meaningful information on both climatic trends and variability within each stage.
+
+#### Mean atmospheric temperature
+
+![\*\*Figure X. Mean atmospheric temperature across Neogene stages.\*\* Panels show the mean reconstructed atmospheric temperature for each Neogene stage (Aquitanian–Piacenzian), obtained by averaging paleoatmospheric temperature layers within each stage. Maps are shown for North America and Europe, with colors indicating temperature in °C. The figure summarizes broad-scale spatial temperature gradients and their temporal evolution through the Neogene, providing a baseline climatic context for subsequent analyses.](images/clipboard-434465375.png)
+
+#### Temporal slope of atmospheric temperature (Magnitude & Direction Climate Change)
+
+![\*\*Figure X. Mean atmospheric temperature across Neogene stages.\*\* Panels show the mean reconstructed atmospheric temperature for each Neogene stage (Aquitanian–Piacenzian), obtained by averaging paleoatmospheric temperature layers within each stage. Maps are shown for North America and Europe, with colors indicating temperature in °C. The figure summarizes broad-scale spatial temperature gradients and their temporal evolution through the Neogene, providing a baseline climatic context for subsequent analyses.](images/clipboard-3500197986.png)
+
+#### Temporal instability of atmospheric temperature
+
+![\*\*Figure X. Temporal instability of atmospheric temperature across Neogene stages.\*\* Panels depict the temporal instability of reconstructed atmospheric temperature for each Neogene stage (Aquitanian–Piacenzian), quantified as the within-stage variability among paleoatmospheric temperature layers. Higher values (warm colors) indicate greater temporal variability, whereas lower values (cool colors) reflect more stable climatic conditions. The figure illustrates spatial heterogeneity in climatic stability through the Neogene and provides a complementary metric to mean temperature and temporal slope patterns.](images/clipboard-894893703.png)
+
+### Delineating paleoclimatic zones
+
+Paleoclimatic zones were delineated to identify spatially and temporally coherent units of climatic conditions across the Neogene. For each grid cell and Neogene stage, we summarized paleoclimate using three complementary descriptors derived from the 1 Ma–binned mean atmospheric temperature rasters. To reduce dimensionality and account for covariance among climatic descriptors, we applied principal component analysis (PCA) to the standardized climate variables across all grid cells and stages. The leading principal components, which captured the majority of climatic variation, were retained and used as inputs for clustering.
+
+![\*\*Figure X. Variance explained by principal components of paleoclimatic variables.\*\* Bar plot showing the variance explained by each principal component derived from the paleoclimatic dataset. The first component accounts for the majority of the total variance, whereas subsequent components explain progressively smaller proportions, indicating that most large-scale climatic variation through the Neogene is captured along a dominant primary gradient.](images/clipboard-485544766.png)
+
+![\*\*Figure X. Spatial patterns of principal components of temporal temperature instability.\*\* Maps show the spatial loadings of the first eight principal components (PC1–PC8) derived from the temporal instability of atmospheric temperature across the Neogene. PC1 captures the dominant large-scale gradient in climatic instability, whereas higher-order components explain progressively finer-scale or weaker spatial structure. Color scales indicate the magnitude and direction of component loadings, illustrating how major modes of climatic instability are distributed across North America and Europe.](images/clipboard-2218908946.png)
+
+Paleoclimatic zones were then defined using k-means clustering in this reduced climatic space, grouping grid cells with similar climatic histories across space and time. The optimal number of clusters was selected based on the Calinski–Harabasz criterion, balancing within-cluster homogeneity and between-cluster separation.
+
+![\*\*Figure X. Comparison of K-means clustering solutions and selection of the optimal number of clusters.\*\* The left panel shows K-means partitions of objects for solutions with increasing numbers of clusters (k), illustrating how group membership changes as k increases. The right panel reports the Calinski–Harabasz criterion for each k, with the highlighted point indicating the optimal clustering solution based on the maximum criterion value. Together, these panels justify the choice of k used in subsequent analyses.](images/clipboard-2113623670.png)
+
+Resulting clusters represent **climatic spatiotemporal zones** that integrate both geographic structure and temporal climatic dynamics. Each grid cell–stage combination was assigned to a climatic spatiotemporal zone. This grouping captures shared climatic histories and provides a way to account for spatial autocorrelation, given that nearby grid cells tend to exhibit similar climatic trajectories through time.
+
+![\*\*Figure X. Climatic spatiotemporal zones derived from multivariate clustering.\*\* Hexagonal grid cells across North America and Europe are classified into five climatic spatiotemporal zones based on multivariate climate characteristics through the Neogene. Colors denote cluster membership (zones 1–5), capturing coherent regions that integrate both spatial structure and temporal climatic dynamics. Unfilled hexagons indicate areas without sufficient data coverage. The map illustrates broad-scale climatic regionalization used to define comparative units in subsequent analyses.](images/clipboard-3873671215.png)
+
+## Evaluating fossil dissimilarity
+
+Compositional dissimilarity among fossil assemblages was quantified to characterize spatial and temporal variation in taxonomic composition across the Neogene. For each pair of paleoassemblages, we calculated taxonomic dissimilarity using presence–absence data at the genus level. Assemblages were defined as unique combinations of spatial grid cells and Neogene stages, ensuring that dissimilarity comparisons reflected both spatial and temporal separation.
+
+We used the Simpson dissimilarity index (β_SIM) to quantify compositional turnover between assemblages. β_SIM emphasizes taxon replacement while minimizing the influence of differences in richness, making it well suited for fossil data where sampling intensity varies among assemblages.
+
+![\*\*Figure X. Pairwise compositional dissimilarity among paleoassemblages.\*\* Heat map showing pairwise Simpson dissimilarity (β_SIM) between all paleoassemblages, where values range from 0 (identical composition) to 1 (complete turnover). Warmer colors indicate greater compositional dissimilarity. Block-like structure along the diagonal reflects groups of paleoassemblages with relatively similar taxonomic composition, whereas high off-diagonal values indicate strong turnover between assemblages separated in space and/or time.](images/clipboard-3452728301.png)
+
+The nestedness-resultant component (β_SNE), reflects turnover-driven differences from those arising through nested subsets of taxa and can be more sensitive to differences in sampling completeness. We don't consider (β_SNE) in our subsequent analyses.
+
+![\*\*Figure X. Pairwise compositional dissimilarity due to nestedness among paleoassemblages.\*\* Heat map showing pairwise nestedness-resultant dissimilarity (β_SNE) between all paleoassemblages. Values range from 0 (no nestedness difference) to 1 (strong nestedness-driven dissimilarity), with warmer colors indicating greater nestedness effects. Overall low β_SNE values indicate that most compositional differences among paleoassemblages are driven by species turnover rather than nestedness.](images/clipboard-3317284457.png)
+
+We used multidimensional ordination (NMDS) to visualize major gradients in paleoassemblage composition.
+
+![Figure S2: Ordination of mammalian fossil assemblages using NMDS based on genus composition across Neogene time intervals. Colors denote geological age (Ma), and shapes distinguish continents. The ordination shows a clear temporal gradient and gradual compositional separation between faunas of Europe and North America.](images/clipboard-3569736544.png)
+
+## Delineating paleobiogeographic regions
+
+We evaluated model fitting across increasing numbers of latent groups in the stochastic block model, summarized using the geometric mean of the numbers of row (Q₁) and column (Q₂) groups. ICL balances model fit and complexity by penalizing overparameterization, with higher values indicating better-supported partitions. The observed plateau in ICL values indicates stabilization of model support with increasing numbers of groups, beyond which additional complexity yields little improvement in explanatory power.
+
+![Figure S6: Model selection for stochastic block modeling based on the Integrated Completed Likelihood (ICL) criterion. The curve shows ICL values across increasing numbers of latent groups (geometric mean of Q₁ and Q₂). The plateau indicates model stabilization and the optimal complexity threshold used to define the final network partition.](images/clipboard-2926012574.png)
+
+Geographic and temporal distance covariates were included to account for spatial and temporal autocorrelation among paleoassemblages.
+
+![Figure S7: Hierarchical clustering of geographical and temporal distance matrices between pairs of paleo assemblages.](images/clipboard-1333518372.png)
+
+To reveal large-scale structure, rows and columns of the dissimilarity matrix are reordered according to the inferred grouping of paleoassemblages obtained from SBM. This reordering does not alter dissimilarity values but makes coherent patterns of similarity and dissimilarity visually explicit.
+
+![\*\*Figure X. Block structure of the paleoassemblage dissimilarity matrix.\*\* Heat map of the paleoassemblage × paleoassemblage dissimilarity matrix, with rows and columns ordered consistently. Cell shading represents pairwise dissimilarity values, while the overlaid grid highlights block-like structure within the matrix. Distinct blocks along the diagonal indicate groups of paleoassemblages with relatively similar taxonomic composition, whereas higher contrast between blocks reflects strong compositional differentiation among assemblage groups across space and time.](images/clipboard-2101878972.png)
+
+#### Spatio temporal distribution of paleobiogeographic regions
+
+![\*\*Figure X. Spatial representation of paleoassemblage clusters across climatic spatiotemporal zones.\*\* Each panel shows the geographic distribution of paleoassemblages assigned to a single cluster (panels 1–40), plotted in a common map projection. Points represent paleoassemblage centroids, colored according to their associated climatic spatiotemporal zone (color scale). White graticules indicate latitude and longitude for spatial reference.](images/clipboard-3116595040.png)
+
+## Evaluating the relationship between turnover and climate
+
+### Spatial join between climatic variables with fossil localities
+
+For each paleoassemblage, climatic values were extracted from the raster cell corresponding to the assemblage’s grid cell centroid.
+
+![\*\*Figure X. Relationship between climatic change magnitude and climatic instability.\*\* Scatter plot showing the association between the magnitude of climatic change and climatic instability across paleoassemblages. Points represent individual paleoassemblages, with symbols indicating continent (Europe vs. North America). Climatic instability increases with the absolute magnitude of climatic change, producing a characteristic V-shaped pattern that reflects greater temporal variability under both strong warming and strong cooling regimes.](images/clipboard-2378010586.png)
+
+### Subset the dissimilarity matrix
+
+To quantify compositional turnover within climatic spatiotemporal zones, we subset the global paleoassemblage dissimilarity matrix according to climatic cluster membership and time region. The full matrix contains pairwise Simpson dissimilarity (β_SIM) values between all paleoassemblages. For each climatic cluster and Neogene stage (or time region), we extracted the submatrix corresponding only to paleoassemblages belonging to that cluster–time combination.
+
+![\*\*Figure X. Clustered compositional dissimilarity among climatic spatiotemporal zones.\*\* Heat map displays pairwise compositional dissimilarity between climatic spatiotemporal zones, with rows and columns ordered by hierarchical clustering. Dendrograms summarize similarity relationships among zones, highlighting groups of zones with relatively similar taxonomic composition. Color intensity reflects the magnitude of dissimilarity, with lighter colors indicating greater similarity and darker colors indicating stronger compositional differentiation among zones.](images/clipboard-3823221323.png)
+
+#### Extract the diagonal of the matrix subset and get its mean
+
+To summarize within-zone compositional turnover quantitatively, we extracted the diagonal of each subset matrix and calculated its mean. This mean dissimilarity represents the average compositional turnover among paleoassemblages within a given climatic spatiotemporal zone. These values provide a standardized measure of internal turnover that can be compared across zones and through time.
+
+![\*\*Figure X. Distribution of turnover among climatic spatiotemporal zones.\*\* Histogram showing the distribution of compositional turnover values across climatic spatiotemporal zones. The red vertical line indicates the mean turnover. The distribution illustrates substantial variation in turnover among zones, with most values clustered at intermediate levels and a smaller number of zones exhibiting high compositional turnover.](images/clipboard-2989690152.png)
+
+### Repeat for all climatic clusters across all time bins
+
+We repeated the procedure for all climatic spatiotemporal zone and Neogene stage combinations. In addition to mean, we calculated the standard deviation to capture the variance.
+
+![\*\*Figure X. Temporal patterns of compositional turnover across climatic clusters.\*\* Points show mean compositional turnover values for climatic clusters through time, plotted against geological age (Ma). Vertical dashed lines indicate Neogene stage boundaries. Symbols denote different climatic clusters, illustrating both within-stage variability and among-cluster differences in turnover. The figure reveals temporal structure in turnover dynamics, with distinct climatic clusters exhibiting different magnitudes and trajectories of compositional change across the Neogene.](images/clipboard-2493386599.png)
+
+![\*\*Figure X. Temporal variation in the variability of compositional turnover across climatic clusters.\*\* Points show the standard deviation of compositional turnover within climatic clusters through time, plotted against geological age (Ma). Vertical dashed lines indicate Neogene stage boundaries, and symbols distinguish climatic clusters. Higher values indicate greater within-cluster variability in turnover, revealing differences in the stability and heterogeneity of compositional change among climatic clusters across the Neogene.](images/clipboard-2322334233.png)
+
+### Beta-regression modelling
+
+The beta regression model is fitted with a logit link and that for our project answers the following question.
+
+*How does mean turnover (bounded 0–1) respond to the magnitude of atmospheric temperature change, its direction (warming vs cooling), and instability, and do these relationships differ by continent*?
+
+::: callout
+Using the following general formula
+
+$y_i = \beta(u_i\phi, (1-u_i)\phi), \space logit(u_i) = n_i$
+
+where:
+
+$u_i = \mathbb{E}(y_i)$ is the mean turnover, with $y_i$​ is the observed mean turnover,
+
+$n_i$ is the linear predictor, and $\phi$ is constant.
+
+Taking Europe as the baseline continent and cooling as the baseline direction of temperature change, the linear predictor is
+
+$$ n_i = \beta_0 + \beta_1|Slope_i| + \beta_2Warming_i + \beta_3Instability_i + \beta_4|Slope_i| \times Warming_i + \beta_5|Slope_i| \times Instability_i + \beta_6Continent_i + \beta_7|Slope_i| \times Continent_i $$
+:::
+
+#### Beta regression model diagnosis
+
+Model adequacy was evaluated using standardized weighted residuals. Residuals were plotted against fitted values to assess potential deviations from model assumptions. The absence of systematic patterns or trends and the approximately symmetric distribution of residuals around zero indicate an adequate model fit and no strong evidence of heteroscedasticity or misspecification on the response scale.
+
+![\*\*Figure X. Residual diagnostics for the beta regression model.\*\* Plot of standardized weighted residuals against fitted values for the beta regression model. The absence of systematic patterns or trends and the roughly symmetric distribution of residuals around zero indicate an adequate model fit and no strong evidence of heteroscedasticity or misspecification on the response scale.](images/clipboard-1098745496.png)
+
+#### Beta regression model predictions
+
+![Figure 3: Compositional turnover variation across five climatic zones in North America and Europe during the Neogene. Boxplots show the distribution of turnover values (0–1) estimated for fossil assemblages within each climatic zone. Compositional turnover reflects the average turnover between fossil assemblages within paleobiogeographic regions for each climatic zone, measured at the Genus level](images/clipboard-1981417995.png){alt="Figure 3: Compositional turnover variation across five climatic zones in North America and Europe during the Neogene. Boxplots show the distribution of turnover values (0–1) estimated for fossil assemblages within each climatic zone. Compositional turnover reflects the average turnover between fossil assemblages within paleobiogeographic regions for each climatic zone, measured at the Genus level"}
+
+![\*\*Figure X. Predicted compositional turnover as a function of climate change magnitude and climatic instability.\*\* Panels show model-predicted turnover across gradients of climate change magnitude and climatic instability for two climatic clusters (panels 1 and 2). Colored surfaces represent predicted turnover values from the beta regression model, with warmer colors indicating higher turnover, and white contour lines indicating equal predicted turnover. Points show observed data. The figure illustrates how turnover increases nonlinearly with both the magnitude of climatic change and climatic instability, with differences in response surfaces between clusters.](images/clipboard-2694330650.png)
+
+![\*\*Figure X. Predicted compositional turnover under cooling and warming regimes.\*\* Panels show model-predicted compositional turnover as a function of the absolute magnitude of climate change (\|slope\|) and climatic instability, stratified by climatic cluster (columns 1–2) and by the direction of temperature change (cooling: top row; warming: bottom row). Colored surfaces represent predicted turnover from the beta regression model, with contour lines indicating equal predicted values and points showing observed data. Dashed lines mark zero climatic instability and the boundary between cooling and warming regimes. The figure illustrates asymmetric turnover responses to warming versus cooling and differences in sensitivity among climatic clusters.](images/clipboard-1492045757.png)

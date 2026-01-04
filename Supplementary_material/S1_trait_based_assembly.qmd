@@ -1,0 +1,1202 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Trait-based inference of ecological network assembly 
+
+## Simulating resource-consumer network assembly
+
+We applied our conceptual framework to assess the influence of community
+and interaction assembly processes on network structure. To this end, we
+simulated the assembly of probabilistic bipartite networks under
+different combinations of stochastic and deterministic (trait-based)
+assembly processes within and between trophic levels (Figure 2 in the
+main text; Table S1). Trait-based simulations of network assembly allow
+exploring the relationships between trait based assembly processes and
+emergent network structures. Moreover, simulations help to avoid
+empirical biases when inferring network assembly processes. Such biasses
+include correlations among traits and potentially hidden traits and
+niches when testing for neutrality or environmental filtering (Barabás
+et al. 2013). Below we describe the steps we followed for a trait-based
+simulation of network assembly processes:
+
+### Step 1: Defining the species pools
+
+We simulated regional species pools separately for resource and consumer trophic levels. Each pool consisted of $5{,}000$ individuals, distributed uniformly among $500$ species. As such, the relative abundance for all species was $1/500$. Each consumer species, $c$, and each resource species, $r$, was assigned a trait mean ($t_c$ and $t_r$, respectively) from a uniform distribution ranging from $0$ to $1$. Each consumer individual, $i$, was assigned a trait value of $t_{ci}$, drawn from a normal distribution around $t_c$ ($\sigma = 0.001$). Each resource individual, $j$, was assigned a trait value of $t_{rj}$, drawn from a normal distribution around $t_r$ ($\sigma = 0.001$). We considered one-dimensional trait distributions in this simulation in order to represent the combined effects of several response traits from $n$-dimensional hypervolumes (Blonder et al. 2014).
+
+
+### Step 2: Creating local communities
+
+We used a coalescent-based algorithm (Munoz et al. 2018) to assemble
+local consumer and resource communities individuals from the regional
+species pool. Each local community numbered 500 individuals. Under this
+algorithm, the occurrence and abundance of a species in a local
+community depends on the successful immigration of ancestor individuals
+from the species pool and subsequent survival of descendant individuals.
+The algorithm is governed by a migratory rate parameter, m, that ranges
+from 0 to 1 (Hubbell 2001, Munoz et al. 2018) where higher values of m
+increase the effect of offspring on the final composition of local
+communities. That is, the simulation of the local communities has an
+element of temporal evolution determined by the migratory rate
+parameter. However, when building the resource-consumer networks in the
+later steps, we only consider the resulting local communities, not the
+genealogy leading to them. The coalescent-based assembly algorithm is
+part of the ecolottery package (Munoz et al. 2018) for the R software
+(version 3.5.3; R Core Team 2019). To explore variation in network
+structure under various ecological conditions, we varied the simulation
+parameters to represent variation in community and interaction assembly
+processes. We simulated a total of 108 unique bipartite network assembly
+scenarios. Seventyeight assembly scenarios had the same community
+assembly process at both trophic levels and 30 assembly scenarios had a
+trait-based community assembly process at one and a stochastic community
+assembly process at the other trophic level (Table S1). To vary the
+community assembly process, we modified the function governing the
+probability of an individual successfully immigrating from the species
+pool to the local assemblage (pci for consumer individuals and prj for
+resource individuals) to simulate the stochastic assembly and/or
+trait-based assembly at each trophic level.
+
+### Step 2.1: Simulating community assembly processes
+#### Step 2.1.1: Stochastic community assembly
+
+We simulated two processes of stochastic assembly, namely ecological drift (Vellend 2010) and demographic stochasticity (Hubbell 2001). We simulated ecological drift by choosing a uniform immigration probability distribution that was independent of individuals’ trait values. Specifically, all individuals had an equal probability, $p_{ci} = p_{rj} = 0.1$, of being sampled from the regional species pool. Replacement probabilities of simulated mortality events during community formation were accounted for to simulate the effects of ecological drift and demographic stochasticity (Etienne and Olff 2004). After a simulated mortality event during community coalescence, individuals can be replaced with the offspring of the remaining individuals in the local community $(J - 1)$ or with a new immigrant individual from the species pool with probability $(1 - m)$. The competition of local offspring and immigrants to replace dead individuals in the community is commonly referred to as the immigration parameter $I$. The immigration parameter $I$ depends on both $m$ (migratory rate parameter) and $J$ (number of individuals in the community), such that $I = m(J - 1)/(1 - m)$ (Etienne and Olff 2004). In our simulations, we set $m = 0.5$ to reduce the effect of genealogy on the local community and thus mimic conditions where local communities are formed mainly by the initial migrant individuals. In addition, no trait-based constraints were imposed on the immigration probabilities of individuals from the species pool to the community (Munoz et al. 2018). Further work can explore changes in the immigration parameter in order to parameterize models of network assembly along the genealogy of communities (Etienne and Olff 2004; Etienne 2009; Munoz et al. 2018).
+
+
+#### Step 2.1.2: Environmental filtering
+
+We simulated trait-based processes as trait-dependent individual based
+immigration probabilities from the regional pool. Specifically, to
+simulate environmental filtering, we assigned probabilities of
+successful immigration of individuals from a normal distribution around
+an arbitrarily centered trait optimum, $t_{opt}$ = 0.2, with a standard
+deviation of $σ_{opt}$ . (Figure 2 in the main text; Munoz et al. 2018).
+That is:
+
+::: callout
+
+#### Equation 1
+$$p_{ij} = e^{-\frac{\left(t_{c i}-t_{\mathrm{opt}}\right)^2}{\left(2\sigma_{\mathrm{opt}}\right)^2}}
+$$
+:::
+
+
+
+We modulated the intensity of environmental filtering by varying
+$σ_{opt}$, where more intense filtering was simulated by a narrower
+distribution. We used five different values of σopt, from weak $σ_{opt}$
+to strong ( $σ_{opt}$ = 0.1), to simulate a gradient of filtering
+intensities, i.e. process strengths.
+
+We simulated distinct (im)balances of deterministic resource and
+consumer assembly processes by independently varying the intensities of
+trait-based community assembly at consumer (σoptc) and resource trophic
+levels (σoptr). We computed process strength asymmetry (PSA) calculated
+as the natural logarithm of the ratio of consumer and resource process
+strengths (Equation S2). We considered process strengths to be
+asymmetrical when PSA ≠ 0. Symmetry of process strengths between trophic
+levels occurs at all same magnitude combinations of σoptc and σoptr,
+which renders PSA = 0.
+
+
+::: callout
+#### Equation 2
+
+$$PSA = log_e(σ_{opt_c} / σ_{opt_r})$$
+::: 
+
+#### Step 2.2 Simulating interaction assembly processes
+
+After generating the local resource and consumer communities, we
+simulated interaction assembly processes between the two trophic levels.
+We calculated the probability, pc,r, of interaction between for resource
+and consumer species modelled at the species individual level for
+distinct interaction assembly process types ranging from stochastic
+(density-dependent) to deterministic (trait-based).
+
+#### Step 2.2.1 Stochastic interaction assembly
+
+We modelled stochastic interaction assembly as purely density dependent
+probabilities. This ecologically emulates random encounter probabilities
+between individuals of the species in the community, assuming a
+well-mixed system. As a consequence, $p$, is independent from the
+species' trait values. The probability that consumer species $c$ and
+resource species $r$ interact is only driven by the change in their
+relative abundances, such that the interactions that occur most
+frequently are those between the most abundant species (Morales-Castilla
+et al. 2015, Chacoff et al. 2018) (Equation S3).
+
+::: callout 
+#### Equation 3
+
+$$p = A_c\times A_r$$
+
+where $A_c$ is the abundance of consumer species $c$ relative to total
+local consumer abundance, and $A_r$is the abundance of resource species
+$r$ relative to the total local resource abundance.
+:::
+
+
+#### Step 2.2.2 Functional trait matching
+
+To simulate trait-based interaction processes between trophic levels,
+pairwise interaction probabilities, pc,r, were dependent on the species
+individuals’ trait values. We modelled pairwise interaction
+probabilities by simulating two distinct types of functional trait
+matching: forbidden links and morphological matching. Forbidden links is
+a type of deterministic interaction assembly process whereby interaction
+partners are constrained to species within a certain range of traits
+(Morales-Castilla et al. 2015). Within this constrained set of potential
+partners, species’ relative abundances define pairwise interaction
+probabilities. This mimics interactions that occur in nature as if, for
+example, resource selection is gape-limited (e.g., small-beaked birds
+cannot eat large fruits, but largebeaked birds can eat fruits of all
+sizes). Thus, we simulated interaction assembly governed by forbidden
+links as:
+
+::: callout
+#### Equation 4
+
+if $$t_c \leq t_r \rightarrow p_{c,r} = 0$$
+
+if $$t_c > t_r \rightarrow p_{c,r} = A$$
+
+:::
+
+Morphological matching is another type of deterministic interaction
+assembly process. Here, pairwise interactions occur only whenever there
+is a strong trait match between the values of functional traits of
+species individuals (Maglianesi et al. 2014, Sazatornil et al. 2016). In
+our simulations under morphological matching, the effect of the
+trait-based interaction assembly modifies the probability of abundance
+driven interactions between species. In nature, morphological matching
+arises due to the evolution of functional specialization between6
+interacting species pairs (e.g., insect proboscis length - corolla
+length; Sazatornil et al. 2016) or represents cases where optimal
+foraging governs the ecological interactions between species (Maglianesi
+et al. 2014, Sazatornil et al. 2016). Our definition of morphological
+matching reflects the definitions presented by preceding literature
+(e.g., Maglianesi et al. 2014) such that we considered the strength of
+trait matching to be fixed instead of varying the trait matching
+strength. That is, we did not consider scenarios of adaptive foraging or
+the context dependency of pairwise interactions. Such processes could be
+introduced in the simulations by regulating trait matching strength with
+a sigma parameter similarly to environmental filtering simulations
+(section S2.1.2). Thus, we simulated interaction probabilities to depend
+on the difference in trait values between consumer and resource species
+as well as on the relative abundances within trophic levels (A).
+
+That is:
+
+::: callout
+#### Equation 5
+
+$$p = A(1-|t_c-t_r|)$$
+::: 
+
+### Step 3: Assembling resource-consumer networks
+
+As a result of our simulations, we obtained a set of probabilistic interaction networks at the species level. We collapse these initial probabilistic networks into binary networks by considering as realized interactions ($p = 1$) those interactions whose pairwise interaction probability falls above the fourth-largest quantile of the whole probability distribution, and by assigning interactions under that threshold a value of $p = 0$. Species that were present in the probabilistic network but not linked to any species after the threshold were not considered part of the “observed” interaction network. We recognize that thresholding probabilistic networks may lead to an under-representation of rare interaction events (see Poisot et al. 2015), but we expect those effects to be minimal and unlikely to change the larger patterns of network structure under distinct assembly process types.
+
+### Step 4: Quantifying resource-consumer network structure
+
+We selected two widely used metrics of network structure for binary
+bipartite networks: modularity and nestedness. Modularity is a measure
+of the degree to which a network is divided into modules. Modules are
+clusters of network nodes (species) with many links amongst themselves
+and few links to nodes in other modules. In highly modular networks,
+there are7 cohesive sub-clusters of species interacting more with each
+other than with other species present in the network (Olesen et al.
+2007). We quantified the modularity of our simulated networks using the
+Q metric (Barber 2007). This metric is calculated using a
+label-propagation algorithm (Liu and Murata 2010, Beckett 2015) which
+maximizes Barber’s modularity (Barber 2007). Nestedness is a measure of
+the degree to which nodes with few links share a subset of the links of
+nodes with many links. In perfectly nested networks, interaction
+partners of specialists are subsets of the interaction partners of
+generalists (Bascompte et al. 2003). In the case of consumer-resource
+networks, it is a measure of the degree to which specialists consume a
+subset of the resources consumed by generalists. We quantified the
+nestedness of our simulated networks using the NODF metric (Almeida-Neto
+et al. 2008). The functions to calculate modularity and nestedness were
+implemented from the bipartite package for R (Dormann et al. 2009).
+
+Modularity ($Q$) and nestedness ($NODF$) values are dependent on intrinsic network properties, such as network size and connectance (Fortuna et al. 2010; Beckett 2015; Simmons et al. 2018; Song et al. 2019). We expected the effect of network size on network metric variation to be minimal because we simulated our networks to vary little in their species richness and connectance. However, to minimize any issues related to network size and to ensure that our network structure metrics are comparable across simulation scenarios, we standardized modularity and nestedness using Z-scores for the network structural indices. We did this by subtracting the observed metric values from the expected mean values of a null distribution and dividing by the standard deviation of that null distribution. We selected two swapping algorithms to generate this null distribution of expected network metric values from $100$ independent network rewires. We used two different rewiring models that keep network size and row and column totals constant. The first, the DegreeProbable–DegreeProbable model, shuffles individual elements $d_{i,kj}$ of the pairwise interaction matrix based on the probability $p_{ij}$ that corresponds to:
+
+::: callout
+#### Equation 6
+
+\
+$$p_{ij} = 0.5 \times (d_j/rows + k_i /cols)$$
+
+where $d_j$ is the degree of column $j$ and $k$ is the degree of row
+$i$. $rows$ and $cols$ are the total number of rows and columns
+respectively (Bascompte et al. 2003, Beckett 2015, Mariani et al. 2019).
+::: 
+
+
+
+Additionally, to ensure that the choice of rewiring method does not
+influence the estimated network metric values, we separately used the
+“curveball” rewiring algorithm (Strona et al. 2014) to calculate network
+metric Z-scores. This algorithm also maintains row and column sum totals
+constant but swaps elements in a stepwise manner. First, the algorithm
+lists all the column elements occurring on each row. Second, it “trades”
+the non-occurring elements between two of the random of the previously
+created lists and reiterates this process a number of times. Finally, it
+reconstructs a presence-absence matrix from the reshuffled list (Strona
+et al. 2014). We found that the two rewiring methods produced parallel
+results and do not present the results of the “curveball” method here.
+
+To test for the effects of connectance on network metric variance, we calculated the correlation of modularity $Q$ Z-scores and nestedness $NODF$ Z-scores with connectance for all simulated networks using Spearman rank correlations. Our thresholding approach produced similarly sized networks with typical levels of connectance in natural resource–consumer networks ($0.2$–$0.4$; Valdovinos et al. 2016). Networks assembled under stochastic interaction and forbidden-links assembly had similar connectance levels (NL: mean $= 0.29$, sd $= 0.03$; FL: mean $= 0.28$, sd $= 0.04$) that were higher than those for networks assembled with morphological matching (MM: mean $= 0.22$, sd $= 0.04$). We expected slightly lower connectance levels for morphological matching networks, since morphological trait matching increases the overall level of specialization of pairwise interactions. We found weak correlations between connectance and nestedness $NODF$ Z-scores ($\rho = 0.32$, $p = 0.004$) and between connectance and modularity $Q$ Z-scores ($\rho = -0.17$, $p = 0.11$) across the simulated networks. We used binary modularity and nestedness because they represent contrasting properties of network structure and are commonly used to summarize the dynamics of ecological networks, such as robustness and stability (Staniczenko et al. 2013; Grilli et al. 2016; Guzman et al. 2020). However, our framework can equally be applied to other measures of network structure, including quantitative metrics (e.g., network-level specialization, $H_2'$; Blüthgen et al. 2008; spectral radius $\rho(\cdot)$; Staniczenko et al. 2013).
+
+### Step 5: Quantifying the effects of trait-based assembly processes on network structure
+
+To quantify the effect of trait-based assembly processes on network structure, we first defined a two-dimensional space of modularity ($Q$ Z-score on the $x$-axis) and nestedness ($NODF$ Z-score on the $y$-axis) (Figure 3 in the main text). Mean modularity and nestedness across simulation replicates of all simulated networks were mapped in this network-structure space. Thus, the standardized mean differences among networks represented their overall structural differences. We quantified the effect of trait-based interaction assembly as the pairwise distances between networks that share the same community assembly process but differ in their trait-based interaction assembly. Specifically, we calculated the standardized mean differences between networks assembled under forbidden links and morphological matching relative to the corresponding networks assembled under stochastic interaction assembly. Within each trait-based interaction assembly type (i.e., clusters of symbols in Figure 3 in the main text), we quantified the effect of trait-based community assembly as the standardized mean differences between networks assembled under environmental filtering and networks assembled under stochastic community assembly (i.e., standardized distances of symbols relative to the cluster cross in Figure 3 of the main text).
+
+### Step 6: Quantifying the drivers of variation in bipartite network structure
+
+Using multiple regression, we first modelled the relationship between each stochastic or trait-based community and interaction assembly process and network structure for those 78 network scenarios with the same community assembly process at both trophic levels. We did this separately for modularity ($Q$ Z-score mean) and nestedness ($NODF$ Z-score mean) and for each interaction assembly type, totaling six different linear models. For each of these linear models, we used commonality analysis (Nimon et al. 2008; Ray-Mukherjee et al. 2014) to decompose the explained variance ($R^2$) in network structure metrics and effects on network structure into components of independent variation attributable to explanatory variables. We carried out this variance partitioning for simulated networks with the same community assembly process at both trophic levels (1) across all scenarios and (2) separately for subsets based on interaction assembly process type. We used these subsets to remove the effect of interaction assembly process on network structure, because the large relative effect of the type of interaction assembly (neutral, morphological matching, forbidden links) absorbed most of the variation and did not allow showing the remaining effect that process strength asymmetry had on network structure (Appendix S2: Figures S1 and S2, Table S1). We used regression commonality analysis because it allows obtaining both the unique and shared effects of entangled community and interaction assembly processes on network structure. This property of the analysis is highly relevant in the context of our conceptual framework, as the effects of community and interaction assembly processes on network structure are likely entangled. Multiple regressions and commonality coefficients were obtained using the packages **stats** (R Core Team 2019) and **yhat** (Nimon et al. 2008) for the R environment (version 3.6.3; R Core Team 2019).
+
+
+Next, to understand how process strength asymmetry influences network structure within a given interaction assembly type, we used GLMs with modularity ($Q$ Z-scores) and nestedness ($NODF$ Z-scores) as response variables. In these models, process strength asymmetry ($PSA$), interaction assembly type, and their interaction were included as predictor variables. As a next step, we sought to separate the effect of process strength asymmetry on network structure from the total effect of deterministic community assembly processes on networks. To this end, we computed standardized differences in modularity and nestedness between networks assembled under asymmetrical resource and consumer assembly process strengths (i.e., $PSA \neq 0$) and networks assembled under symmetrical resource and consumer assembly process strengths (i.e., $PSA = 0$).
+
+Finally, we explored the interplay of process strength asymmetry and
+network assembly mode determining network structure. More specifically,
+to test for bottom-up and top-down assembly effects on network
+structure, we excluded either the effect of deterministic (trait-based)
+resource or consumer community assembly by “switching off” deterministic
+and “switching on” stochastic community assembly processes. We then
+compared the structure of the networks where both trophic levels were
+assembled under the same community assembly process to the networks
+where the two trophic levels were assembled under contrasting community
+assembly processes (i.e., with stochastic assembly at one and
+deterministic assembly at the other trophic level) (Table S1). Thereby,
+we obtained the effect of network assembly mode on network structure
+across a gradient of process strength asymmetries. To better understand
+the interactions11 of community and interaction assembly processes, we
+compared the relationships between assembly mode and the effects of
+process strength asymmetry on network structure among interaction
+assembly types.
+
+### Step 7: Quantifying network assembly mode (bottom-up and top-down) effects on network structure
+
+We compared the network metrics of the networks assembled under
+environmental filtering process at both trophic levels to the network
+metrics of the corresponding networks assembled with environmental
+filtering process at one trophic level and stochastic process at the
+other trophic level. We did this to quantify the bottom-up and top-down
+effects on network structure. The bottom-up effects were inferred by
+comparing networks with environmental filtering process at both trophic
+levels to networks with environmental filtering process at consumer
+trophic level and stochastic process at resource trophic level. The
+top-down effects were inferred by comparing networks with environmental
+filtering process at both trophic levels to networks with environmental
+filtering process at resource trophic level and stochastic process at
+consumer trophic level. We calculated effect sizes (SESNET) that
+corresponded to the standardized mean differences between the compared
+network metrics (Equation S7.1, S7.2). Finally, we computed network
+assembly mode as the log-ratio of SESNET between the two trophic levels.
+That is, the assembly mode was top-down if the log-ratio was positive
+and bottom-up if the log-ratio was negative (Equation 7.3).
+
+::: callout
+### Equation 7.1
+
+$$
+SES_{net} = (mean_{EF}- mean{EF_{nl/ef}})/SD_{pooled}
+$$
+:::
+
+::: callout
+### Equation 7.2
+
+$$SE_{pooled} = \sqrt{(sd_{EF})^2 + (sd_{NL/EF})^2}$$
+:::
+
+::: callout
+### Equation 7.3
+
+$$
+log(SES_{net_{c}}/SES_{net_{r}})
+$$
+:::
+
+::: callout
+#### Table S1. Scenarios simulating stochastic and trait-based network assembly.
+
+Stochastic scenarios were simulated under stochastic community assembly
+(i.e., stochastically assembled resource and consumer communities).
+Trait-based scenarios were simulated under environmental filtering of
+different filtering intensities (σ) at resource and consumer trophic
+levels. Mixed scenarios were simulated with stochastic community
+assembly at one trophic level and traitbased community assembly at the
+other trophic level. Pairwise interactions were assembled under
+different types of functional trait matching or under stochastic
+interaction assembly (i.e., morphological matching, forbidden links, and
+stochastically assembled interactions). Each scenario was replicated 100
+independent times.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+
+library(tidyverse)
+library(gt)
+library(reactable)
+# Define parameter grid
+sigma_vals <- c(0, 0.1, 0.3, 0.5, 0.7, 0.9)
+
+base_grid <- expand_grid(
+  sigma_consumer = sigma_vals,
+  sigma_resource = sigma_vals
+)
+
+# Helper to build scenario blocks
+make_block <- function(consumer, resource, interaction) {
+  base_grid |>
+    mutate(
+      consumer_assembly = consumer,
+      resource_assembly = resource,
+      interaction_assembly = interaction
+    )
+}
+
+# Assemble full design
+design_tbl <- bind_rows(
+  # Deterministic comsmunities
+  make_block(
+    "Stabilizing Environmental Filtering",
+    "Stabilizing Environmental Filtering",
+    "Forbidden Links"
+  ),
+  make_block(
+    "Stabilizing Environmental Filtering",
+    "Stabilizing Environmental Filtering",
+    "Morphological Matching"
+  ),
+  make_block(
+    "Stabilizing Environmental Filtering",
+    "Stabilizing Environmental Filtering",
+    "Stochastically Assembled Interactions"
+  ),
+
+  # Stochastic community assembly
+  make_block(
+    "Stochastic Community Assembly",
+    "Stabilizing Environmental Filtering",
+    "Forbidden Links"
+  ),
+  make_block(
+    "Stochastic Community Assembly",
+    "Stabilizing Environmental Filtering",
+    "Morphological Matching"
+  ),
+  make_block(
+    "Stochastic Community Assembly",
+    "Stabilizing Environmental Filtering",
+    "Stochastically Assembled Interactions"
+  ),
+
+  # Fully stochastic baseline
+  make_block(
+    "Stochastic Community Assembly",
+    "Stochastic Community Assembly",
+    "Forbidden Links"
+  ),
+  make_block(
+    "Stochastic Community Assembly",
+    "Stochastic Community Assembly",
+    "Morphological Matching"
+  ),
+  make_block(
+    "Stochastic Community Assembly",
+    "Stochastic Community Assembly",
+    "Stochastically Assembled Interactions"
+  )
+)
+
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+
+scenarios <- design_tbl |>
+  distinct(consumer_assembly, resource_assembly, interaction_assembly) |>
+  arrange(consumer_assembly, resource_assembly, interaction_assembly) |>
+  mutate(scenario_id = row_number())
+
+grid_long <- design_tbl |>
+  left_join(scenarios, by = c("consumer_assembly","resource_assembly","interaction_assembly")) |>
+  arrange(sigma_consumer, sigma_resource)
+
+reactable(
+  scenarios,
+  searchable = TRUE,
+  defaultExpanded = FALSE,
+  columns = list(
+    consumer_assembly    = colDef(name = "Consumer assembly process"),
+    resource_assembly    = colDef(name = "Resource assembly process"),
+    interaction_assembly = colDef(name = "Interaction assembly process")
+  ),
+  details = function(index) {
+    sid <- scenarios$scenario_id[index]
+    sub <- grid_long |> filter(scenario_id == sid)
+
+    reactable(
+      sub |> select(sigma_consumer, sigma_resource),
+      compact = TRUE,
+      bordered = TRUE,
+      columns = list(
+        sigma_consumer = colDef(name = "\u03C3consumer"),
+        sigma_resource = colDef(name = "\u03C3resource")
+      )
+    )
+  }
+)
+```
+:::
+
+### Additional simulation results
+
+**Does spatial variation in the relative strengths of community and
+interaction assembly processes lead to predictable variation in network
+structures?**
+
+Both community and interaction assembly processes significantly
+influenced the structure of resource-consumer networks (Figure S1A).
+However, we found that the type of interaction assembly process had the
+strongest effect on network structure. The effects of trait-based
+interaction assembly, namely morphological matching and forbidden links,
+on network structure were equally strong and both deviated from the
+effects of stochastic interaction assembly (compare delineated clusters
+in Figure S1A). Both morphological matching and forbidden links resulted
+in more nested and less modular networks, whereas the opposite was the
+case for stochastic interaction assembly. When we quantified the effects
+of community and interaction assembly separately using commonality
+analysis, we found that changes in the type of interaction assembly
+process explained 70% and 81% of the total variation in modularity and
+nestedness, respectively. In contrast, changes in the type of community
+assembly process explained only 0.2% of the total variation in both
+modularity and nestedness. Similarly, variation in process strength
+asymmetry (PSA), explained only 2% and 0.1% of the total variation in
+modularity and nestedness, respectively. However,2 when we repeated this
+variance partitioning for subsets of networks under the same interaction
+assembly type (e.g., forbidden links), 36-64% of the variance in network
+structure was explained by PSA (Figure S1, Table S1).
+
+**How does the relative influence of bottom-up and top-down assembly
+modes on network structure vary along environmental gradients?**
+
+Asymmetry in the relative strength of community assembly processes
+between the resource and consumer trophic levels (PSA) induced variation
+in network structures (distribution of points along x-axes in Figure
+S1B-C). The extent of such variation was larger for network modularity,
+while the variation was more clearly attributed to interaction assembly
+type for nestedness (Figure S1B-C). Moreover, the simulated networks
+varied along the assembly mode gradient (distribution of points along
+y-axes in Figure S1B-C). For example, networks assembled under forbidden
+links tended to have a bottom-up assembly mode in terms of network
+modularity. When considering the variation along PSA and network
+assembly mode gradients simultaneously, the GLM model showed a
+significant interaction between the effect of PSA and that of
+interaction assembly type on modularity and only when pairwise
+interactions were assembled under forbidden links (Figure S1B-C, Table
+S1). Process strength asymmetry and network assembly mode had
+contrasting influences on network structure (Spearman correlation
+between PSA and assembly mode: r nestedness = -0.02, r modularity =
+-0.14; calculated for points in Figure S1B-C). Given the negative
+correlations between
+
+PSA and assembly mode effects on network structure, the mode of network
+assembly can dampen the overall effect of process strength asymmetry on
+network structure, particularly for network modularity. We note that we
+did not pre-determine the assembly mode in the simulations. Rather, we
+set different strengths of community assembly to resource and consumer
+trophic levels that can lead to varying assembly modes in the networks.
+Moreover, given that we quantify the assembly mode relative to a
+scenario where the community assembly strengths do not differ between
+trophic levels, the assembly mode in our simulations represents the
+distances between symmetric and asymmetric community assembly process
+simulation scenarios in our structural space (defined by modularity and
+nestedness).3
+
+![**Figure S1. Community and interaction assembly processes define the
+structure of simulated resource-consumer networks.** Panel A shows the
+simulated networks in a two-dimensional network structure space of
+modularity and nestedness. Convex hulls delineate the limits and
+variance of network structures for each simulated interaction assembly
+type. The color of the lines, symbols and bars across the panels
+indicate the interaction assembly type. Each symbol corresponds to the
+mean network structure metric value of 10 independent network replicates
+with deterministic resource and consumer community assembly processes.
+The effect of deterministic community assembly (here, stabilizing
+environmental filtering) on network structure is illustrated as the
+deviation of the colored symbol from the correspondingly colored cross.
+Cross axis lengths indicate the standard deviation in modularity
+(horizontal cross axis) and nestedness (vertical cross axis) under
+stochastic community assembly at both trophic levels. The further a
+symbol is from the cross, the stronger the effect of environmental
+filtering on network structure. The convex hull areas represent the
+magnitude of the effect that deterministic community assembly processes
+have on network structure when interaction assembly type is constant.
+Deterministic community assembly within each interaction assembly type
+varies in process strength asymmetry between trophic levels (PSA;
+log-ratio between the strengths of deterministic resource and consumer
+assembly processes). Panels B and C illustrate the relationships between
+the network assembly mode (y-axis) and PSA effect on network structure
+(x-axis). Positive and negative network assembly values indicate that
+the network is predominantly assembled under deterministic top-down and
+bottom-up assembly processes, respectively. If the relative magnitudes
+of bottom-up and top-down assembly modes are equivalent, the assembly
+mode = 0. The effect of PSA on network structure is quantified as the4
+standardized mean deviation of the network structure metric from the
+expected mean network structure metric of the set of networks assembled
+under symmetrical process strengths. For additional details on the
+simulation methods, see Appendix
+S1.](images/clipboard-124885081.png){width="800"}
+
+### Additional simulation discussion
+
+Our simulations reveal that in general, interaction assembly matters
+more than community assembly in shaping networks. Perhaps the most
+exciting result is that when functional trait matching is the main
+driver of network assembly, process strength asymmetry dictates the
+predominance of bottom-up or top-down effects, which is consistent with
+previous empirical work (Albrecht et al. 2018). In natural networks,
+process strength asymmetry may be the result of differences in how
+trophic levels respond to abiotic and biotic drivers (e.g., along
+climatic gradients; Van Der Plas et al. 2012). Because abiotic and
+biotic drivers vary spatially, the strength of bottom-up and top-down
+effects is likely to do so as well (Gripenberg and Roslin 2007). Our
+simulations show how this variation in the assembly mode can modify
+network structure through an assembly cascade that emerges from the
+interdependence of community and interaction assembly processes. That
+is, assembly processes shaping the composition of one trophic level
+indirectly govern the assembly of another trophic level, but the
+magnitude of this cascade depends on the interaction assembly type.
+Earlier studies have reported somewhat analogous trophic cascades from
+apex predators to lower trophic levels via resource use (e.g., Ripple &
+Beschta 2012), but they have focused on single populations (i.e., single
+species) at each trophic level, rather than communities. Furthermore,
+they have not considered which and how particular processes within and
+between trophic levels mediate the observed cascade. Identifying and
+quantifying such processes is now possible with the help of our
+framework.5
+
+![**Figure S2. Relationships of mean modularity (Q Z-scores) and
+nestedness (NODF Z-scores) with varying strengths of environmental
+filtering asymmetry. Each** point represents the averaged network metric
+Z-score means (upper panels) and standard deviations (SD; lower panels)
+for 10 independent replicates of simulated networks under environmental
+filtering of differing strengths at resource and consumer trophic levels
+(Appendix S1).6 Table S1. Modelling the synergic influence of community
+and interaction assembly processes on network structure. The table shows
+the results of two generalized linear models (GLMs) explaining the
+changes in network structure as a function of the interaction between
+the effects of process strength asymmetry and interaction assembly
+process types. Those 78 scenarios with the same community assembly
+process at both trophic levels were included in the models. Modularity
+(Q) and nestedness (NODF) were measured as mean Z-scores across 10
+replicate networks. PSA = Process strength asymmetry, IA = Interaction
+assembly type, FL = Forbidden links, MM = Morphological
+matching.](images/clipboard-3372733236.png){width="800"}
+
+::: callout
+#### Table S2. Regression results for network structure metrics under interaction assembly and PSA effects.
+
+The table summarizes model performance and coefficient estimates for Modularity and Nestedness fitted with an interaction between the interaction-assembly term (IA) and PSA (model structure: PSA × IA). Coefficients for FL (forbidden links) and MM (morphological matching) quantify main effects of interaction-assembly constraints, while interaction terms (FL × PSA; MM × PSA) test whether the influence of PSA varies with IA mechanisms. Abbreviations: FL = Forbidden Links; MM = Morphological Matching; PSA = predictor included as a main effect and in interaction with IA.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+
+
+# ---- 1) Tidy the results into a single data frame ----
+model_results <- tribble(
+  ~response,    ~model_structure, ~pseudo_r2, ~model_p,   ~predictor, ~estimate, ~ci_lower, ~ci_upper, ~p_value,
+  "Modularity", "PSA * IA",       0.78,       "< 0.01",   "Intercept", 111.10,    107.51,    114.68,   "< 0.001",
+  "Modularity", "PSA * IA",       0.78,       "< 0.01",   "PSA",         0.63,     -6.67,      7.92,   "0.867",
+  "Modularity", "PSA * IA",       0.78,       "< 0.01",   "FL",        -33.22,    -38.29,    -28.15,   "< 0.001",
+  "Modularity", "PSA * IA",       0.78,       "< 0.01",   "MM",        -35.29,    -40.35,    -30.22,   "< 0.001",
+  "Modularity", "PSA * IA",       0.78,       "< 0.01",   "FL * PSA",    18.63,      8.31,     28.95,  "0.001",
+  "Modularity", "PSA * IA",       0.78,       "< 0.01",   "MM * PSA",    -4.16,    -14.48,      6.17,  "0.433",
+
+  "Nestedness", "PSA * IA",       0.81,       "< 0.01",   "Intercept",   51.94,     43.84,     60.03,  "< 0.001",
+  "Nestedness", "PSA * IA",       0.81,       "< 0.01",   "PSA",         -1.66,    -18.16,     14.83,  "0.844",
+  "Nestedness", "PSA * IA",       0.81,       "< 0.01",   "FL",          91.57,     80.12,    103.02,  "< 0.001",
+  "Nestedness", "PSA * IA",       0.81,       "< 0.01",   "MM",          91.08,     79.63,    102.53,  "< 0.001",
+  "Nestedness", "PSA * IA",       0.81,       "< 0.01",   "FL * PSA",     9.03,    -14.29,     32.36,  "0.450",
+  "Nestedness", "PSA * IA",       0.81,       "< 0.01",   "MM * PSA",     5.02,    -18.30,     28.35,  "0.6747"
+) |>
+  mutate(
+    predictor = factor(
+      predictor,
+      levels = c("Intercept", "PSA", "FL", "MM", "FL * PSA", "MM * PSA")
+    )
+  )
+
+# ---- 2) Make a clean gt table (grouped by response variable) ----
+model_results |>
+  arrange(response, predictor) |>
+  gt(groupname_col = "response") |>
+  cols_label(
+    model_structure = "Model structure",
+    pseudo_r2       = "Pseudo R²",
+    model_p         = "Model p-value",
+    predictor       = "Predictor variable",
+    estimate        = "Estimate",
+    ci_lower        = "CI lower",
+    ci_upper        = "CI upper",
+    p_value         = "p-value"
+  ) |>
+  fmt_number(columns = c(pseudo_r2, estimate, ci_lower, ci_upper), decimals = 2) |>
+  cols_hide(columns = "response") |>
+  tab_spanner(
+    label = "Model summary",
+    columns = c(model_structure, pseudo_r2, model_p)
+  ) |>
+  tab_spanner(
+    label = "Coefficient table",
+    columns = c(predictor, estimate, ci_lower, ci_upper, p_value)
+  ) |>
+  tab_header(
+    title = "Model results for network structure metrics",
+    subtitle = "Interaction assembly (IA) effects and interaction with PSA"
+  ) |>
+  opt_all_caps(FALSE) |>
+  opt_table_outline() |>
+  tab_source_note(
+    source_note = "FL = Forbidden Links; MM = Morphological Matching; PSA = predictor included as main effect and in interaction with IA."
+  )
+```
+:::
+
+## Detailed methods and additional results for the case study
+### Data collection
+
+Data describing frugivore-plant interaction networks were collected at
+three elevational bands (1000, 2000 and 3000 m a.s.l.) in montane forest
+habitats in Southern Ecuador (Quitián et al. 2018, 2019). This resulted
+in six study sites along an elevational gradient. Each study site
+included three plots, 30 meters x 100 meters in size. Seed removal
+interactions by frugivorous birds were recorded at all plant species
+bearing fleshy fruits in each plot. Sampling was conducted four times at
+each study site in 2014 and 2015, twice during the most humid months and
+twice during the least humid months. Interactions in each plot were
+observed on four consecutive days for 25 hours in total. Finally,
+observations were pooled by combining observations of all plots within
+each study site. The total observation effort for each study site was
+300 hours.
+
+Plants were identified to species or morphospecies level and birds were
+identified to species level. In each plot, each fruiting plant was
+observed for a similar amount of time. An interaction was recorded when
+a bird individual consumed at least one fruit of the plant species. The
+number of visits between bird and plant species was recorded to build a
+quantitative network.Data for key functional traits were collected for
+both plants and frugivores. For plants, fruit length, fruit width, fruit
+mass and plant height were measured for individuals sampled from the
+study plots. For birds, bill length, bill width, body mass and hand-wing
+index were measured for museum specimens. These matching traits
+correspond between the trophic levels in terms of size, morphology,
+energy provisioning and requirements, and foraging behavior. For more
+details on data collection, see Quitián et al. (2018, 2019).
+
+### Delineation of the regional species pool
+
+To apply the null model approach to the case study data, we constructed
+a process-based regional species pool to sample plant and frugivore
+species from the pool to the local null communities (Figure S1). First,
+species pool delineation should be specific to a particular community
+(Lessard et al. 2012). Second, it should consider both the probability
+of species’ dispersal from the regional pool into the local community as
+well as the probability of species successful establishment, which is
+contingent on the species’ ability to tolerate environmental conditions
+following colonization. Ideally, data describing the geographic
+distribution, traits, and interactions of all resource and consumer
+species in a study region would ideally be employed to construct the
+most realistic species pools (Lessard et al. 2012, 2016), but we often
+lack the data needed to attain such complexity of species pools. As
+such, it's often needed to make our best approximation using data
+available at the moment of analysis. To characterize the environmental
+variation we used slope and elevation data derived from a digital
+elevation model (SRTM shuttle; Farr et al. 2007) and the WorldClim
+database (version 1; Hijmans et al. 2005) to obtain mean annual
+temperature and mean annual precipitation for each study site.
+
+In our probabilistic species pool, we defined site-specific sampling
+probabilities as a function of geographical and environmental distances.
+We used geographical distances as proxies for the dispersal
+probabilities of species among sites. We computed geographical distances
+as least-cost path (LCP) distances penalized by layers of variables
+describing the topography of the terrain (slope), elevation, mean annual
+temperature (MAT), and mean annual precipitation (MAP). As proxies for
+the probabilities of successful establishment of species in a given
+site, we usedEuclidean distances in multivariate environmental space. We
+constructed this multivariate environmental space with and computed
+Euclidean distances between sites in the plane formed by the first two
+axes of a Principal Components Analysis (PCA) that synthesized the main
+gradients from slope, elevation, MAT, MAP. Finally, the probability
+matrix of study sites corresponded to the product of geographical and
+environmental distance matrices such that both matrices were assigned
+equal weights (0.5). Clustering analysis of this probability matrix
+revealed the presence of two clusters with high probability of species
+exchange within sites. As such, there was a separation of species pool
+for the high elevation containing the sites at 3000 m.a.s.l. and for the
+mid-low elevation containing the sites within the range of 1000 to 2000
+m.a.s.l.
+
+![**Figure S3. A process-based procedure to delineate probabilistic
+species pools.** In panel A, we show the environmental layers used to
+build the species pool are shown as maps. Points show the geographical
+location of the study sites. In panel B, we show our computed
+probabilities of dispersal and establishment. Dispersal probabilities
+are calculated as the inverse of the least-cost path distances between
+sites, penalized by the environmental variables. Establishment
+probabilities are the inverse of the Euclidean distances in multivariate
+environmental spaceobtained with PCA, representing the similarity of
+environmental niches among sites. In panel C, These dispersal and
+establishment probabilities among sites are combined together to form
+our probabilistic species pool. A matrix for the probabilistic selection
+of species when sampling from the regional pool to create local null
+communities.](images/clipboard-4233056281.png){width="500"}
+
+### Applying the null model approach to the observational data
+
+We scaled the multidimensional variance of traits between plant and frugivore trophic levels with an RLQ analysis in a metanetwork consisting of all species and interactions observed across all local networks (Dehling et al. 2014; Dray et al. 2014; Albrecht et al. 2018). Broadly speaking, the RLQ analysis is an ordination method that can be used to quantify the multivariate links between two matrices, $R$ and $Q$, via a third matrix $L$ (Dolédec et al. 1996). We combined the RLQ ordination with a fourth-corner analysis, which integrates a permutation approach designed to test whether the associations between matrices $R$ and $Q$ via $L$ are statistically different from a given null model (Dray et al. 2014). In our case, we adopted a combination of the RLQ and fourth-corner analyses to test for functional relationships between the multidimensional trait spaces of plants and frugivores in the mutualistic networks. More specifically, the RLQ analysis builds on the simultaneous ordination of three tables: a table $R$ ($m \times p$) describing $p$ traits for $m$ plant species, a table $Q$ ($n \times a$) describing $a$ traits for $n$ frugivore species, and a third table $L$ ($m \times n$) containing qualitative or quantitative information about the occurrence or frequency of pairwise interactions between the $m$ plant and $n$ frugivore species. We then applied the fourth-corner permutation test (model $6$ with $9{,}999$ permutations; ter Braak et al. 2012) to evaluate the statistical significance of the associations between plant and frugivore trait spaces. For further details, see Albrecht et al. (2018).
+
+
+We tested for associations between plant and frugivore trait spaces at
+the regional level, where a significant association implies the presence
+of a trait-based interaction assembly process (Dehling et al. 2014, Dray
+et al. 2014, Albrecht et al. 2018). We used the scores of each plant and
+frugivore species along the first axis of this trait space as a
+one-dimensional summary of their trait space (Figure S2; Figure 4 in the
+main text). Note that due to data limitations, we used this
+one-dimensional summary of the trait space both as response and matching
+trait in the following steps.To detect the presence of environmental
+filtering in the plant and frugivore communities within each local
+network, we compared standard deviations of the RLQ trait values of the
+local communities to a distribution of standard deviations from 1000
+null communities. To produce these null communities, we iteratively
+sampled one random species from the regional pool until the null
+community had the same species richness as the respective observed
+community using a probability-weighted resampling (see Lessard et al.
+2012; Figure S1).
+
+![**Figure S4. Trait matching in a plant-frugivore regional meta-web
+aggregated from local networks sampled across an elevational gradient in
+the Ecuadorian Andes.** Panel a) illustrates the multivariate RLQ shared
+trait space between frugivores and plants. Colored vectors in the
+two-dimensional trait space represent the scaled covariate coefficients
+of plant (blue) and frugivore (red) traits along the first two synthetic
+RLQ axes. Similar direction andmagnitude between vectors of distinct
+colors indicate the presence of trait-matching between trophic levels.
+Different types of traits relevant for interactions, energy provisioning
+for plants and requirements of frugivores, and stratum in plants and
+mobility in frugivores are illustrated with solid and dashed lines. The
+histogram of RLQ eigenvalues shows the percentage from total
+cross-covariance between plant and frugivore multidimensional trait
+spaces is explained by each of the RLQ axes. Panel B shows the
+aggregated plant-frugivore metaweb embedded in the multivariate trait
+space. Point coordinates in trait-space are in function of the plants
+(blue) and frugivores (red) scores in the 2 first RLQ axes, whereas grey
+lines between points denote pairwise interactions. Points area is a
+function of the relative number of interactions of individual species
+(i.e.,
+generalist-specialist).](images/clipboard-1773732375.png){width="500"}
+
+We quantified standardized effect sizes of plant and frugivore
+communities on the standard deviation of the respective trait
+distribution. We considered a smaller standard deviation than the null
+expectation to imply environmental filtering, whereas larger standard
+deviation from the null expectation signaled overdispersion. We then
+used the trophic level-specific effect sizes of community assembly
+processes to calculate process strength asymmetry as the log-ratio of
+community assembly process strengths between plant and frugivore trophic
+levels (Appendix S1, Equation S2).
+
+Second, we inferred the effect of trait-based assembly processes on network structure. For each observed network, we generated four sets of null networks, each set with $100$ replicates: $R_{\mathrm{Obs}},C_{\mathrm{Obs}},I_{\mathrm{Null}}$, $R_{\mathrm{Null}},C_{\mathrm{Obs}},I_{\mathrm{Null}}$, $R_{\mathrm{Obs}},C_{\mathrm{Null}},I_{\mathrm{Null}}$, and $R_{\mathrm{Null}},C_{\mathrm{Null}},I_{\mathrm{Null}}$. To produce these null networks, we simulated plant and frugivore communities with the same species and interaction richness as in the observed communities. For communities with simulated stochastic community assembly processes, we randomly sampled species by sampling individuals from the same cumulative distribution of the $1{,}000$ plant or frugivore null communities that were used to test for environmental filtering. In other words, we simulated relative abundances based on immigration probabilities, such that species that are more likely to immigrate are also more abundant. For communities with simulated trait-based processes, we maintained the same observed plant or frugivore species composition with uniform relative abundances of species. In all four sets of null networks, we simulated stochastic interaction assembly processes; that is, we set the interaction probabilities as functions of local species’ abundances. We transformed our probabilistic networks into binary ones by sampling interactions based on the calculated pairwise interaction probabilities, such that each null network had the same total pairwise interaction richness as the respective observed network.
+
+
+After assembling the required null networks, we quantified the network
+structure of each observed and null network as modularity (Q Z-scores)
+and nestedness (NODF Z-scores) using the ‘bipartite’ package in R
+(Dormann et al. 2009). We compared modularity and nestedness values
+between observed and null networks and estimated the standardized effect
+sizes (SESNET) of the pairwise differences in network metrics.
+
+By comparing the SESNET derived from each set of null networks, we inferred the relative effects of trait-based resource, consumer, and interaction assembly (Table 1b in the main text). The $R_{Obs},C_{Obs},I_{Null}$ null network simulates only interaction assembly as a stochastic process; therefore, the SESNET of $R_{Obs},C_{\mathrm{Obs}},I_{\mathrm{Null}}$ represents the effect of trait-based interaction assembly on network structure. The SESNET of $R_{\mathrm{Obs}},C_{\mathrm{Null}},I_{\mathrm{Null}}$ includes both the interaction assembly effect and the effect of consumer trait-based assembly. Consequently, $\mathrm{SESNET}_{R_{\mathrm{Obs}},C_{\mathrm{Null}},I_{\mathrm{Null}}} - \mathrm{SESNET}_{R_{\mathrm{Obs}},C_{\mathrm{Obs}},I_{\mathrm{Null}}}$ constitutes the effect of trait-based consumer assembly on network structure. Similarly, $\mathrm{SESNET}_{R_{\mathrm{Null}},C_{\mathrm{Obs}},I_{\mathrm{Null}}} - \mathrm{SESNET}_{R_{\mathrm{Obs}},C_{\mathrm{Obs}},I_{\mathrm{Null}}}$ constitutes the effect of trait-based resource assembly on network structure.
+
+
+
+
+constitutes the effect of trait-based resource assembly on network structure.
+ constitutes the effect of trait-based resource assembly on network structure. The SESNET of $R_{\mathrm{Null}},C_{\mathrm{Null}},I_{\mathrm{Null}}$ represents the total effect of all trait-based assembly processes on network structure, including their non-additive effects due to interactions among processes. The difference between this total effect and the sum of the interaction, consumer, and resource effects indicates the magnitude and direction of the non-additive effect.
+
+
+We computed the network assembly mode for each of the networks sampled
+as the log-ratio of the SESNET of consumers (frugivores) and the SESNET
+of resources (plants). Similar to our simulation results. Positive
+values indicate predominant effects in network structure of the
+deterministic assembly of consumer communities whereas negative values
+indicate predominant effects in network structure of the deterministic
+assembly of resource communities.
+
+### Sensitivity analyses
+
+Firstly, to account for the potential effects of particular species pool
+delineation when applying our null network model approach, we conducted
+a sensitivity analysis with distinct definitions of sampling
+probabilities of species from the regional pool to the local networks
+(Lessard et al. 2012). In addition to the process-based delineation
+described above, we simulated local communities by iteratively sampling
+one random species from any given site until the null community had the
+same species richness as the respective observed community.
+
+Secondly, we accounted for the potential effects of choosing particular
+metrics of trait distributions to calculate standardized effect sizes to
+test for environmental filtering. In addition to using standard
+deviation as a metric of trait distribution within plant and frugivore
+communities, we used trait range.
+
+As a result, we applied the null model approach to two different species
+pool delineations and two different trait distribution metrics. In
+total, we generated four distinct scenarios to be compared: 1)
+process-based regional pool + standard deviations of trait distributions
+(results reported in the main text); 2) process-based regional pool +
+ranges of trait distributions; 3) randomized regional pool + standard
+deviations of trait distributions; 4) randomized regional pool + ranges
+of trait distributions.
+
+We found that the delineation method of the species pool did not
+strongly affect the estimated community assembly process of either
+plants or frugivores along the elevational gradient. However, using
+trait range as a trait distribution metric resulted in community
+assembly processes that can be interpreted as stochastic community
+assembly at both trophic levels, whereas using standard deviation of the
+trait distribution as a trait distribution metric resulted in a tendency
+towards environmental filtering as the community assembly process for
+both trophic levels.
+
+We found that the delineation method of the species pool caused
+variation in the process strength asymmetry direction and magnitude
+along the elevational gradient (Figure S3). However, independent of the
+regional pool delineation, the process strength asymmetry was
+consistentlypredominated by the plant community assembly process
+strength (Figure S3). The choice of trait distribution metric also
+caused variation in the process strength asymmetry direction and
+magnitude (Figure S3). In addition, the choice of trait distribution
+metric influenced the overall pattern of process strength asymmetry
+direction, indicating a more frugivore-inclined asymmetry (Figure S3).
+We conclude that the choice of methodology in defining the regional
+species pool and the trait distribution metric should be considered
+carefully to correspond to the ecological question and the focal study
+system.
+
+![**Figure S5. Process strength asymmetry variation along the elevational gradient.** Plots illustrate three different process strength asymmetry
+distribution scenarios based on the regional pool delineations and trait
+distribution metrics. Panel A illustrates process-based regional pool +
+ranges of trait distributions (Proc + range). Panel B illustrates
+randomized regional pool + ranges of trait distributions (Random +
+range). Panel C illustrates randomized regional pool + standard
+deviations of trait distributions (Random + sd). Red symbols denote
+frugivores and blue symbols denote plants.](images/clipboard-1127940194.png){width="800"}
+
+
+
+To test the robustness of the results with weighted network metrics and
+to illustrate the use of quantitative networks with our framework, we
+repeated the case study calculations using weighted interaction data
+(based on interaction frequencies) and weighted modularity as a metric
+of network structure (weighted Q; Beckett 2016). We calculated the
+weighted version of modularity Q relative to the ‘quasi_swap’ null
+rewire model (‘vegan’ package; Oksanen et al.2013). We did not find
+qualitative differences in the network assembly results between the
+analyses using binary and weighted versions of modularity (Table S1,
+Figure S4).
+
+::: callout
+#### Table S3. Standardized effect size ($SES_{NET}$) summaries for each trait-based effect
+
+The network structure is
+quantified as weighted modularity (Q). The variables correspond to the
+traitbased effects described and interpreted in Table 1 in the main
+text.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+
+
+# ---- 1) Tidy data frame ----
+site_effects <- tribble(
+  ~site,        ~elevation_m, ~plant_assembly, ~frugivore_assembly, ~interaction_assembly, ~interaction_among_effects,
+  "Bellavista",      3000,          7.46,              1.64,               7.73,                 -4.88,
+  "Bombuscaro",      1000,          0.05,              0.02,               2.07,                 -0.03,
+  "Cajanuma",        3000,          0.92,              0.63,               5.50,                  0.47,
+  "Copalinga",       1000,         -0.65,             -0.95,               9.22,                  7.58,
+  "ECSF",            2000,         -1.47,              1.81,              11.28,                  6.92,
+  "Finca",           2000,          7.60,              5.79,              11.11,                 10.75
+)
+
+# ---- 2) gt table ----
+site_effects |>
+  arrange(elevation_m, site) |>
+  gt() |>
+  cols_label(
+    site                     = "Site",
+    elevation_m              = "Elevation (m)",
+    plant_assembly           = "Plant assembly",
+    frugivore_assembly       = "Frugivore assembly",
+    interaction_assembly     = "Interaction assembly",
+    interaction_among_effects= "Interaction among effects"
+  ) |>
+  fmt_number(
+    columns = c(plant_assembly, frugivore_assembly, interaction_assembly, interaction_among_effects),
+    decimals = 2
+  ) |>
+  tab_spanner(
+    label = "Assembly contributions",
+    columns = c(plant_assembly, frugivore_assembly, interaction_assembly, interaction_among_effects)
+  ) |>
+  tab_header(
+    title = "Site-level effects by assembly component",
+    subtitle = "Decomposed contributions across plant, frugivore, and interaction processes"
+  ) |>
+  opt_all_caps(FALSE) |>
+  opt_table_outline()
+```
+:::
+
+
+![**Figure S6. Network assembly along an elevational gradient.** The
+figure shows the variation in network assembly mode (x-axis) along the
+elevational gradient (y-axis) when network structureis measured as
+weighted modularity (Q). Network assembly mode is quantified as the
+log-ratio between the absolute effect magnitudes of deterministic plant
+and frugivore assembly processes on network structure, quantified as
+modularity and nestedness. In bottom-up and top-down assembly modes,
+plant and frugivore community assembly effects are predominant,
+respectively. If the relative magnitudes of bottom-up and top-down
+assembly modes are equivalent, the network assembly mode =
+0.](images/clipboard-4244714630.png){width="500"}
+
+### Applying the null model approach to observational data: stepwise results
+
+In step 1 of the null model approach, we quantified the type and
+strength of community and interaction assembly processes. Regarding
+community assembly, we found that plant and frugivore communities were
+functionally less dispersed than random expectations in one study site
+at lowest elevation, suggestive of environmental filtering (Figure 5 in
+the main text). At higher elevations, both plant and frugivore
+communities were more stochastically assembled, but the tendency was
+towards environmental filtering rather than limiting similarity.
+Regarding interaction assembly, we found signals of trait-based
+interaction assembly in the form of functional trait matching (Figure
+S2, Figure 4B in the main text).
+
+In step 2 of the null model approach, we inferred the trait-based
+effects of community and interaction assembly on network structure. We
+did this by calculating the SESNET for each observed network against all
+four null networks in terms of modularity and nestedness (Table S2).
+Table S2. Standardized effect size (SESNET) summaries for each
+trait-based effect on the six plant-frugivore network structure along
+elevational gradient. The variables correspond to the null networks and
+the trait-based effects described and interpreted in Table 1 in the main
+text.
+
+
+::: callout
+#### Table S4. Standardized effect sizes (SESNET) of assembly processes on network modularity and nestedness.
+
+The table reports mean standardized effect sizes (SESNET) and 95% confidence intervals for modularity and nestedness under different null-model configurations and derived assembly components. Rows labeled *R Obs/C Obs/I Null*, *R Null/C Obs/I Null*, and *R Obs/C Null/I Null* correspond to null networks isolating interaction, consumer, and resource trait assembly effects, respectively, whereas *R Null/C Null/I Null* represents a fully randomized baseline. Derived rows summarize total trait effects, interaction assembly, plant assembly, frugivore assembly, and interaction among effects, calculated from contrasts among null models. Positive SESNET values indicate higher-than-expected structure relative to null expectations, while negative values indicate reduced structure. Confidence intervals are shown after standardizing lower and upper bounds for consistency.
+
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+#| 
+ses_tbl <- tribble(
+  ~variable,                  ~mean_mod, ~mod_95_a, ~mod_95_b, ~mean_nest, ~nest_95_a, ~nest_95_b,
+  "R Obs  C Obs  I Null",        -2.66,    -1.22,    -4.09,       2.83,       6.27,     -0.60,
+  "R Null C Obs  I Null",        -2.79,    -1.17,    -4.40,      -0.99,       0.18,     -2.17,
+  "R Obs  C Null I Null",        -2.28,    -0.96,    -3.61,       3.66,       7.68,     -0.35,
+  "R Null C Null I Null",        -0.82,    -0.55,    -1.10,       0.66,       0.19,     -1.52,
+  "Total trait effects",         14.43,    22.30,     6.57,      15.54,      23.41,      7.68,
+  "Interaction assembly",        17.55,    25.73,     9.38,       8.69,      19.07,     -1.67,
+  "Plant assembly",              -3.71,     2.88,   -10.31,       7.89,      14.85,      0.92,
+  "Frugivore assembly",           0.79,     8.96,    -7.38,       0.05,       4.27,     -4.15,
+  "Interaction among effects",   -7.62,    -0.12,   -15.13,      14.68,      25.88,      3.48
+) |>
+  mutate(
+    mod_95_low  = pmin(mod_95_a, mod_95_b, na.rm = TRUE),
+    mod_95_high = pmax(mod_95_a, mod_95_b, na.rm = TRUE),
+    nest_95_low  = pmin(nest_95_a, nest_95_b, na.rm = TRUE),
+    nest_95_high = pmax(nest_95_a, nest_95_b, na.rm = TRUE)
+  ) |>
+  select(variable, mean_mod, mod_95_low, mod_95_high, mean_nest, nest_95_low, nest_95_high)
+
+# ---- 2) gt table ----
+ses_tbl |>
+  gt() |>
+  cols_label(
+    variable    = "Variable",
+    mean_mod    = "Mean SESNET modularity",
+    mod_95_low  = "95% CI (low)",
+    mod_95_high = "95% CI (high)",
+    mean_nest   = "Mean SESNET nestedness",
+    nest_95_low = "95% CI (low)",
+    nest_95_high= "95% CI (high)"
+  ) |>
+  fmt_number(
+    columns = c(mean_mod, mod_95_low, mod_95_high, mean_nest, nest_95_low, nest_95_high),
+    decimals = 2
+  ) |>
+  tab_spanner(
+    label = "Modularity",
+    columns = c(mean_mod, mod_95_low, mod_95_high)
+  ) |>
+  tab_spanner(
+    label = "Nestedness",
+    columns = c(mean_nest, nest_95_low, nest_95_high)
+  ) |>
+  tab_header(
+    title = "SESNET effects on modularity and nestedness",
+    subtitle = "Means with 95% confidence intervals"
+  ) |>
+  opt_all_caps(FALSE) |>
+  opt_table_outline() |>
+  tab_source_note(
+    source_note = "CI bounds were standardized so the low column is the minimum and the high column is the maximum of the two reported 95% values."
+  )
+
+```
+:::
+
+In step 3 of the null model approach, we interpreted the community and
+interaction assembly process effects on network structure by linking
+step 1 and step 2 (Figure S5). To visualize this, we scaled the additive
+partitioning to sum to 1 by normalizing the effect sizes of interaction
+assembly, consumer community assembly, and resource community assembly
+by the total deterministic effects. We recognize this spreads the
+synergistic effects among the three assembly components relative to the
+total deterministic effects. However, normalizing allows spreading the
+synergistic effects evenly for all assembly components. We interpreted
+that trait-based assembly effects increased both modularity and
+nestedness of plant-frugivore networks ('Total trait effects' in Table
+S2). Interaction assembly effects on modularity were largest in
+comparison to plant, frugivore, and non-additive assembly effects (Table
+S2). Interaction assembly effects on nestedness were also larger than
+the effects of plant and frugivore assembly, but smaller than the
+interactive effects (Table S2). Based on steps 1 and 2, we interpret
+that trait matching plays the most important role in shaping the
+frugivory network structure. There was a slight tendency toward
+environmental filtering in step 1 for both plant and frugivore trophic
+levels, indicating that environmental filtering plays a smaller, but
+somewhat significant direct role in shaping network structure. However,
+the filtering strength asymmetry had an indirect effect on the network
+structure.
+
+![**Figure S7. Ecological assembly processes shape the structure of empirical plant-frugivore networks along an elevational gradient.** Triplot illustrates the relative influences of deterministic community
+and interaction assembly processes on network structure for six
+plantfrugivore networks along an elevational gradient in Ecuador. Symbol
+coordinates in the diagram space are drawn as a function of the relative
+contributions of each assembly process as percentage contributions to
+the total effect driving changes in network structure for each of the
+networks sampled. To identify the relative magnitude of a given process
+for a given network, start from the symbol position and follow each
+colored grid line until it meets its corresponding axis color. We
+plotted separately the relative contribution of assembly effects on
+modularity and nestedness (indicated with symbol color). Elevation of
+the observed network is indicated with the shape of the
+symbol.](images/clipboard-2773727696.png){width="500"}
+
+### Future case studies
+
+The generality of the results obtained with the case study on
+plant-frugivore interactions along an elevational gradient can be tested
+using other datasets and different study systems. We list some potential
+other big questions to be explored with the framework and the analytical
+steps outlined in our work (Table S3).
+
+::: callout
+#### Table S5. Conceptual links between major questions in community ecology and a trait-based network assembly framework
+
+The table outlines broad, recurring questions in community ecology, the analytical steps required to address each question within a trait-based multitrophic network framework, and illustrative example research questions. Together, these examples demonstrate how decomposing networks into community and interaction assembly components enables comparative analyses across interaction types, environmental gradients, and temporal scales, and facilitates inference on network structure, stability, and specialization.
+
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+
+# ---- 1) Tidy data frame ----
+# Use newline-separated bullets in the "Addressing the question" column
+tab_s3 <- tribble(
+  ~general_question, ~addressing_the_question, ~example_question,
+  "How are multitrophic communities assembled?",
+  "• Determine assembly processes of each bipartite component network\n• Compare assembly of all component networks",
+  "What is the relative influence of community and interaction assembly processes on food web structure?",
+
+  "Are antagonistic and mutualistic networks assembled differently?",
+  "• Determine assembly processes for different networks\n• Compare network metrics of differently assembled networks",
+  "Which community and interaction assembly processes shape host–parasite and pollination network structure?",
+
+  "Which abiotic and biotic factors explain geographic variation in bottom-up and top-down effects?",
+  "• Evaluate strength of trait-based community assembly\n• Quantify process strength asymmetry and assembly mode\n• Relate trophic level assembly imbalance to abiotic and biotic gradients",
+  "How does the relative influence of plant and hummingbird community assembly on network structure vary along environmental gradients?",
+
+  "How does network assembly vary in time?",
+  "• Determine assembly processes for each time point\n• Compare effects of community and interaction assembly on network structure in each time point",
+  "Does the influence of community assembly on predator–prey network structure vary temporally?",
+
+  "Which combinations of assembly processes produce the most stable networks?",
+  "• Compare network metric values between differently assembled networks to find those with highest values of stability-related metric",
+  "How does the intensity of environmental filtering of animals affect the stability of seed dispersal networks?",
+
+  "How does the degree of specialization influence assembly cascades?",
+  "• Quantify network structure as degree of specialization\n• Determine assembly processes for different networks\n• Compare networks of different assembly modes and degrees of specialization",
+  "Do highly specialized host–parasite networks undergo assembly cascade?"
+)
+
+# ---- 2) gt table ----
+tab_s3 |>
+  gt() |>
+  cols_label(
+    general_question       = "General question",
+    addressing_the_question= "Addressing the question",
+    example_question       = "Example question"
+  ) |>
+  tab_header(
+    title = "Big questions in community ecology",
+    subtitle = "How to address them with a trait-based framework, with example study questions"
+  ) |>
+  cols_width(
+    general_question ~ px(260),
+    addressing_the_question ~ px(360),
+    example_question ~ px(360)
+  ) |>
+  fmt_markdown(columns = c(addressing_the_question)) |>
+  tab_options(
+    table.font.size = px(12),
+    data_row.padding = px(6)
+  ) |>
+  opt_all_caps(FALSE) |>
+  opt_table_outline() |>
+  tab_source_note(
+    source_note = "Data describing pairwise interactions, regional species pools, and response and matching traits for all species in the regional pool are required to address these questions."
+  )
+
+```
+:::
+
+

@@ -1,0 +1,1643 @@
+---
+title: "Analytical code: Distinct functional responses of consumers and their producers to climate drive mutualistic  network asymmetry"
+execute: 
+  eval: false
+---
+
+```{r}
+library(tidymodels)
+library(recipes)
+library(dplyr)
+library(workflows)
+library(recipes)
+library(parsnip)
+library(rsample)
+library(vip)
+library(ggplot2)
+library(tidyverse)
+library(sf)           # for handling spatial objects
+library(rnaturalearth)
+
+
+wd <- ("/Users/gabri/Documents/PhD/00_Chapter_palms_mammal_interactions/R-analisis/")
+
+```
+
+
+
+## Importing and pre-processing data assets 
+
+
+### Species level geographic distribution data 
+
+```{r}
+# While reading the shapefile
+# assum planar geodesics (to fix double vertices issue with range polygons)
+sf::sf_use_s2(FALSE)
+```
+
+#### Palms
+
+```{r}
+# load data directory
+palm_all_files <- list.files(paste0(wd,"00_Data/00_species_distribution/Palm-distribution-ranges/Shapefiles/"), full.names = T)
+# get  shp files
+palm_shp_files <- palm_all_files[str_detect(palm_all_files, ".shp")]
+# filter xml out
+palm_shp_files <- palm_shp_files[!str_detect(palm_shp_files, ".xml")]
+
+
+# Define a grid  for the neotropics 
+
+neotropics <- st_read(paste0(wd,'00_Data/03_Landscape/Morrone_Neotropics/Lowenberg_Neto_2014.shp'))
+
+grid <- st_make_grid(neotropics, cellsize = c(1, 1), what = "polygons", 
+                     crs = sf::st_crs(st_read(palm_shp_files[1])))
+# Convert the grid to a simple feature collection
+grid <- st_sf(grid)
+
+dim(grid)
+```
+
+```{r}
+
+# read polygons for palms 
+
+
+palm_ranges <- palm_shp_files %>% 
+  purrr::map(function(shapefile){
+    
+    st_read(shapefile)
+  })
+
+
+# define function to grid palm ranges 
+get_grid_palms <- function(shapefile, grid){
+ 
+    # Intersect the shapefile with the grid
+  result <- st_intersection(shapefile, grid)
+
+  
+  return(result)
+  
+}
+
+# get a safe version of the function 
+
+get_grid_palms_safe <- safely(get_grid_palms)
+
+# apply the function for all palm species 
+palm_grids <- palm_ranges  %>% 
+  purrr::map(function(shapefiles){
+    
+    get_grid_palms_safe(shapefiles, grid)
+    
+    
+    
+  })
+
+saveRDS(palm_grids, "00_Data/00_species_distribution/gridded_palm_data.RDS")
+
+```
+
+
+#### Mammals
+
+```{r}
+# load data directory
+all_files <- list.files("00_Data/00_species_distribution/TERRESTRIAL_MAMMALS/", full.names = T)
+# get  shp files
+shp_files <- all_files[str_detect(all_files, ".shp")]
+# filter xml out
+shp_files <- shp_files[!str_detect(shp_files, ".xml")]
+
+
+# read mammal shapes 
+mamm <- st_read(shp_files)
+
+grid <- st_make_grid(neotropics, cellsize = c(1, 1), what = "polygons", 
+                     crs = sf::st_crs(mamm))
+# Convert the grid to a simple feature collection
+grid <- st_sf(grid)
+
+
+
+# read in trait data 
+mammal_traits <- read.csv("00_Data/01_species_traits/final_mammal_trait.csv")
+
+# filter range data to those species with trait data (frugivore species)
+mamm1 <- mamm %>%
+  filter(mamm$binomial %in% mammal_traits$Scientific)
+# Crop the resulting data for the neotropics
+mamm2 <- st_crop(mamm1, grid)
+
+
+# mammal grids 
+mammal_grids <- 1:nrow(mamm2) %>% 
+  map(function(species){
+    
+    # apply function to grid mammals 
+ st_intersection(mamm2$geometry[species], grid)
+    
+  })
+
+mammal_grids <- mammal_grids %>% set_names(mamm2$binomial)
+
+saveRDS(mammal_grids, "00_Data/00_species_distribution/gridded_mammal_data.RDS")
+
+```
+
+
+### Species level trait data 
+
+```{r}
+
+## Load and subset trait data 
+
+## Palms 
+
+# Load data on palm traits 1.0 
+
+palm_trait_data <- read.csv("00_Data/01_species_traits/01_palms/PalmTraits_1.0.txt", 
+                            sep = '\t')
+head(palm_trait_data)
+# subset to interaction relevant traits 
+
+palm_trait_data <- palm_trait_data %>% 
+  select(SpecName, PalmTribe, accGenus, accSpecies, PalmTribe, Acaulescent, Erect,
+         MaxStemHeight_m, AverageFruitLength_cm) %>% 
+  filter(Acaulescent != 2) %>% 
+  mutate(across(all_of(matches(c('MaxStemHeight_m',
+                                 'AverageFruitLength_cm'))), 
+                ~log1p(.)
+  ))
+
+
+## Mammals 
+
+# Load data from Elton database 
+
+mamm_traits <- read.csv("00_Data/01_species_traits/02_mammals/Elton_Traits/Elton Traits/MamFuncDat.txt", 
+                        sep = '\t')
+names(mamm_traits)
+
+# Load data from Body size 
+
+mamma_body_mass <- read.csv("00_Data/01_species_traits/02_mammals/Mammal_BodyMass-2023/Mammal_BodyMass/MammalMassSandom2013.csv")
+
+
+mamm_traits <- mamm_traits %>% 
+  select(Scientific,MSWFamilyLatin, Diet.Inv,Diet.Vend, Diet.Vect, Diet.Vfish, 
+         Diet.Vunk, Diet.Scav, Diet.Fruit,Diet.Nect, Diet.Seed, Diet.PlantO,
+         Activity.Nocturnal,Activity.Crepuscular, Activity.Diurnal, BodyMass.Value) %>% 
+  filter(Diet.Fruit != 0, 
+         MSWFamilyLatin != 'Phyllostomidae') %>% 
+  mutate(BodyMass.Value = log1p(BodyMass.Value))
+
+# Visualize trait distribution of palms and mammals
+
+mamm_traits %>% 
+  select(!c(Scientific, MSWFamilyLatin)) %>% 
+  GGally::ggpairs(columns = c('BodyMass.Value',
+                              'Diet.Fruit'), 
+                  mapping = aes(color = factor(Activity.Diurnal)))
+
+
+
+palm_trait_data %>% 
+  select(Erect, Acaulescent, MaxStemHeight_m, AverageFruitLength_cm) %>% 
+  GGally::ggpairs(columns = c('MaxStemHeight_m',
+                              'AverageFruitLength_cm'), 
+                  mapping = aes(color = factor(Acaulescent)))
+
+
+head(mamm_traits)
+head(palm_trait_data)
+```
+
+```{r}
+## write final trait data 
+
+write.csv(mamm_traits,
+          "00_Data/01_species_traits/final_mammal_trait.csv", 
+          row.names = F)
+
+
+write.csv(palm_trait_data,
+          "00_Data/01_species_traits/final_palm_trait.csv", 
+          row.names = F)
+
+
+```
+
+
+### Pairwise interaction data 
+
+```{r}
+int_data <- read.csv(paste0(wd, "00_Data/02_species_interactions/PalmDryadRepo/Munozetal2019/PalmFrugDatasetOCT2018.csv"))
+
+# filter to include mammal species from original dataset
+
+
+int_data <- int_data %>% 
+  filter(frugClass == 'MAMMAL', 
+         biogeographicRegion == 'Neotropics')
+  
+## how many species
+dim(int_data)
+
+saveRDS(int_data, '00_Data/02_species_interactions/final_int_data.RDS')
+
+```
+
+
+### Continental level biogeographical data 
+
+```{r}
+neotropics <- st_read('00_Data/03_Landscape/Morrone_Neotropics/Lowenberg_Neto_2014.shp')
+
+grid <- st_make_grid(neotropics, cellsize = c(1, 1), what = "polygons", 
+                     crs = sf::st_crs(st_read(palm_shp_files[1])))
+# Convert the grid to a simple feature collection
+grid <- st_sf(grid)
+
+```
+
+
+```{r}
+gridExtra::grid.arrange(
+  
+neotropics %>% 
+  ggplot() + 
+  geom_sf(aes(fill = Dominions)) + 
+  theme_minimal() + 
+  ggtitle('Biogeographic dominions') + 
+  theme(legend.position="none"),
+
+neotropics %>% 
+  ggplot() + 
+  geom_sf(aes(fill = Province_1)) + 
+  theme_minimal() + 
+  theme(legend.position="none") + 
+  ggtitle('Biogeographic provinces')   , 
+ncol = 2
+)
+
+```
+### Grid cell level environmental data 
+
+
+```{r}
+
+# download climatic data
+WCLim <- raster::getData("worldclim", var="bio",res=10)
+
+# function to cut to the neotropics
+plot(neotropics)
+
+cropMask <- function(raster,prov){
+  ## crop and mask
+  r2 <- crop(raster, extent(prov))
+  r3 <- mask(r2, prov)
+  return(r3)
+}
+
+# crop data to the neotropics
+WCLim <- cropMask(WCLim, neotropics)
+
+# Separate variables of interest
+Temp <- WCLim[[1]]
+Prec <- WCLim[[12]]
+PrecSe <- WCLim[[15]]
+IsoTer<- WCLim[[3]]
+TempSeaso<- WCLim[[14]]
+
+Temp <- aggregate(Temp, 1/0.17)
+Prec <- aggregate(Prec, 1/0.17)
+PrecSe <- aggregate(PrecSe, 1/0.17)
+TempSeaso <- aggregate(TempSeaso, 1/0.17)
+```
+
+
+## Statistical analyses
+
+### Step 1b: Downscaling the continental network to grid level networks 
+
+#### Fit latent-variable models to infer the probabilistic structure of the continental metaweb
+
+```{r}
+library(ggraph)
+library(tidygraph)
+library(ggplot2)
+```
+
+```{r}
+as_tbl_graph(SBMs$SBM_ProbsMat) %>% 
+  ggraph::ggraph(layout = 'mds') +
+  geom_node_point() + 
+  geom_edge_link(aes(col  = -log(weight), alpha= -log(weight))) + 
+  scale_color_gradient(low = 'red', high = 'blue')
+```
+
+
+#### Fit multinomial logistic regression models to predict SBM groupings
+
+
+##### Mammals 
+
+```{r}
+MammNet <- MammNet %>% 
+  mutate(SBMs.SB_W = as.factor(SBMs.SB_W))
+```
+
+
+Creating model recipes and workflows 
+
+```{r}
+{
+# Split the data into training and testing sets 
+
+data_split <- initial_split(MammNet, prop = 0.80)  # 75% of the data goes to the training set
+
+# Extract the training set
+data_train <- training(data_split)
+
+# Extract the testing set
+data_test <- testing(data_split)
+
+## Define  a list of recipes 
+
+rec_list <- list(
+  "recipe1" = recipe(SBMs.SB_W ~ MSWFamilyLatin + BodyMass.Value + Diet.Fruit, data = MammNet) %>%
+    step_log(BodyMass.Value, base = 10),
+  "recipe2" = recipe(SBMs.SB_W ~ MSWFamilyLatin + BodyMass.Value + Diet.Fruit, data = MammNet),
+  "recipe3" = recipe(SBMs.SB_W ~ BodyMass.Value + Diet.Fruit, data = MammNet) %>%
+    step_log(BodyMass.Value, base = 10),
+  "recipe4" = recipe(SBMs.SB_W ~ BodyMass.Value + Diet.Fruit, data = MammNet)
+)
+
+
+# Specify model using parsnip
+model_spec <- multinom_reg() %>%
+  set_engine("nnet") %>%
+  set_mode("classification")
+
+
+# Create a list of workflows using purrr::map
+workflows <- map(rec_list, ~workflow() %>%
+                   add_recipe(.x) %>%
+                   add_model(model_spec) %>%
+                   fit(data_train))
+  }
+```
+
+
+Evaluate models and plot roc curves 
+
+```{r}
+# Calculate the AUC for each model
+aucs_mam <-  map_df(workflows, ~.x %>%
+                      augment(data_test) %>%
+                      roc_auc(truth = SBMs.SB_W, .pred_1:.pred_7))
+
+
+
+# Augment the workflows and calculate the ROC data
+roc_data <- map(workflows, ~.x %>%
+                  augment(data_test) %>%
+                  roc_curve(truth = SBMs.SB_W, .pred_1:.pred_7))
+
+# Combine the ROC data into a single data frame
+roc_data_combined <- bind_rows(roc_data, .id = "Model")
+
+# Plot the ROC curves for all models together
+roc_mammals <- roc_data_combined %>%
+  ggplot(aes(x = 1 - specificity, 
+             y = sensitivity, color = Model)) +
+  geom_smooth(aes(fill = Model), alpha = 0.2, size = 2) + 
+  geom_abline(aes(intercept = 0, slope =1), size = 3 ) + 
+  labs(x = "1 - Specificity",
+       y = "Sensitivity", 
+       title = "ROC Curves for All Models") + 
+  theme_minimal()
+
+
+```
+
+```{r}
+barplot(aucs$.estimate)
+# Select the best model
+best_model <- workflows[[1]]
+```
+
+Re fit the best model with `nnet` 
+
+```{r}
+## refit using nnet 
+
+refit_mammal <- nnet::multinom(SBMs.SB_W ~ MSWFamilyLatin + log(BodyMass.Value) + Diet.Fruit, data = data_train)
+
+par(mar = c(3,10,2,2))
+
+var_imp_mam <- t(sort(caret::varImp(refit_mammal)))
+colnames(var_imp_mam) <- str_remove(colnames(var_imp_mam), 'MSWFamilyLatin')
+colnames(var_imp_mam) <- str_remove(colnames(var_imp_mam), '.Value')
+
+
+var_imp_plot_mam <- barplot(var_imp_mam,
+        horiz = T, 
+        las = 1)
+
+```
+
+
+##### Palms 
+
+
+```{r}
+PalmNet <- PalmNet %>% 
+  mutate(SBMs.SB_H = as.factor(SBMs.SB_H))
+```
+
+Repeat the same workflow as for mammals 
+
+```{r}
+# Split the data into training and testing sets 
+{
+data_split <- initial_split(PalmNet, prop = 0.80)  
+# 75% of the data goes to the training set
+
+# Extract the training set
+data_train <- training(data_split)
+
+# Extract the testing set
+data_test <- testing(data_split)
+
+## Define  a list of recipes 
+
+rec_list <- list(
+  "recipe1" = recipe(SBMs.SB_H ~ PalmTribe + MaxStemHeight_m + AverageFruitLength_cm,
+                     data = data_train) %>%
+    step_log(AverageFruitLength_cm, base = 10, offset = 1),
+  "recipe2" = recipe(SBMs.SB_H ~ PalmTribe + MaxStemHeight_m + AverageFruitLength_cm,
+                     data = data_train),
+  "recipe3" = recipe(SBMs.SB_H ~ PalmTribe + MaxStemHeight_m,
+                     data = data_train) %>%
+    step_log(MaxStemHeight_m, base = 10, offset = 1),
+  "recipe4" = recipe(SBMs.SB_H ~ PalmTribe + AverageFruitLength_cm, 
+                     data = data_train) %>% 
+    step_log(AverageFruitLength_cm, base = 10, offset = 1),
+  "recipe5" = recipe(SBMs.SB_H ~ PalmTribe + AverageFruitLength_cm, 
+                     data = data_train)
+)
+
+
+# Specify model using parsnip
+model_spec <- multinom_reg() %>%
+  set_engine("nnet") %>%
+  set_mode("classification")
+
+
+# Create a list of workflows using purrr::map
+workflows <- map(rec_list, ~workflow() %>%
+                   add_recipe(.x) %>%
+                   add_model(model_spec) %>%
+                   fit(data_train))
+}
+# Augment the workflows and calculate the ROC data
+roc_data <- map(workflows, ~.x %>%
+                  augment(data_test) %>%
+                  roc_curve(truth = SBMs.SB_H,.pred_1:.pred_7 ))
+
+```
+
+plot roc curves and evaluate the model
+
+```{r}
+
+# Combine the ROC data into a single data frame
+roc_data_combined <- bind_rows(roc_data, .id = "Model")
+
+# Plot the ROC curves for all models together
+roc_palm_plot <- roc_data_combined %>%
+  ggplot(aes(x = 1 - specificity, 
+             y = sensitivity, color = Model)) +
+  geom_point() +
+  geom_smooth() + 
+  geom_abline(aes(intercept = 0, slope =1 )) + 
+  labs(x = "1 - Specificity", y = "Sensitivity", title = "ROC Curves for All Models")
+
+
+
+# Calculate the AUC for each model
+aucs <-  map_df(workflows, ~.x %>%
+                  augment(data_test) %>%
+                  roc_auc(truth = SBMs.SB_H, .pred_1:.pred_7))
+
+
+```
+
+refit the best model and examine variable importances
+```{r}
+
+barplot(aucs$.estimate)
+# Select the best model
+best_model <- workflows[[1]]
+
+## refit using nnet 
+
+refit_palm <- nnet::multinom(SBMs.SB_H ~  PalmTribe + MaxStemHeight_m +
+                               AverageFruitLength_cm,
+                             data = data_train)
+
+```
+
+Plot variable importance 
+
+```{r}
+var_m <- var_imp_mam %>% t() %>% data.frame() %>%
+  rownames_to_column('id') %>% 
+  arrange((Overall)) %>% 
+  mutate(id = factor(id, levels = id)) %>% 
+  ggplot(aes(Overall, id)) + 
+  geom_col() + 
+  theme_minimal() + 
+  xlab('Importance') + 
+  ylab('Variable')
+
+
+var_p <- var_im_palm %>% t() %>% data.frame() %>%
+  rownames_to_column('id') %>% 
+  arrange((Overall)) %>% 
+  mutate(id = factor(id, levels = id)) %>% 
+  ggplot(aes(Overall, id)) + 
+  geom_col() + 
+  theme_minimal() + 
+  xlab('Importance') + 
+  ylab('Variable')
+
+
+gridExtra::grid.arrange(var_m, var_p, ncol = 2)
+```
+
+Add predicted SBM groupign data to a dataframe
+
+```{r}
+# expand 
+PalmPreds <- data.frame("spNamePalm" = palm_traits$SpecName,
+                        "group" = predict(Pmod4,
+                                          palm_traits))
+# predict mammal
+
+mammPreds <- data.frame("spNameMam" = mammal_traits$Scientific,
+                        "group" = predict(mod3,
+                                          mammal_traits))
+
+```
+
+### Reconstructing gridcell level networks 
+
+Read the gridded assemblages that were processed previously. 
+
+```{r}
+# get the assemblages 
+
+palm_grids <- readRDS("00_Data/00_species_distribution/gridded_palm_data.RDS")
+mammal_grids <- readRDS("00_Data/00_species_distribution/gridded_mammal_data.RDS")
+
+
+palm_grids <- palm_grids %>% set_names(str_replace(str_remove(basename(palm_shp_files), '.shp'),
+                                                   '_', 
+                                                   " "))
+palm_grids <- keep(palm_grids,~ !is.null(.x$result))
+
+```
+
+Compute the centroids of the ranges within gridcells 
+
+
+```{r}
+
+centroids_mammals <- mammal_grids %>% 
+  imap(~st_centroid(.x) %>% 
+         st_coordinates() %>%
+         data.frame() %>% 
+         rownames_to_column('row') %>% 
+         mutate(id = .y, 
+                iter = row, 
+                area = st_area(.x))) %>% 
+  bind_rows()
+
+centroids_palms <- palm_grids %>% imap(~st_centroid(.x$result) %>% 
+                                         st_coordinates() %>%
+                                         data.frame() %>% 
+                                         rownames_to_column('row') %>% 
+                                         mutate(id = .y,
+                                                iter = row, 
+                                                area = st_area(.x$result), 
+                                                X1 = NULL,
+                                                x2 = NULL)) %>% 
+  bind_rows() 
+```
+
+Make assemblages for all gridcells
+
+```{r}
+#make assemblages for all species 
+all_assemblages <- centroids_mammals %>% 
+  rbind(centroids_palms %>% select(!X2))
+```
+
+Add grid id to dataset
+
+```{r}
+# round to 2 decimals 
+all_assemblages <- all_assemblages %>% 
+  mutate(taxa = case_when(id %in% palm_traits$SpecName ~ 'palm', 
+                          id %in% mammal_traits$Scientific ~ 'mammals',
+                          TRUE~NA_character_), 
+         grid_id = paste0(X,'_', Y)) 
+
+head(all_assemblages)
+
+```
+
+transform centroids to spatial features and join back with dataset
+
+```{r}
+
+# transform centroids to features
+all_assemblages <- st_as_sf(all_assemblages, coords = c('X', 'Y'), crs = st_crs(grid))
+# set right crs
+all_assemblages <- st_set_crs(all_assemblages,value = st_crs(grid) )
+# intersect back with grid
+int <- st_intersects(all_assemblages$geometry, grid)
+# add grid id
+all_assemblages$grid <- unlist(int)
+
+head(all_assemblages)
+```
+
+Add all data together into a single dataframe
+
+
+```{r}
+all_preds_sbm <- rbind(PalmPreds %>% setNames(c('id', 'SBM_G')), mammPreds %>% setNames(c('id', 'SBM_G')))
+
+names(PalmPreds)
+# join trait data
+all_assemblages <- all_assemblages %>% 
+  left_join(all_preds_sbm, c('id'))
+```
+
+recover the metaweb by aggregating interactions to pairwise species level means 
+
+```{r}
+# recover metaweb 
+# count species numbers
+table_taxa_grid <- all_assemblages %>% 
+  split(.$grid) %>% 
+  imap(~{
+    (table(.$taxa)) %>% data.frame() %>% mutate(id = .y)
+  })
+
+
+table_taxa_grid <- table_taxa_grid %>%
+  bind_rows()
+
+```
+
+
+Count species richness per cell grid 
+
+```{r}
+richtab <- xtabs(Freq~id+Var1, table_taxa_grid) 
+richtab <- richtab[(richtab[,1]>5 & richtab[,2] > 5),] %>% rownames()
+
+all_assemblages_prunned <- all_assemblages %>% 
+  # filter those grids with at least 5 species
+  filter(grid %in% richtab)
+```
+
+
+save output
+```{r}
+saveRDS(all_assemblages_prunned, '00_Data/02_species_interactions/Metaweb.RDS')
+
+all_assemblages_prunned <- readRDS( '00_Data/02_species_interactions/Metaweb.RDS')
+```
+
+
+### Step 2: Quantifying Functional Trophic Asymmetry
+
+
+:::callout-note
+
+The composition of groups tells me about the traits and taxonomic characteristics 
+of each grid 
+:::
+
+we can make two matrices, one for palms and one for mammals 
+
+```{r}
+palm_sbm_mat <- all_assemblages_prunned %>% 
+  filter(taxa == 'palm')
+
+
+mammal_sbm_mat <- all_assemblages_prunned %>% 
+  filter(taxa == 'mammals')
+
+```
+
+How many species?
+
+```{r}
+palm_sbm_mat <- table(palm_sbm_mat$grid, 
+                      palm_sbm_mat$SBM_G)
+
+mammal_sbm_mat <- table(mammal_sbm_mat$grid, 
+                        mammal_sbm_mat$SBM_G)
+
+```
+
+We will compute functional trophic asymmetry as the difference of these two matrices 
+
+But first, lets rarefy metrics for an equal number of species at both trophic levels
+
+
+
+
+
+```{r}
+## threshold of 10 species 
+
+sp_thrs <- 10
+
+## create function to rarefy
+rarefy_fta <- function(sp_thrs,mammal_sbm_mat,palm_sbm_mat ){
+  ## apply exclusion criteria 
+  
+  m_mat_1 <- mammal_sbm_mat[rowSums(mammal_sbm_mat) > sp_thrs & rowSums(palm_sbm_mat) > sp_thrs,]
+  
+  p_mat_1 <- palm_sbm_mat[rowSums(mammal_sbm_mat) > sp_thrs & rowSums(palm_sbm_mat) > sp_thrs,]
+  
+  ## rarefy to same species number 
+  
+  rar_m_mat_1 <- apply(m_mat_1, 1, function(row) 
+    sample(x = 1:7, size = sp_thrs, replace = T, 
+           prob = scales::rescale(row, c(0.1,1))))
+  
+  rar_p_mat_1 <- apply(p_mat_1, 1, function(row) 
+    sample(x = 1:7, size = sp_thrs, replace = T, 
+           prob = scales::rescale(row, c(0.1,1))))
+  
+  
+  rar_m_mat_1 <- reshape2::melt(rar_m_mat_1) 
+  rar_p_mat_1 <- reshape2::melt(rar_p_mat_1) 
+  
+  rar_m_mat_1 <- table(rar_m_mat_1$Var2, 
+                       rar_m_mat_1$value)
+  
+  rar_p_mat_1 <- table(rar_p_mat_1$Var2, 
+                       rar_p_mat_1$value)
+  
+  ## compute functional trophic asymmetry as the difference between the vectors 
+  
+  fd_m <-  vegan::diversity(rar_m_mat_1, index = 'simpson') 
+  fd_p <- vegan::diversity(rar_p_mat_1, index = 'simpson') 
+  
+  
+  
+  fta <- abs(fd_m - fd_p)
+  
+  return(
+    list('fta' = fta, 
+         'fd_m' = fd_m,
+         'fd_p' = fd_p, 
+         'rar_m_mat_1' = rar_m_mat_1, 
+         'rar_p_mat_1' = rar_p_mat_1)
+  )
+  
+  
+}
+
+## create safe version of function 
+
+rarefy_fta(sp_thrs, mammal_sbm_mat, palm_sbm_mat)
+safe_rarefy_fta <- safely(rarefy_fta)
+```
+
+Run rarefactions 
+
+
+```{r}
+fta_rarefied <- replicate(100, rarefy_fta(sp_thrs, mammal_sbm_mat, palm_sbm_mat))
+
+
+fta_rarefied_melt <- 1:dim(fta_rarefied)[2] %>% imap(~{
+      fta_rarefied[,.x]['fta'] %>% data.frame() %>% rownames_to_column('grid') %>% 
+    mutate(id = .y)}) %>% 
+  bind_rows() %>% 
+  group_by(grid) %>% 
+  summarize(fta = mean(fta))
+  
+fta_rarefied_melt$f_p <- 1:dim(fta_rarefied)[2] %>% imap(~{
+  fta_rarefied[,.x]['fd_p'] %>% data.frame() %>% rownames_to_column('grid') %>% 
+    mutate(id = .y)}) %>% 
+  bind_rows() %>% 
+  group_by(grid) %>% 
+  summarize(fd_p = mean(fd_p)) %>% 
+  pull('fd_p')
+
+fta_rarefied_melt$f_m <- 1:dim(fta_rarefied)[2] %>% imap(~{
+  fta_rarefied[,.x]['fd_m'] %>% data.frame() %>% rownames_to_column('grid') %>% 
+    mutate(id = .y)}) %>% 
+  bind_rows() %>% 
+  group_by(grid) %>% 
+  summarize(fd_m = mean(fd_m)) %>% 
+  pull('fd_m')
+
+
+```
+
+
+Now it is turn to Make the null models 
+
+
+```{r}
+n_mod_m <- simulate(vegan::nullmodel((fta_rarefied[,1][['rar_m_mat_1']]), 'r2dtable'), 100)
+
+n_mod_p <- simulate(vegan::nullmodel(fta_rarefied[,1][['rar_p_mat_1']], 'r2dtable'), 100)
+```
+
+
+Computing functional trophic asymmetry for the null assemblages
+
+```{r}
+fta_null <- sapply(1:dim(n_mod_m)[3], function(x){
+  
+  fd_m <-  vegan::diversity(n_mod_m[,,x], index = 'simpson') 
+  fd_p <- vegan::diversity(n_mod_p[,,x], index = 'simpson') 
+  
+  
+  
+  abs(fd_m - fd_p)
+  
+} )
+
+```
+
+Compute z-scores 
+
+```{r}
+fta_rarefied_melt$fta_zscore <- (fta_rarefied_melt$fta - apply(fta_null, 1, mean))/apply(fta_null, 1, sd)
+
+
+```
+
+
+### Step 3: Quantifying Network Specialization 
+
+
+Calculate gridcell level network metrics 
+
+```{r}
+# A function to calculate metrics for a grid
+calc_net_metric <- function(grid_test){
+  
+  a <- grid_test %>% 
+    drop_na() %>% 
+    distinct(id, taxa, SBM_G) %>% 
+    split(.$taxa)
+  
+  n <- expand.grid(pluck(a,'mammals', 'id'), pluck(a,'palm', 'id')) 
+  
+  areas <- grid_test %>% 
+    split(.$taxa) %>% 
+    map(~{
+      .x %>% 
+        mutate(area = as.numeric(area)) %>% 
+        group_by(id) %>% 
+        summarize(area_sum = sum(area))
+      
+    }) %>% 
+    bind_rows() 
+  
+  n <- n %>% 
+    left_join(pluck(a,'mammals'), by = c('Var1' = 'id')) %>% 
+    left_join(pluck(a,'palm'), by = c('Var2' = 'id')) %>% 
+    left_join(areas, by = c('Var1' = 'id') ) %>% 
+    left_join(areas, by = c('Var2' = 'id') )
+  
+  n$intPro <- sapply(1:length(n$Var1), function(i) 
+    (SBMs$SBM1$Omega_rs[n$SBM_G.x[i], n$SBM_G.y[i]]))
+  
+  n <- n %>% 
+    mutate(int_area = ((area_sum.x ) / sum(area_sum.x,area_sum.y)) * ((area_sum.y ) / sum(area_sum.x,area_sum.y)))
+  
+  n$n_geog_dist <- st_distance(x = n$geometry.x,y = n$geometry.y) %>% 
+    diag()
+  
+  n$int_final <- scales::rescale(n$int_area,c(0,1)) * (scales::rescale(n$int_area,c(0,1)) * scales::rescale(as.numeric(n$n_geog_dist),c(0,1)))
+  
+  netT <- xtabs(int_final~Var1 + Var2, n)
+  
+  
+  netMet <- cassandRa::RarefyNetwork(netT,
+                                     abs_sample_levels = seq(100,nrow(n), 100),
+                                     metrics = c("connectance",
+                                                 "H2"),
+                                     output = "CI")
+  
+  return(netMet)
+}    
+
+cal_net_metric_safe <- safely(calc_net_metric)
+
+# # unit test 
+system.time({
+  
+  cal_net_metric_safe(all_assemblages_prunned %>% split(.$grid) %>% pluck(1))
+})
+```
+
+:::callout-note
+The code below needs to be run in parallel because it is computationally expensive
+:::
+```{r}
+library(parallel)
+```
+
+Prepare the cluster
+
+```{r}
+# Detect the number of available cores and create cluster
+cl <- parallel::makeCluster(detectCores() - 4)
+
+clusterExport(cl,varlist =  list('all_assemblages_prunned'),
+              envir=environment())
+clusterExport(cl,varlist =  list('SBMs'))
+
+
+parallel::clusterEvalQ(cl, {
+  
+  library("Matrix")
+  library(sf)           # for handling spatial objects
+  library(tidyverse)    # for data manipulation
+  library(stringr)
+  library(purrr)
+  library(dplyr)
+  library(SIBER)
+  
+  calc_net_metric <- function(grid_test){
+    
+    a <- grid_test %>% 
+      drop_na() %>% 
+      distinct(id, taxa, SBM_G) %>% 
+      split(.$taxa)
+    
+    n <- expand.grid(pluck(a,'mammals', 'id'), pluck(a,'palm', 'id')) 
+    
+    areas <- grid_test %>% 
+      split(.$taxa) %>% 
+      map(~{
+        .x %>% 
+          mutate(area = as.numeric(area)) %>% 
+          group_by(id) %>% 
+          summarize(area_sum = sum(area))
+        
+      }) %>% 
+      bind_rows() 
+    
+    n <- n %>% 
+      left_join(pluck(a,'mammals'), by = c('Var1' = 'id')) %>% 
+      left_join(pluck(a,'palm'), by = c('Var2' = 'id')) %>% 
+      left_join(areas, by = c('Var1' = 'id') ) %>% 
+      left_join(areas, by = c('Var2' = 'id') )
+    
+    n$intPro <- sapply(1:length(n$Var1), function(i) 
+      (SBMs$SBM1$Omega_rs[n$SBM_G.x[i], n$SBM_G.y[i]]))
+    
+    n <- n %>% 
+      mutate(int_area = ((area_sum.x ) / sum(area_sum.x,area_sum.y)) * ((area_sum.y ) / sum(area_sum.x,area_sum.y)))
+    
+    n$n_geog_dist <- st_distance(x = n$geometry.x,y = n$geometry.y) %>% 
+      diag()
+    
+    n$int_final <- scales::rescale(n$int_area,c(0,1)) * (scales::rescale(n$int_area,c(0,1)) * scales::rescale(as.numeric(n$n_geog_dist),c(0,1)))
+    
+    netT <- xtabs(int_final ~ Var1 + Var2, n)
+    
+    
+    
+    
+    return(netT)
+  }    
+  
+  cal_net_metric_safe <- safely(calc_net_metric)
+  
+})
+
+
+```
+
+Run the analysis in parallel 
+
+```{r}
+
+my_net__output <- parLapply(cl, all_assemblages_prunned %>% split(.$grid), 
+                            function(x) {
+                              
+                              cal_net_metric_safe(x)
+```
+
+
+Save outputs
+                              
+```{r}                           })
+saveRDS(my_net__output, '00_Data/02_species_interactions/final-networks-grid.RDS')
+```
+
+
+
+```{r}
+my_networks <- readRDS('00_Data/02_species_interactions/final-networks-grid.RDS')
+m_as_prunned <- readRDS('00_Data/02_species_interactions/Metaweb.RDS')
+
+```
+
+
+
+```{r}
+
+length(my_networks)
+
+net_stats <- 1:1074 %>% 
+  map(~{
+    pluck(my_networks[[.x]],'result') %>% 
+      bipartite::networklevel( index = 'quantitative') 
+  }) %>% 
+  bind_rows()
+
+
+net_stats$connectance %>% sd()
+```
+
+
+#### Recreate the metaweb from the grid level networks 
+
+
+```{r}
+agg_metaweb <- 1:1074 %>% 
+  map(~{
+    pluck(my_networks[[.x]],'result') %>% 
+      reshape2::melt() %>% 
+      setNames(c('Mammal', 'Palm', 'Int'))
+  }) %>% 
+  bind_rows() %>% 
+  group_by(Mammal, Palm) %>% 
+  summarise(int_avg = mean(Int, na.rm = T))
+
+
+meta_wb_samp <- agg_metaweb %>% 
+  ungroup() %>% 
+  slice_sample(prop = 0.05, weight_by =  int_avg)
+```
+
+
+Create a graph table
+
+```{r}
+meta_graph <- as_tbl_graph(meta_wb_samp, directed = F)
+
+```
+
+
+```{r}
+meta_graph <- meta_graph %>% 
+  activate(nodes) %>% 
+  mutate(sbm =
+           all_assemblages_prunned$SBM_G[
+             match(name,all_assemblages_prunned$id )], 
+         degree = degree(meta_graph))
+
+
+
+
+```
+
+
+```{r}
+meta_graph %>% 
+  ggraph(layout = "stress" , 
+         # x = bb$xy[, 1], y = bb$xy[, 2]
+         )  + 
+  geom_edge_link(aes(edge_alpha = int_avg, 
+                     edge_linewidth  = int_avg),
+                 show.legend = F,
+                 edge_colour = 'black') +
+  geom_node_point( shape = 21, 
+                   size = 3, 
+                   aes(fill = sbm, 
+                       col = sbm, 
+                       alpha = degree),
+                   show.legend = F) +
+  scale_edge_width_continuous(range = c(0.2, 1)) +
+  theme_graph() 
+
+
+
+```
+  
+
+#### Compute network specialization
+
+
+```{r}
+metrics_calculator <- function(netT, nmax){
+  netMet <- cassandRa::RarefyNetwork(netT,
+                                     abs_sample_levels = seq(100,nmax, 100),
+                                     metrics = c("connectance",
+                                                 "H2"),
+                                     output = "CI")
+  
+}
+metrics_calculator_safe <- safely(metrics_calculator)
+
+## unit test
+
+system.time({
+  
+  metrics_calculator_safe(my_net__output[[1]], 500)
+})
+
+```
+
+::: callout-note
+
+The following piece of code is computationally expensive, and thus it needs to run in parallel. 
+
+:::
+
+Setting up the server cluster
+
+```{r}
+
+parallel::stopCluster(cl)
+
+# Detect the number of available cores and create cluster
+cl <- parallel::makeCluster(detectCores() - 4)
+
+clusterExport(cl,varlist =  list('my_net__output'),
+              envir=environment())
+
+
+parallel::clusterEvalQ(cl, {
+  
+  
+  library("Matrix")
+  library(sf)           # for handling spatial objects
+  library(tidyverse)    # for data manipulation
+  library(stringr)
+  library(purrr)
+  library(dplyr)
+  library(cassandRa)
+  metrics_calculator <- function(netT, nmax){
+    
+    
+    netMet <- cassandRa::RarefyNetwork(netT,
+                                       abs_sample_levels = seq(100,nmax, 100),
+                                       metrics = c("connectance",
+                                                   "H2"),
+                                       output = "CI")
+    
+  }
+  
+  
+  metrics_calculator_safe <- safely(metrics_calculator)
+  
+  
+  
+  
+  
+})
+```
+
+
+Run the computations in parallel
+
+```{r}
+my_net_met_output <- parLapply(cl,my_net__output, function(x) {
+  
+  metrics_calculator_safe(x$result, 500)
+  
+  
+})
+
+# save outputs
+saveRDS(my_net_met_output, '00_Data/02_species_interactions/final_net_metrics.RDS')
+```
+
+
+```{r}
+my_net_met_output <- readRDS( '00_Data/02_species_interactions/final_net_metrics.RDS')
+```
+
+Clean output for errors 
+
+```{r}
+my_net_met_output <- keep(my_net_met_output,~ !is.null(.x$result))
+```
+
+Make a network metrics object
+
+```{r}
+net_metrics_data <- names(my_net_met_output) %>% imap(~{
+  pluck(my_net_met_output,.x,'result') %>% 
+    filter(SampleSize == 500) %>% 
+    mutate(id = .x)}) %>% 
+  bind_rows()
+
+head(net_metrics_data)
+```
+
+### Step 4: Assesing how climate and biogeography affect functional and network structure 
+
+Matching fossil assemblage to climatic data
+
+
+Calculate a summary table 
+
+```{r}
+fta_rarefied_melt$geometry <- all_assemblages_prunned$geometry[match((fta_rarefied_melt$grid),
+                                                                     all_assemblages_prunned$grid)]
+```
+
+add biogeographic province and dominion id 
+
+```{r}
+library(sf)
+
+pred <- st_intersects(fta_rarefied_melt$geometry,
+                      st_transform(neotropics, st_crs( fta_rarefied_melt$geometry))) 
+
+
+pred <- pred %>% c() %>% map(~{ifelse(identical(.x, integer(0)), NA, .x)}) %>% unlist()
+
+fta_rarefied_melt$dom <- neotropics$Dominions[pred]
+
+fta_rarefied_melt$prov <- neotropics$Province_1[pred]
+
+
+```
+
+make point based assemblages 
+
+```{r}
+Assemblages <- sp::SpatialPoints(coords = fta_rarefied_melt$geometry %>% st_coordinates(), 
+                                 proj4string = raster::crs(WCLim))
+
+plot(Assemblages, col  = 'red', add = T, pch = 15)
+```
+
+extract climate data at per grid
+
+```{r}
+gridTemp <- raster::extract(Temp, Assemblages)
+gridPrec <- raster::extract(Prec,Assemblages)
+gridTS <- raster::extract(TempSeaso,Assemblages)
+gridPS <- raster::extract(PrecSe,Assemblages)
+
+raster::plot(Temp)
+hist((gridTemp/10))
+```
+
+bind climatic and biological data 
+
+
+```{r}
+fta_table_z_score_final <- fta_rarefied_melt %>% bind_cols(
+  bind_cols(gridTemp,gridPrec,gridTS,gridPS) %>% 
+    set_names('Temp', 'Prec', 'TS', 'PS') %>% 
+    mutate(across(all_of(c('Temp', 'Prec', 'TS', 'PS')), as.numeric))
+) 
+
+# 
+# %>% 
+#   mutate(across(all_of(c('Temp', 'Prec', 'TS', 'PS')), scale)) %>% 
+#   set_names('Temp', 'Prec', 'TS', 'PS') 
+# 
+```
+
+generate high level summary of fta 
+
+
+```{r}
+fta_table_z_score_final %>% 
+  group_by(dom) %>% 
+  summarise(fta = mean(fta_zscore),
+            simpson_index_consumers   = mean(f_p),
+            simpson_index_producers = mean(f_m), 
+            fta_sd = sd(fta_zscore, na.rm = T)) %>% 
+  arrange(fta)
+```
+
+
+#### Fitting linear mixed effect models 
+
+##### FTA ~ Climate
+
+```{r}
+
+library(lme4)
+library(lattice)
+
+```
+
+
+
+```{r}
+## Bind all together
+
+all_data_raw_binded <- fta_table_z_score_final %>% 
+  left_join(net_metrics_data %>% 
+              mutate(id = as.character(id)) %>% 
+              filter(Metric == 'H2') %>% 
+              dplyr::select(c('Mean', 'id')),
+            by = c('grid' = 'id')) %>% 
+  left_join(net_metrics_data %>% 
+              mutate(id = as.character(id)) %>% 
+              filter(Metric == 'connectance') %>% 
+              dplyr::select(c('Mean', 'id')),
+            by = c('grid' = 'id')) %>% 
+  rename('H2' = 'Mean.x',
+         'Connectance' = 'Mean.y') 
+
+
+province_data_summary <- all_data_raw_binded %>% 
+  GGally::ggpairs(columns = c('H2', 'fta_x', 'fta_sd'),
+                  mapping = aes(alpha = 0.4, fill = 'gray'),
+                  upper = NULL,
+                  lower = list(
+                    continuous = "smooth"
+                  )) + 
+  theme_minimal()
+
+color_h2_vector <- all_data_raw_binded$H2[match(
+  neotropics %>% 
+    filter(REGION == 'Neotropical region') %>% 
+    pull(Province_1),
+  all_data_raw_binded$prov)]
+
+color_fta_vector <- all_data_raw_binded$fta_zscore[match(
+  neotropics %>% 
+    filter(REGION == 'Neotropical region') %>% 
+    pull(Province_1),
+  all_data_raw_binded$prov)]
+
+
+```
+
+
+```{r}
+neotropics %>% 
+  filter(REGION == 'Neotropical region') %>% 
+  ggplot() + 
+  geom_sf(aes(fill = color_fta_vector, col = Dominions))  + 
+  scale_fill_gradient(low = 'white', high = 'orange') + 
+  theme_minimal() +
+  guides(fill=guide_legend(title="FTA Z-score"))
+  
+
+grid_ftasd <- neotropics %>% 
+  filter(REGION == 'Neotropical region') %>% 
+  ggplot() + 
+  geom_sf(aes(fill = color_h2_vector, col = Dominions))  + 
+  scale_fill_gradient(low = 'white', high = 'orange') + 
+  theme_minimal() +
+  theme(legend.position="none") 
+
+
+gridExtra::grid.arrange(grid_fta, grid_ftasd, ncol = 2)
+
+######
+```
+
+
+Explore and tidy the data for outliers
+
+```{r}
+tidy_to_model <- all_data_raw_binded %>% 
+  drop_na
+
+tidy_to_model
+
+tidy_to_model$Temp %>% sqrt() %>% hist()
+tidy_to_model$Prec  %>% sqrt() %>% hist()
+tidy_to_model$PS  %>% sqrt() %>% hist()
+tidy_to_model$TS %>% sqrt() %>% hist()
+```
+
+
+Test model recipes 
+
+```{r}
+
+
+## a) scaled raw 
+## Fit model with net specialization 
+mod_a <- lmer(fta_zscore ~ scale(Temp) + scale(Prec) + scale(TS) + scale(PS) + (1|dom),
+             data = all_data_raw_binded %>% 
+               drop_na(dom))
+
+
+## b)  raw 
+## Fit model with net specialization 
+mod_b <- lmer(fta_zscore ~ (Temp) + (Prec) + (TS) + (PS) + (1|dom),
+             data = all_data_raw_binded %>% 
+               drop_na(dom))
+
+## c) sqrt transformed 
+## Fit model with net specialization 
+mod_c <- lmer(fta_zscore ~ sqrt(Temp) + sqrt(Prec) + sqrt(TS) + sqrt(PS) + (1|dom),
+             data = all_data_raw_binded %>% 
+               drop_na(dom))
+
+## d) sqrt transformed 
+## Fit model with net specialization 
+mod_d <- lmer(fta_zscore ~ scale(sqrt(Temp))  
+              + scale(sqrt(Prec)) + scale(sqrt(TS)) 
+              + scale(sqrt(PS)) + (1|dom),
+              data = all_data_raw_binded %>% 
+                drop_na(dom))
+
+mod_d_p <- lmer(f_p ~ scale(sqrt(Temp))  
+              + scale(sqrt(Prec)) + scale(sqrt(TS)) 
+              + scale(sqrt(PS)) + (1|dom),
+              data = all_data_raw_binded %>% 
+                drop_na(dom))
+
+mod_d_m <- lmer(f_m ~ scale(sqrt(Temp))  
+              + scale(sqrt(Prec)) + scale(sqrt(TS)) 
+              + scale(sqrt(PS)) + (1|dom),
+              data = all_data_raw_binded %>% 
+                drop_na(dom))
+
+
+sjPlot::tab_model(mod_a, mod_b, mod_c, mod_d)
+sjPlot::tab_model( mod_d_p, mod_d_m)
+
+
+sjPlot::tab_model( mod_d)
+AIC(mod_a, mod_b, mod_c, mod_d)
+sjPlot::plot_model(mod_d,type = 'est' , grid = F,
+                   axis.lim = c(-0.5,0.5))
+
+
+
+
+dotplot(ranef(mod_d))
+barplot(fixef(mod_d)[-1])
+
+dotplot(ranef(mod2))
+barplot(fixef(mod2)[-1])
+
+
+```
+
+#### H2 ~ FTA
+
+```{r}
+mod2 <- lmer(H2 ~ fta_zscore +  (1|dom), 
+             data = all_data_raw_binded  %>% 
+               drop_na)
+
+mod2_i <- lmer(H2 ~ f_p  +  f_m + (1|dom), 
+             data = all_data_raw_binded  %>% 
+               drop_na)
+```
+
+
+```{r}
+sjPlot::tab_model( mod2, mod2_i)
+AIC( mod2, mod2_i)
+
+```
+
+
+```{r}
+all_data_raw_binded %>% 
+  filter(dom == 'Mesoamerican dominion',)
+
+all_data_raw_binded$Temp %>% mean(na.rm = T)
+
+```
+
+Plot effects 
+
+
+```{r}
+plot(effects::effect('scale(sqrt(Temp))', mod_d), 
+     axes=list(y = list(lab ="FTA z-score"),
+               x = list(rotate = 90, 
+                        lab = 'Precipitation seasonality')),
+     lines = list(lty=1, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '' )
+
+
+
+plot(effects::effect('scale(sqrt(Prec))', mod_d), 
+     axes=list(y = list(lab ="FTA z-score"),
+               x = list(rotate = 90, 
+                        lab = 'Precipitation seasonality')),
+     lines = list(lty = 2, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '' )
+
+
+plot(effects::effect('scale(sqrt(PS))', mod_d), 
+     axes=list(y = list(lab ="FTA z-score"),
+               x = list(rotate = 90, 
+                        lab = 'Precipitation seasonality')),
+     lines = list(lty=1, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '' )
+
+plot(effects::effect(c('scale(sqrt(TS))'), 
+                     mod_d), 
+     axes=list(y = list(lab ="FTA z-score"),
+               x = list(rotate = 90, 
+                        lab = 'Precipitation seasonality')),
+     lines = list(lty=1, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '' )
+
+
+
+
+plot(effects::effect('fta_zscore', mod2), 
+     axes=list(y = list(lab ="Network specialization"),
+               x = list(rotate = 90, 
+                        lab = 'Precipitation seasonality')),
+     lines = list(lty=1, lwd = 3, col = 'darkblue'),
+     confint =list(col="gray", alpha=.3), main = '' )
+
+plot(effects::effect('f_m', mod2_i))
+plot(effects::effect('f_p', mod2_i), )
+
+
+```
+
+
+
+
+```{r}
+
+
+all_data_raw_binded %>% 
+  drop_na(dom) %>% 
+  filter(dom != 'Parana dominion') %>%
+  ggplot(aes((PS) %>% scale(), 
+             fta_zscore)) +
+  geom_point(aes( 
+                 size = 1,
+                 alpha = 0.01, 
+                 col = Temp)) + 
+  geom_smooth(method = 'lm', 
+              col = 'black') + 
+
+  theme_bw() + 
+  geom_abline(aes(intercept = 0.12, 
+                  slope  = )
+
+
+all_data_raw_binded %>% 
+  drop_na(dom) %>% 
+  filter(dom != 'Mesoamerican dominion') %>%
+  ggplot(aes(fta_zscore, H2)) +
+  geom_point(aes( 
+    size = 1,
+    alpha = 0.01, 
+    col = Temp)) + 
+  geom_smooth(method = 'lm', 
+              col = 'black') + 
+  
+  theme_bw() + 
+  scale_color_gradient(low = 'gray', 
+                       high =  'orange') 
+
+
+
+
+all_data_raw_binded2 <- all_data_raw_binded[is.na(all_data_raw_binded), ]
+
+
+
+all_data_raw_binded %>% 
+  drop_na(dom) %>% 
+  ggplot(aes(sqrt(Temp), fta_zscore)) + 
+  geom_point(aes(col = dom,
+                 alpha = 0.5,
+                 size = H2)) + 
+  geom_smooth(method = 'lm')
+
+```
+
+

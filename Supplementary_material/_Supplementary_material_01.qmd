@@ -1,0 +1,15 @@
+
+
+![**Spatial distribution of fossil localities across geological time periods** Each point represents a location for which the NOW database list  fossil occurrences at a given time period. We illustrate continents as a 1x1 gridcell matrix colored by continental regions for reference.](figs/02_fossil\FigureS0.png){.lightbox fig-align="center" #fig-fig_fos_S01}
+
+
+
+![**Spatial aggregation of fossil assemblages** We aggregated fossil assemblages in space by aggregating all fossil localities (points) within a 5x5 degree gridcell (red mesh). We show the aggregated distribution of fossil localities for all time periods](figs/02_fossil\FigureS1.png){.lightbox fig-align="center" #fig-fig_fos_S02}
+
+
+![**Temperature magnitude 5x5 grid cell** ](figs/02_fossil\FigureSX_magnitude.png){.lightbox fig-align="center" #fig-fig_fos_S03}
+
+![** Spatial  heterogeneity of Atmospheric temperature 5x5 grid cell**](figs/02_fossil\spatial_heterogeneity_low_res.png){.lightbox fig-align="center" #fig-fig_fos_S04}
+
+![**Temporal heterogenity 5x5 grid cell**](figs/02_fossil\temporal_fluctuation_low_res.png){.lightbox fig-align="center" #fig-fig_fos_S05}
+

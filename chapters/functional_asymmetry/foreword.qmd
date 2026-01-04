@@ -1,0 +1,11 @@
+---
+format: html
+---
+
+
+Simulations from previous chapter show that when functional trait matching is the main driver of network assembly, process strength asymmetry dictates the predominance of bottom-up or top-down effects, which is consistent with previous empirical work (Albrecht et al. 2018). In natural networks, process strength asymmetry may be the result of differences in how trophic levels respond to abiotic and biotic drivers (e.g., along climatic gradients; Van Der Plas et al. 2012). Because abiotic and biotic drivers vary spatially, the strength of bottom-up and top-down effects is likely to do so as well (Gripenberg and Roslin 2007)
+ 
+We also asked Which abiotic and biotic factors explain geographic variation in bottom-up and top-down effects?  Relate trophic level assembly imbalance to abiotic and biotic gradients
+
+Which combinations of assembly processes produce the most stable networks?
+How does the intensity of environmental filtering of animals affect the stability of seed dispersal networks?

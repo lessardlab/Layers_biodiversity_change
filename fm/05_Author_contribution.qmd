@@ -1,0 +1,20 @@
+
+# Author contribution {.unnumbered} 
+
+
+
+
+
+## Chapter 01: {.unnumbered} 
+
+
+EM, GM, ST and JPL initiated the study and conceived the conceptual and methodological
+approaches with contributions from JA and MS. EM led the writing. GM designed and wrote the
+code for all analyses, with contributions from JA, ST and EM. ST designed the null model
+approach with contributions from EM, GM and JPL. ELN and MS provided empirical network
+data. EM, GM, ST and JPL wrote early versions of the manuscript. All authors contributed
+significantly to later versions.
+
+## Chapter 02:  {.unnumbered} 
+
+## Chapter 03:  {.unnumbered} 

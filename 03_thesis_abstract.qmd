@@ -1,0 +1,13 @@
+
+# Abstract {.unnumbered}
+
+
+Biodiversity change is often described in terms of differences in species richness, composition, and turnover. Yet  a more fundamental question remains unadressed: how does ecological structure reorganize as biodiversity changes? This theses is motivated by the conviction that biodiversity cannot be understood as a static inventory of species, but as the emergent outcome of interacting processes that operate across ecological and evolutionary scales.
+
+
+At the local level, biodiversity is expressed through ecological interactions within communities. These interactions are shaped by the traits of the species involved, which determine how organisms use resources, interact with one another, and persist under given environmental conditions. However, local communities do not assemble freely. The traits present at any location are constrained by regional climates and by the evolutionary history of the species pool from which communities are drawn. Species may disappear, shift distributions, or be replaced, but information about how ecosystems function can persist in recurring structural patterns. These patterns point to underlying assembly regimes that repeatedly generate ecological structure under constraint. Biodiversity change therefore reflects a nested organization, in which local interactions, regional environmental filters, and long-term evolutionary processes are inseparably linked.
+
+
+The first chapter of this thesis sets a trait-based framework to examine the variation in the relative strength of community and interaction assembly processes, and how shifts in the balance between bottom-up and top-down assembly along environmental gradients produces variation in local network structure. The second chapter expands this framework to explore how regional mismatches between trophic levels how climate modify functional richness generate functional trophic asymmetry and influence network specialization. The final chapter examines evaluating how climate dynamics shaped the turnover and reorganization of fossil assemblages during the Neogene. Together, these chapters argue that biodiversity change is not a sequence of isolated events, but a structured process governed by constraints that operate across space and time. 
+
+

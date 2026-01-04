@@ -1,0 +1,34 @@
+---
+execute: 
+  eval: false
+---
+
+
+## Supplementary figures. 
+
+![**Gaps in species-level data on traits and interactions.** The bar plot shows the available species level data (measured as the natural logarithm of species counts) on species traits (palms and mammals) and interactions (palms and mammals). Note the wide gap between the amount of species for which we have data only on species traits versus the ones for which we have data on both traits and interactions.](figs/01_fta\FigureS1.jpg){.lightbox fig-align="center" #fig-figS1}
+
+
+![**Biogeographic regionalization of the Neotropics**, *sensu* **Morrone** *et al*., **2014**. The maps show the biogeographic regionalization patterns outlined by Morrone for the Neotropics. The highest biogeographic units are the Biogeographic dominions, and each dominion is further divided into several biogeographic provinces. Please refer to Morrone et al., 2014 for additional details on the criteria used for delineating biogeographic units.](figs/01_fta\FigureS2.jpg){.lightbox fig-align="center" #fig-figS2}
+
+
+
+![**The accuracy of distinct latent-trait model approaches illustrated by the differences in their Youden's J distribution** Youden's J indicates the best performing model recreating the probabilistic structure of a binary matrix given a dynamic threshold. Boxplots show the distribution of Youden's J metric for the distinct modelling approaches used in this study. Each Youden's J observation as the region under the curve (ROC) at a single point threshold, which we computed for an equal sequence of thresholds for all models. The highest Youden's J value illustrate the most accurate threshold and model ](figs/01_fta\FigureS3.jpg){.lightbox fig-align="center" #fig-figS3}
+
+![**Predictive accuracy of distinct latent variable models to infer the structure of binary networks**. In this study, we tested different structural network models to infer the probabilistic structure of observed binary networks. The plot below shows the ROC curves (lines), fitted for a series of model thresholds (points). The identity line 1:1 line shows the expected curve when inferences from the model are the same as a random guess. Points above the line show increased predictive ability relative to a random guess. We evaluated models at their maximum accuracy, that is at the threshold that maximizes the distance of the colored  point to the straight line. With this metric, the SBM outperforms the Matching model, Matching centrality model, and centrality model to predict interactions between palms and mammals. ](figs/01_fta\FigureS6.jpg){.lightbox fig-align="center" #fig-figS4}
+
+![**The assortment of palm and mammal species into groupings defined by the SBM model reflect variation of interaction relevant traits**. The Stochastic Block Model (SBM) resulted in a incidence matrix of species and SBM groupings, where there are distinct interaction probabilities within and between groups. Boxes represent the distribution of palm (up) and mammal (down) species along a trait axis for all groups. Horizontal bars within boxes represent the median trait value for a given group and highlight average differences in traits per group assemblage.](figs/01_fta\FigureS4.jpg){.lightbox fig-align="center" #fig-figS5}
+
+
+![**Inferred pattern of pairwise interaction probabilities for species between and within SMB groupings**. The heatmap shows the squared matrix of interaction probabilities for species pairs between and within SBM groups. Each row and column of the heatmap represents a given SBM group, the color of the heatmap cell represents the interaction probability. Relatively higher probabilities are colored in red while relatively low interaction probabilities are shown in white.](figs/01_fta\FigureS5.jpg){.lightbox fig-align="center" #fig-figS6}
+
+
+
+![**Variable importance of palm taxonomic and trait features to inform neural network models when predicting structural model parameters**.  The figure shows the distinct palm trait and taxonomic variables used to infer the drivers of SBM group assortment. For palms we used Palm Tribe, Palm stem height, and Palm fruit length as predictors. We used multinomial logistic models fitted with a neural network engine. Variable importance represents the sum of the absolute values of the model coefficients for a variable. The higher the sum, the more important is the variable in predicting the model outcome. It varies in a scale of 0-100. ](figs/01_fta\FigureS7.jpg){.lightbox fig-align="center" #fig-figS7}
+
+
+
+![**Variable importance of mammal frugivore taxonomic and trait features to inform neural network models when predicting structural model parameters**.  The figure shows the distinct palm trait and taxonomic variables used to infer the drivers of SBM group assortment.  For mammals, we used Family and mammal body mass (log). We used multinomial logistic models fitted with a neural network engine. Variable importance represents the sum of the absolute values of the model coefficients for a variable. The higher the sum, the more important is the variable in predicting the model outcome. It varies in a scale of 0-100. ](figs/01_fta\FigureS8.jpg){.lightbox fig-align="center" #fig-figS8}
+
+
+

@@ -1,0 +1,1520 @@
+---
+title: code analysis 
+--- 
+
+## Dependencies 
+
+```{r}
+#==========================
+# load libraries
+#==========================
+library(scales)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(vegan)
+library(tibble)
+library(stringr)
+#==========================
+```
+
+
+set global vars 
+
+```{r}
+# Treatment colors 
+pineCol <- c("#3778c2")
+sapCol <- c("#4bac35")
+conCol <- c("#f5b935")
+```
+
+## Soil data 
+
+
+```{r}
+
+# read in raw csv dataset
+
+C:\Users\gabri\Documents\PhD\00_Chapter_Patagoina\data
+
+
+soil <- read.csv("/Users/gabri/Documents/PhD/00_Chapter_Patagoina/DATA/SoilDATA.csv", header  = T, stringsAsFactors = F)
+
+# transform to ppm, calculate n and c totals, and ratios 
+soil <- soil %>% 
+  mutate(Pdisp =  Pdisp,
+         N.NH4 = N.NH4,
+         N.NO3 = N.NO3,
+         C = C,
+         N_tot = (N.NO3 * (14/62)) + (N.NH4 * (14/18)),
+         CN_rat = log(C/N_tot),
+         PN_rat = log(N_tot/Pdisp))
+
+```
+
+
+## Temperature data 
+
+```{r}
+
+TempSoilRaw <- read.csv("/Users/gabri/Documents/PhD/00_Chapter_Patagoina/DATA/TEMPDATAfe2019.csv", header = T)
+unique(TempSoilRaw$Treatment)
+
+
+```
+
+Summarize temperature records 
+
+```{r}
+TempSoil_fix <- TempSoilRaw %>% 
+  group_by(Tag) %>% 
+  summarise(mean_hour = mean(Hour, na.rm=T),
+            mean_temp = mean(Temperature, na.rm=T),
+            count = n(), 
+            Treatment = Treatment) %>% 
+  separate(Tag, c("Treatment", "Number", "Code")) %>% 
+  mutate(Muestra = paste0(Treatment, Number))
+
+```
+
+Check for biases with temperature records with record time 
+
+```{r}
+
+temperature_bias <- 
+ggplot(TempSoil_fix, 
+       aes(mean_hour, mean_temp, color = Treatment)) + 
+  geom_point() +
+  geom_smooth(method = "lm", fill = "grey80") + 
+  scale_color_manual(values = c(conCol,sapCol,pineCol)) + 
+  theme_minimal()+
+  ylab('Mean temperature') + 
+  xlab('Hour of day')
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/temperature_bias.png", 
+        plot = temperature_bias,    scale = 0.5)
+```
+
+Join temperature and soil chemistry data (ugly code but works )
+
+# Split tags 
+
+
+```{r}
+TempSoilRaw <- data.frame(TempSoilRaw, stringr::str_split(TempSoilRaw$Tag, "-", simplify = T))
+```
+fix mistakes 
+
+
+```{r}
+TempSoilRaw <- TempSoilRaw[order(TempSoilRaw$X2),]
+TempSoilRaw$X2 <- as.character(TempSoilRaw$X2)
+
+TempSoilRaw$X2[TempSoilRaw$X1 == "Con" & TempSoilRaw$X2 %in% c("004","006","014","030", "025")] <- c("034","036", "044", "045","040")
+TempSoilRaw$X2[TempSoilRaw$X1 == "Sap" & TempSoilRaw$X2 %in% c("031","032","033","034")] <- c("015","016","017", "018")
+TempSoilRaw$X1[TempSoilRaw$X1 == "Pine" & TempSoilRaw$X2 %in% c("017")] <- c("Sap")
+TempSoilRaw$X1[TempSoilRaw$X1 == "Pine " & TempSoilRaw$X2 %in% c("006")] <- c("Pine")
+# Remove non-wanted plots 
+TempSoilRaw$PlotNum <- as.numeric(TempSoilRaw$X2)
+TempSoilRaw <- TempSoilRaw[TempSoilRaw$PlotNum <= 45,]
+# Create ID to match 
+TempSoilRaw$Plot <- paste0(TempSoilRaw$X1, TempSoilRaw$X2)
+# aggregate by its median by plot 
+TemSoilAgg <- aggregate(TempSoilRaw$Temperature, list(TempSoilRaw$Plot), median, na.rm =T)
+# recreate official plot codes
+TemSoilAgg$Plot <- paste0(stringr::str_split(TemSoilAgg$Group.1, "0", simplify = T)[,1],
+                          rep(c("001", "002", "003","004","005", "006", "007",
+                                "008", "009","010", "011", "012", "013", "014", "015"), 3))
+TemSoilAgg$Treatment <- stringr::str_split(TemSoilAgg$Group.1, "0", simplify = T)[,1]
+
+soil$Temp <- TemSoilAgg$x[match(soil$Muestra,TemSoilAgg$Plot)]
+
+soil$Treatment <- factor(as.factor(soil$Treatment), levels = c("Control", "Sapling", "Pine"))
+
+```
+
+
+## Belowground diversity data 
+
+```{r}
+path <- "/Users/gabri/Documents/PhD/00_Chapter_Patagoina/DATA/"
+
+Plant_genetic_metadata <- read.csv(paste0(path, "by.plant.data.ARG.June.2020.csv"))
+
+```
+
+
+Load Datasets from sequencing
+
+### ITS FUNGI
+
+
+```{r}
+seqtabFun <- data.table::fread(paste0(path,"ITS.community.6.10.2021.csv")) %>% 
+  as_tibble()
+fungiTaxFun <- data.table::fread(paste0(path,"ITS.taxonomy.6.10.2021.csv")) %>% 
+  as_tibble()
+fungiKey <- data.table::fread(paste0(path,"meta_ARG_ITS_v1.csv"))%>% 
+  as_tibble()
+```
+
+rarefy matrices based on number of reads. 
+
+using 10% of the log-sum as threshold
+
+removing records with less than 10% of the 
+
+
+```{r}
+seqtabFun <- reshape2::melt(seqtabFun)
+
+seqtabFun <- seqtabFun %>% 
+  filter(value != 0)
+```
+
+keep records above the set threshold of reads
+
+```{r}
+seqtabFun <- seqtabFun[log1p(seqtabFun$value) > quantile(log1p(seqtabFun$value), 0.1),]
+
+```
+
+#### Linkage with Fun Guild assigment 
+
+
+```{r}
+# match the taxonomy to the dataset
+
+seqtabFun <- seqtabFun %>% 
+  left_join(fungiTaxFun, c("variable" = "V1"))
+
+
+# create taxo file for FunGuild 
+
+funGuild <- data.frame("ASV_ID" = seqtabFun$variable, 
+           "Taxonomy" = seqtabFun %>% 
+             dplyr::select(matches("V[2-7]")) %>%
+             apply(1, function(x) paste(x, collapse = "_"))) %>% 
+  distinct()
+
+# call api to identify trophic position 
+funGuild <- FUNGuildR::funguild_assign(funGuild)
+
+# keep those records with high confidence 
+funGuild <- funGuild %>% 
+  filter(!confidenceRanking %in% c("Possible")) %>% 
+  filter(!is.na(confidenceRanking))
+
+```
+
+```{r}
+
+seqtabFun <- seqtabFun %>% 
+  left_join(funGuild, c("variable" = "ASV_ID")) 
+
+# append metadata 
+
+seqtabFun <- seqtabFun %>% 
+  left_join(fungiKey, "V1")
+
+# append plant data and create master 
+
+fungiMaster <- seqtabFun %>%  
+  left_join(Plant_genetic_metadata %>% 
+              dplyr::select(Plant, Morphospecies, 
+                            PlantSpecies, MYC, 
+                            PlantFUNCT.group), 
+            c("Plant")) 
+
+
+## keep master only with relevant data
+ 
+fungiMaster <- fungiMaster %>% 
+  filter(Plot_Number %in% c(1:15) &
+           Treatment %in% c("Pine", "Control", "Sapling")) %>% 
+  distinct()
+
+```
+
+
+```{r}
+# filter data from soil and pine roots
+fungiMaster_soil_root <- fungiMaster %>%
+  filter(Plant %in% c("Soil", "Root"))
+
+# filter data from plants
+fungiMaster_plants <- fungiMaster %>%
+  filter(!Plant %in% c("Soil", "Root"))
+```
+
+
+```{r}
+# erase negative wells
+fungiMaster_plants <- fungiMaster_plants %>% 
+  filter(!str_detect(V1,"neg")) %>%
+  filter(Treatment != "" & Plant != "") %>%
+  droplevels()
+
+# remove trailing white space
+fungiMaster_plants$PlantFUNCT.group <- stringr::str_trim(fungiMaster_plants$PlantFUNCT.group, "both")
+```
+
+
+## AMF FUNGI 
+
+
+```{r}
+seqtabAMF <- data.table::fread(paste0(path,"Data_revised_23/comm_ARG_AMF_v1.csv"),header = T) %>% tibble()
+AMFTax <- data.table::fread(paste0(path,"Data_revised_23/EDIT_amf_tax.ARG.csv"),header = T) %>% tibble()
+AMFKey <-data.table::fread(paste0(path,"Data_revised_23/meta_ARG_AMF_v1.csv"),header = T)%>% tibble()
+```
+
+ using 10% of the log-sum as threshold
+
+
+```{r}
+seqtabAMF <- reshape2::melt(seqtabAMF)
+# remove 0 observations
+seqtabAMF <- seqtabAMF[log1p(seqtabAMF$value) >0,]
+
+# filter out those below the 10% of reads 
+seqtabAMF <- seqtabAMF[log1p(seqtabAMF$value) > quantile(log1p(seqtabAMF$value), 0.1),]
+
+# Linkage with F
+
+## remove all samples less than 250 before rarifying
+# 
+# row_threshold <- seqtabAMF %>% 
+#   group_by(variable) %>% 
+#   summarize("row_sum" = sum(value)) %>%
+#   filter(row_sum < 250) %>% 
+#   select(variable) %>% 
+#   droplevels() %>%
+#   unlist() %>%
+#   as.character()
+
+
+
+dim(seqtabAMF)
+head(seqtabAMF)
+# append metadata 
+
+seqtabAMF <- seqtabAMF %>% 
+  left_join(AMFKey, "V1")
+
+# append plant data and create master 
+
+
+AMFMaster <- seqtabAMF %>%  
+  left_join(Plant_genetic_metadata %>% 
+              dplyr::select(Plant, Morphospecies, PlantSpecies, MYC, PlantFUNCT.group), 
+            c("Plant")) 
+
+
+## keep master only with relevant data
+
+AMFMaster <- AMFMaster %>% 
+  filter(Plot_Number %in% c(1:15) & Treatment %in% c("Pine", "Control", "Sapling"))
+
+
+
+
+# filter data from soil and pine roots
+AMFMaster_soil_root <- AMFMaster %>%
+  filter(Plant %in% c("Soil", "Root"))
+
+# filter data from plants
+AMFMaster_plants <- AMFMaster %>%
+  filter(!Plant %in% c("Soil", "Root"))
+
+
+
+
+# erase negative wells
+AMFMaster_plants <- AMFMaster_plants %>% 
+  filter(!str_detect("V1","neg")) %>%
+  filter(Treatment != "" & Plant != "") %>%
+  droplevels()
+
+# compute summary statistics at the treatment level 
+names(AMFMaster_plants)
+unique(AMFMaster_plants$Phylum)
+
+# remove trailing white space
+AMFMaster_plants$PlantFUNCT.group <- stringr::str_trim(AMFMaster_plants$PlantFUNCT.group, "both")
+```
+ 
+
+
+## Bacteria 
+
+
+```{r}
+seqtabBAC <- data.table::fread(paste0(path,"Data_revised_23/comm_ARG_BACT_v2.csv"), header = T) %>% as_tibble()
+BACTax <- data.table::fread(paste0(path,"Data_revised_23/taxo_ARG_BACT_v2.csv"), header = T)%>% as_tibble()
+BACKey <- data.table::fread(paste0(path,"Data_revised_23/meta_ARG_BACT_v2.csv"), header = T)%>% as_tibble()
+
+```
+
+
+using 10% of the log-sum as threshold
+
+```{r}
+
+# removing records with less than 10% of the 
+
+seqtabBAC <- reshape2::melt(seqtabBAC)
+head(seqtabBAC)
+# keep only those non zero recods
+seqtabBAC <- seqtabBAC[log1p(seqtabBAC$value) >0,]
+
+#filter out those below the 10% of reads 
+seqtabBAC <- seqtabBAC[log1p(seqtabBAC$value) > quantile(log1p(seqtabBAC$value), 0.1),]
+
+
+# ## remove all samples less than 9500 
+# 
+# row_threshold <- seqtabBAC %>% 
+#   group_by(variable) %>% 
+#   summarize("row_sum" = sum(value)) %>%
+#   filter(row_sum < quantile(row_sum, 0.1)) %>% 
+#   select(variable) %>% 
+#   droplevels() %>%
+#   unlist() %>%
+#   as.character()
+
+# append metadata 
+
+seqtabBAC <- seqtabBAC %>% 
+  left_join(BACKey, "V1") %>%
+  left_join(BACTax, 'V1')
+
+# append plant data and create master 
+BACMaster <- seqtabBAC %>%  
+  left_join(Plant_genetic_metadata %>% 
+              dplyr::select(Plant, Morphospecies, PlantSpecies, MYC, PlantFUNCT.group), 
+            c("Plant")) 
+
+## keep master only with relevant data
+
+BACMaster <- BACMaster %>% 
+  filter(Plot_Number %in% c(1:15) & 
+           Treatment %in% c("Pine", "Control", "Sapling"))
+
+# filter data from soil and pine roots
+BACMaster_soil_root <- BACMaster %>%
+  filter(Plant %in% c("Soil", "Root")) %>% 
+  distinct()
+
+# filter data from plants
+BACMaster_plants <- BACMaster %>%
+  filter(!Plant %in% c("Soil", "Root")) %>% 
+  distinct()
+
+# erase negative wells
+BACMaster_plants <- BACMaster_plants %>% 
+  filter(!str_detect("V1","neg")) %>%
+  filter(Treatment != "" & Plant != "") %>%
+  droplevels()
+
+# compute summary statistics at the treatment level 
+names(BACMaster_plants)
+
+
+# remove trailing white space
+BACMaster_plants$PlantFUNCT.group <- stringr::str_trim(BACMaster_plants$PlantFUNCT.group, "both")
+
+```
+
+## Coalesce all microbiome data into a single object
+
+
+```{r}
+
+microbial_diversity <- list(
+    'fungi' = fungiMaster_plants,
+    'amf' = AMFMaster_plants,
+    'bacteria' = BACMaster_plants
+)
+names(fungiMaster_plants)
+```
+
+
+## Aboveground data 
+
+### Data on leaf_traits  
+
+
+```{r}
+# Upload clean dataset 
+LeafTraitData <- read.csv(paste0(path,"DATA2CLean/leafTraits_clean_mar2020.csv"), stringsAsFactors = F, header = T)
+# Order levels so it makes sense
+LeafTraitData$Treatment <- factor(LeafTraitData$Treatment, levels  = c("Control", "Sapling", "Pine"))
+# Calculate trait index's
+LeafTraitData$LWC <- LeafTraitData$H2O_weight / LeafTraitData$LeafNumber
+LeafTraitData$LDMC <- LeafTraitData$leaveDryMass / LeafTraitData$LeafNumber
+LeafTraitData$MLA <- ((LeafTraitData$RawTotalLeafArea/LeafTraitData$pixelDens^2)*100)/ LeafTraitData$LeafNumber
+LeafTraitData$SLA <- LeafTraitData$MLA / (LeafTraitData$leaveDryMass*1000)
+## get rid of lower areas for now 
+LeafTraitData <- LeafTraitData[!LeafTraitData$Area == "Lower",]
+
+```
+
+
+### Data on plant_composition 
+
+```{r}
+plant <- read.csv(paste0(path,"PlantDATAMar2019.csv"), header = T)
+plant <- plant[plant$Zone== "Plateau",]
+plant <- plant[plant$Number<16,]
+plant<- droplevels(plant)
+
+
+p2 <- read.csv(paste0(path,"DATA2CLean/plant_clean_mar2020.csv"))
+p2 <-p2[p2$Sample != "ConXX",]
+
+head(p2)
+```
+
+### Pine measurements  
+
+```{r}
+PineDat <- read.csv(paste0(path,"PineMeasuresFeb2019.csv"))
+head(PineDat)
+
+soil <- data.frame(soil,PineDat[c("Lat", "Lon")][match(soil$Muestra, PineDat$Code),])
+head(soil)
+```
+
+
+# Network turnover
+
+
+## The importance of interaction rewiring in network dissimilarity among plots 
+
+ a function that computes rewiring and changes in specialization among networks between treatments 
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(ggplot2)
+```
+
+```{r}
+#===============================================================================
+# Define custom function to compute network metrics
+#===============================================================================
+
+#'@title compute_rewiring_structure
+#'@param MetaNetwork a long format dataframe representing a network or aggregated metanetwork of bipartite bivariate or weighted interactions 
+#'@returns a list of total dissimilarity, parwise dissimilarity, and network metrics 
+
+#===============================================================================
+
+compute_rewiring_structure <- function(MetaNetwork){
+  
+  # ungroup groups if need
+  MetaNetwork <- MetaNetwork %>% 
+    ungroup()
+  
+  # summarize, scale, and split data by treatment. 
+  
+  
+  fun_MetaNetwork_treat <- MetaNetwork %>%
+    # group by identifiers
+    group_by(Plot,PlantFUNCT.group, Treatment, PlantSpecies, variable) %>% 
+    # count the sum of reads per interaction
+    summarize("total_reads" = sum(value))%>% 
+    group_by(Plot, PlantFUNCT.group,Treatment, PlantSpecies) %>% 
+    mutate(total_reads = total_reads/sum(total_reads)) %>% 
+    # standardize reads as interaction weights
+    mutate(total_reads =  (total_reads-mean(total_reads))/sd(total_reads)) %>% 
+    # rescale weights from 0 to 1
+    mutate(total_reads = scales::rescale(0.1,0.99)) %>%
+    # split data by treatment
+    split(paste0(.$Treatment, "_", .$Plot)) %>% 
+    # drop unused levels
+    map(~ droplevels(.x)) %>%
+    # create matrix style network
+    map(~ xtabs(total_reads~PlantSpecies + variable, .x))
+  
+  
+  # create network matrices and prepare them to betalink
+  
+  beta_net <- fun_MetaNetwork_treat %>% 
+    prepare_networks(., directed = F)
+  
+  # compute beta diversity metrics
+  
+  beta_net_mat <- network_betadiversity(beta_net)
+  
+  
+  
+  
+  # compute network metrics
+  fun_metrics_network <- fun_MetaNetwork_treat %>% 
+    map(~  
+          cassandRa::RarefyNetwork(as.matrix(.x),
+                                   abs_sample_levels  = seq(100, 5000, length.out = 10),
+                                   n_per_level = 5,
+                                   metrics = c("connectance", "links per species", "H2")) %>%
+          group_by(SampleSize) %>%
+          summarize(connectance = median(connectance),
+                    links_per_species = median(`links per species`),
+                    H2 = median(H2))
+    ) %>% reshape2::melt(id.vars = c("SampleSize"))
+  
+  # create returning object 
+  
+  return(
+    list(beta_net,
+         beta_net_mat,
+         fun_metrics_network)
+  )
+  
+  
+}
+```
+
+
+```{r}
+## apply the function to all ITS fungi 
+
+
+fun_net_res <- compute_rewiring_structure(fungiMaster_plants)
+
+## apply the function to all ATS fungi 
+ats_net_res <- compute_rewiring_structure(AMFMaster_plants)
+
+## apply the function to all Bacteria 
+
+bac_net_res <- compute_rewiring_structure(BACMaster_plants)
+
+head(bac_net_res)
+
+
+# hard save computational intensive results 
+
+n_metrics_arg <- list(fun_net_res,
+                      ats_net_res,
+                      bac_net_res)
+
+saveRDS(n_metrics_arg, 'n_metrics_arg.RDS')
+
+n_metrics_arg <- readRDS( paste0(path,"n_metrics_arg.RDS"))
+```
+
+
+
+get dissimilarity components 
+
+
+```{r}
+all_taxa <- list("its" = pluck(n_metrics_arg,1,3), 
+                 "ams" = pluck(n_metrics_arg,2,3), 
+                 "bac" = pluck(n_metrics_arg,3,3)) %>%
+  imap(~  .x %>% 
+         mutate(taxa = .y)
+  ) %>% 
+  bind_rows()
+```
+
+
+
+```{r}
+
+all_taxa_plot_nmetrics <- 
+all_taxa %>% 
+  ggplot(aes(SampleSize, value, color = L1))+ 
+  facet_wrap(vars(taxa, variable), scales = "free_y") +
+  geom_point() + 
+  geom_smooth(aes(fill = L1), alpha = 0.2) + 
+  theme_linedraw()+theme(axis.text=element_text(size=30),
+axis.title=element_text(size=30,face="bold"))
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/all_taxa_plot_nmetrics.png", 
+        plot = all_taxa_plot_nmetrics,    scale = 2)
+
+```
+
+
+
+```{r}
+fun_net_res <-  pluck(n_metrics_arg,1)
+
+ats_net_res <-  pluck(n_metrics_arg,2)
+
+bac_net_res <-  pluck(n_metrics_arg,3)
+
+```
+
+
+
+Extract dissimilarity components, define function to reshape output data 
+
+```{r}
+network_turnover_components <- function(fun_net_res){
+  
+  OS_wn <- pluck(fun_net_res, 2, 'OS')/pluck(fun_net_res, 2, 'WN')
+  
+  st_wn <- pluck(fun_net_res, 2, 'ST')/pluck(fun_net_res, 2, 'WN')
+  
+  id <- paste0(str_sub(pluck(fun_net_res, 2, 'i'),1,1),
+               str_sub(pluck(fun_net_res, 2, 'j'),1,1))
+  
+   
+  plot_id_i <- pluck(fun_net_res, 2, 'i')
+  
+plot_id_j <- pluck(fun_net_res, 2, 'j')
+
+
+  dissimilarity_components <- data.frame(OS_wn, st_wn,id, plot_id_i,plot_id_j) %>% 
+    setNames(c('B_os', 'B_st', 'id', "plot_id_i", "plot_id_j"))
+  
+  
+  return(dissimilarity_components)
+}
+
+network_turnover_components2 <- function(fun_net_res){
+  
+  OS_wn <- pluck(fun_net_res, 2, 'OS')
+  
+  st_wn <- pluck(fun_net_res, 2, 'ST')
+  
+  id <- paste0(str_sub(pluck(fun_net_res, 2, 'i'),1,1),
+               str_sub(pluck(fun_net_res, 2, 'j'),1,1))
+  
+  plot_id_i <- pluck(fun_net_res, 2, 'i')
+  
+plot_id_j <- pluck(fun_net_res, 2, 'j')
+
+
+  dissimilarity_components <- data.frame(OS_wn, st_wn,id, plot_id_i,plot_id_j) %>% 
+    setNames(c('B_os', 'B_st', 'id', "plot_id_i", "plot_id_j"))
+  
+  return(dissimilarity_components)
+}
+
+```
+
+
+```{r}
+dissimilarity_components <- 
+  rbind(
+    
+    network_turnover_components(fun_net_res) %>% mutate(taxa = 'its'),
+    network_turnover_components(ats_net_res) %>% mutate(taxa = 'amf'),
+    network_turnover_components(bac_net_res )%>% mutate(taxa = 'bac')
+    
+  )
+
+dissimilarity_components2 <- 
+  rbind(
+    
+    network_turnover_components2(fun_net_res) %>% mutate(taxa = 'its'),
+    network_turnover_components2(ats_net_res) %>% mutate(taxa = 'amf'),
+    network_turnover_components2(bac_net_res )%>% mutate(taxa = 'bac')
+    
+  )
+
+```
+
+## statistical test on dissimilarity components 
+
+```{r}
+# t.test between components across taxa 
+dissimilarity_components2 %>% 
+  split(.$taxa)%>%
+  map(~t.test(.x$B_os, .x$B_st))
+
+# ttest between treatments across taxa 
+
+dissimilarity_components2 %>% 
+  split(.$taxa)%>%
+  imap(~ .x %>% 
+        split(.$id) %>% 
+        imap(~t.test(.x$B_os, .x$B_st) %>% 
+              broom::tidy() %>% 
+              mutate(id = .y)) %>% 
+        bind_rows() %>% 
+         mutate(taxa = .y)) %>% 
+  bind_rows()
+```
+
+
+ median of treatments 
+```{r}
+dissimilarity_components_plot <- 
+dissimilarity_components2 %>% 
+  split(.$taxa)%>%
+  imap(~ .x %>% 
+         split(.$id) %>% 
+         imap(~data.frame('Bos' = median(.x$B_os, na.rm = T), 
+                          'Bst' = median(.x$B_st, na.rm = T)) %>% 
+                mutate(id = .y)) %>% 
+         bind_rows() %>% 
+         mutate(taxa = .y)) %>% 
+  bind_rows() %>% 
+  arrange(Bos) %>% 
+  ggplot(aes(Bos, Bst, col = taxa, label  = id)) +
+  geom_text(size = 6) +  
+  theme_bw()+
+  theme(axis.text=element_text(size=25),
+axis.title=element_text(size=30,face="bold"))
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/dissimilarity_components_plot.png", 
+        plot = dissimilarity_components_plot,    scale = 0.9)
+```
+
+
+```{r}
+full_net_dissim_plot <-
+ dissimilarity_components %>% 
+  reshape2::melt(id.vars = c('id', 'taxa')) %>% 
+  drop_na() %>% 
+  slice_sample(n = 1000) %>% 
+  ggplot(aes(variable, value, fill = taxa)) +
+  geom_boxplot(outlier.shape=NA, color  = 'black', alpha = 0.7)+
+  theme_minimal() +
+  ylim(0,1) +
+  xlab('Network dissimilarity components') + 
+  ylab('Contribution to network turnover (B_wn)') + 
+  scale_color_brewer(palette = 'Paired')
+
+  ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/full_net_dissim_plot.png", 
+        plot = full_net_dissim_plot,    scale = 0.5)
+```
+
+
+```{r}
+dis_net_comp <- dissimilarity_components %>% 
+  reshape2::melt(id.vars = c('id', 'taxa')) %>% 
+  drop_na() 
+
+aov_net_bos <- aov(value ~ id + taxa, 
+                   dis_net_comp %>% filter(variable == 'B_os'))
+
+# evaluate where the differences lie 
+TukeyHSD(aov_net_bos)
+```
+
+
+## how network topology changes across treatments
+
+
+
+
+```{r}
+net_topology <- rbind(
+  
+  
+  pluck(fun_net_res, 3) %>% 
+    filter(SampleSize  == 5000 & variable %in% c('connectance', 'H2')) %>% 
+    separate(L1, sep = '_', into = c('Treatment', 'Plot')) %>% 
+    mutate(Treatment = factor(Treatment, levels = c('Control', 'Sapling', 'Pine')), 
+           taxa = 'its') ,
+  
+  pluck(ats_net_res, 3) %>% 
+    filter(SampleSize  == 5000 & variable %in% c('connectance', 'H2')) %>% 
+    separate(L1, sep = '_', into = c('Treatment', 'Plot')) %>% 
+    mutate(Treatment = factor(Treatment, levels = c('Control', 'Sapling', 'Pine')), 
+           taxa = 'amf') ,
+  
+  pluck(bac_net_res, 3) %>% 
+    filter(SampleSize  == 5000 & variable %in% c('connectance', 'H2')) %>% 
+    separate(L1, sep = '_', into = c('Treatment', 'Plot')) %>% 
+    mutate(Treatment = factor(Treatment, levels = c('Control', 'Sapling', 'Pine')), 
+           taxa = 'bac') 
+)
+```
+
+
+```{r}
+special_net_plot <- net_topology %>% 
+  filter(variable == 'H2') %>% 
+  ggplot(aes(taxa, value, groups = Treatment)) + 
+  #facet_wrap(~variable + taxa, scales = "free_y")+ 
+  geom_boxplot(aes(fill = Treatment), 
+               outlier.shape=NA, 
+               color  = 'black',
+               alpha = 0.5) + 
+  scale_fill_brewer(palette="Accent",direction = -1) + 
+  scale_color_brewer(palette="Accent",direction = -1) +
+  theme_minimal() + 
+  ylab('Network specialization') 
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/special_net_plot.png", 
+        plot = special_net_plot,    scale = 0.5)
+```
+
+## relate to soil variables 
+
+
+```{r}
+
+net_topology_soil <- 
+net_topology %>% 
+  filter(variable == 'H2') %>% 
+  left_join(soil, 
+            c('Plot' = 'Muestra')) 
+
+net_topology_soil$group_id <- net_topology_soil$Plot |> str_extract("[:digit:]{3}")
+```
+
+
+```{r}
+dissimilarity_components<- 
+dissimilarity_components |>
+ separate_wider_delim(plot_id_i, "_", names = c('treat_i', 'plot_i')) |>
+ separate_wider_delim(plot_id_j, "_", names = c('treat_j', 'plot_j'))
+
+dissimilarity_components <- 
+
+cbind(
+    
+dissimilarity_components,
+(net_topology_soil |> select(c('value')))[match(dissimilarity_components$plot_i, net_topology_soil$Plot),] |> setNames(
+    c('value_i')),
+dissimilarity_components,
+(net_topology_soil |> select(c('value')))[match(dissimilarity_components$plot_j, net_topology_soil$Plot),] |> setNames(
+    c('value_j')))
+
+
+saveRDS(dissimilarity_components, "/Users/gabri/Documents/PhD/00_Chapter_Patagoina/DATA/dissimilarity_components.RDS")
+```
+
+
+try dissimilarity modelling for the last time :( 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+
+dissimilarity_components_to_model <- 
+tibble(
+'distance' = dissimilarity_components$B_os,
+'distance2' = dissimilarity_components$B_st,
+'weights' = rep(1, nrow(dissimilarity_components)),
+'s1.xCoord' = dissimilarity_components$plot_i,
+'s1.yCoord' = dissimilarity_components$plot_i,
+'s2.xCoord' = dissimilarity_components$plot_j,
+'s2.yCoord' = dissimilarity_components$plot_j,
+'taxa' = dissimilarity_components$taxa
+) |> data.frame()
+
+
+class(dissimilarity_components_to_model) <- class(exFormat3)
+names(net_topology_soil)
+
+prev_var_i <- (net_topology_soil |> select(c('value','C','N.NH4', 'N.NO3', 'Pdisp', 'pH')))[match(
+    paste(dissimilarity_components$plot_i,dissimilarity_components$taxa),
+    paste(net_topology_soil$Plot, net_topology_soil$taxa)),] 
+
+pred_var_j <- (net_topology_soil |> select(c('value','C','N.NH4', 'N.NO3', 'Pdisp', "pH")))[match(
+    paste(dissimilarity_components$plot_j,dissimilarity_components$taxa),
+    paste(net_topology_soil$Plot, net_topology_soil$taxa)),] 
+
+prev_var_i <- prev_var_i |> setNames(paste0('s1.',prev_var_i |> names()))
+pred_var_j <- pred_var_j |> setNames(paste0('s2.',pred_var_j |> names()))
+
+head(dissimilarity_components_to_model)
+
+dissimilarity_components_to_model2 <- 
+dissimilarity_components_to_model |>
+ cbind(prev_var_i) |> 
+ cbind(pred_var_j) |> 
+distinct(s1.xCoord,s2.xCoord, taxa, .keep_all = TRUE  )
+
+
+dissimilarity_components_to_model2$taxa |> unique()
+
+dissimilarity_components_to_model2$s1.xCoord <- 
+fungiMaster_plants$Lat[match(dissimilarity_components_to_model2$s1.xCoord,fungiMaster_plants$Plot)]
+
+dissimilarity_components_to_model2$s1.yCoord <- 
+fungiMaster_plants$Lon[match(dissimilarity_components_to_model2$s1.yCoord,fungiMaster_plants$Plot)]
+
+dissimilarity_components_to_model2$s2.xCoord <- 
+fungiMaster_plants$Lat[match(dissimilarity_components_to_model2$s2.xCoord,fungiMaster_plants$Plot)]
+
+dissimilarity_components_to_model2$s2.yCoord <- 
+fungiMaster_plants$Lon[match(dissimilarity_components_to_model2$s2.yCoord,fungiMaster_plants$Plot)]
+
+dissimilarity_components_to_model2 <- dissimilarity_components_to_model2[complete.cases(dissimilarity_components_to_model2),]
+
+class(dissimilarity_components_to_model2) <- class(exFormat3)
+
+head(dissimilarity_components_to_model2)
+rownames(dissimilarity_components_to_model2) <- 1:nrow(dissimilarity_components_to_model2)
+
+names(dissimilarity_components_to_model2)
+new_pred_data <- 
+bind_cols(
+    'distance' = dissimilarity_components_to_model2$distance,
+      'distance2' = dissimilarity_components_to_model2$distance2,
+'taxa' = dissimilarity_components_to_model2$taxa,
+data.frame(abs(
+    (dissimilarity_components_to_model2 |> 
+     select(starts_with('s1'))) 
+     - 
+    (dissimilarity_components_to_model2 |> 
+     select(starts_with('s2'))))
+     ))
+names(new_pred_data)
+
+new_pred_data$spatial_dist <- sqrt(new_pred_data$s1.xCoord^2+ new_pred_data$s1.yCoord^2)
+
+new_pred_data
+mod1 <- lme4::lmer((distance)~(s1.C) + (s1.N.NH4) + (s1.N.NO3) + (s1.Pdisp) + (s1.C) + (s1.pH) + scale(spatial_dist) +  (1|taxa), data =  new_pred_data)
+
+sjPlot::tab_model(mod1)
+effects::effect(c('s1.Pdisp', 's1.pH', 's1.N.NO3' ), mod1) |> plot()
+
+mod2 <- lme4::lmer(distance2~(s1.C) + (s1.N.NH4) + (s1.N.NO3) + (s1.Pdisp) + (s1.pH) + (1|taxa) + scale(spatial_dist), data =  new_pred_data)
+
+sjPlot::tab_model(mod2)
+
+effects::effect(c('s1.pH' ), mod1) |> plot()
+effects::effect(c('s1.pH' ), mod2) |> plot()
+
+new_pred_data$taxa
+
+
+
+
+ranef(mod1)
+ranef(mod2)
+```
+
+
+```{r}
+install.packages('piecewiseSEM')
+head(new_pred_data)
+its_mod <- new_pred_data |> filter(taxa == 'its')
+bac_mod <- new_pred_data |> filter(taxa == 'bac')
+amf_mod <- new_pred_data |> filter(taxa == 'amf')
+
+
+
+library(piecewiseSEM)
+
+
+cor(data.frame(
+its_mod$s1.C, 
+its_mod$s1.N.NH4, 
+its_mod$s1.N.NH4,
+its_mod$s1.pH, 
+its_mod$spatial_dist
+)) |> heatmap()
+
+its_model<-psem(
+  lm(distance~s1.C+s1.N.NH4+s1.N.NO3+s1.Pdisp+s1.pH+spatial_dist,its_mod),
+  lm(s1.value~distance, its_mod)
+  )
+summary(its_model,progressBar=T)
+plot(its_model, layout = 'tree')
+
+bac_model<-psem(
+  lm(distance~s1.C+s1.N.NH4+s1.N.NO3+s1.Pdisp+s1.pH+spatial_dist,bac_mod),
+  lm(s1.value~distance, its_mod)
+  )
+summary(bac_model,progressBar=T)
+plot(bac_model, layout = 'tree')
+
+amf_model<-psem(
+  lm(distance~s1.C+s1.N.NH4+s1.N.NO3+s1.Pdisp+s1.pH+spatial_dist,amf_mod),
+  lm(s1.value~distance, its_mod)
+  )
+summary(amf_model,progressBar=T)
+plot(amf_model, layout = 'tree')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+```{r}
+head(dissimilarity_components_to_model)
+
+dissimilarity_components_to_model2$h2_diff <- abs(dissimilarity_components_to_model2$s1.value - dissimilarity_components_to_model2$s2.value)
+
+
+library(ecodist)
+MRM(dissimilarity_components_to_model2$h2_diff~
+dissimilarity_components_to_model2$s1.value + 
+dissimilarity_components_to_model2$s2.value,nperm = 10000, method = 'linear')
+```
+
+
+
+
+
+
+
+```{r}
+model <- lmer(value ~ Treatment.x * Comp.1 + 
+Treatment.x * Comp.2 + (1|group_id) , data = net_topology_soil |> filter(taxa == 'bac'))
+
+
+sjPlot::plot_model(model)
+sjPlot::tab_model(model)
+
+
+
+effects::effect(   mod = model, 'Treatment.x:Comp.1') |> plot()
+ranef(model)
+
+net_topology_soil <- 
+net_topology_soil |>
+reshape2::melt(id.vars = c('SampleSize', 'variable', 'value', 'Treatment.x', 'Plot', 'taxa', 'Treatment.y', 'Lat', 'Lon'), value.name = c('environ'), variable.name = 'soil_measure')
+head(net_topology_soil)
+
+summary(net_topology_soil)
+net_topology_soil |> 
+filter(soil_measure != 'Temp') |>
+ggplot(aes(environ, value)) + 
+geom_point()+ 
+geom_smooth(method = 'lm', aes(groups = Treatment.y, 
+col = Treatment.x, fill = Treatment.x)) +
+facet_wrap(~soil_measure, scales = 'free')
+
+head(net_topology_soil)
+library(lme4)
+model <- lmer(soil_measure ~ 1 + (1|Lat) + (1|Lon), data = df)
+
+sjPlot::tab_model(model)
+
+
+```
+
+
+
+
+
+
+## NON ESSENTIAL 
+
+
+
+## homogeneity of networks
+
+```{r}
+
+library(ggraph)
+library(tidygraph)
+
+prepare_plot_network <- function(meta_1_15, microbial_diversity){
+
+meta_1_15 <- as_tbl_graph(meta_1_15) 
+
+meta_1_15 <- 
+meta_1_15 |>
+activate(nodes) |> 
+mutate(is_plant = case_when(
+    name %in% unique(microbial_diversity$fungi[["PlantSpecies"]]) ~ "plant", 
+    TRUE ~ "fungi" ), 
+    size  = ifelse(is_plant == 'plant', 8, 1), 
+    trophic_position = microbial_diversity$fungi[["trophicMode"]][
+            match(name, microbial_diversity$fungi[["variable"]])] ,
+    trophic_position = case_when( 
+         name %in% unique(microbial_diversity$fungi[["PlantSpecies"]]) ~ "plant", 
+         .default = trophic_position), 
+    shape = ifelse(is_plant == 'plant', 'square', 'circle'), 
+    degree = centrality_degree()) 
+return(meta_1_15)
+
+}
+
+
+meta_1_15 <- metaweb(lapply(1:15, function(x) pluck(fun_net_res, 1,x)))
+meta_16_30 <- metaweb(lapply(16:30, function(x) pluck(fun_net_res, 1,x)))
+meta_31_55 <- metaweb(lapply(31:45, function(x) pluck(fun_net_res, 1,x)))
+
+
+
+meta_1_15<- prepare_plot_network(meta_1_15, microbial_diversity)
+meta_16_30 <- prepare_plot_network(meta_16_30, microbial_diversity)
+meta_31_55<- prepare_plot_network(meta_31_55, microbial_diversity)
+
+```
+
+
+```{r}
+meta_1_15_plot <- 
+meta_1_15 |> 
+ggraph() + 
+geom_edge_density() + 
+geom_edge_link(alpha = 0.02)+ 
+geom_node_point(aes(size = degree, 
+                        col  =trophic_position, shape = shape),
+          show.legend = TRUE) + 
+theme_void() + 
+scale_color_brewer(palette = 'Set2')
+
+meta_16_30_plot <- 
+meta_16_30 |> 
+ggraph() + 
+geom_edge_density() + 
+geom_edge_link(alpha = 0.02)+ 
+geom_node_point(aes(size = degree, 
+                        col  =trophic_position, shape = shape),
+          show.legend = TRUE) + 
+theme_void() + 
+scale_color_brewer(palette = 'Set2')
+
+
+meta_31_55_plot <- 
+meta_31_55|> 
+ggraph() + 
+geom_edge_density() + 
+geom_edge_link(alpha = 0.02)+ 
+geom_node_point(aes(size = degree, 
+                        col  =trophic_position, shape = shape),
+          show.legend = TRUE) + 
+theme_void() + 
+scale_color_brewer(palette = 'Set2')
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/meta_1_15_plot.png", 
+        plot = meta_1_15_plot)
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/meta_16_30_plot.png", 
+        plot = meta_16_30_plot)
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/03_patagonia/meta_31_55_plot.png", 
+        plot = meta_31_55_plot)
+```
+
+## Network role in the metacommunity
+
+
+```{r}
+
+meta_control <- metaweb(lapply(1:15, function(x) pluck(fun_net_res[[1]],x)))
+meta_sap <- metaweb(lapply(16:30, function(x) pluck(fun_net_res[[1]],x)))
+meta_pine <- metaweb(lapply(31:45, function(x) pluck(fun_net_res[[1]],x)))
+
+## 
+
+meta_fun <- metaweb(list(meta_control, meta_sap, meta_pine))
+
+
+
+meta_control_amf <- metaweb(lapply(1:15, function(x) pluck(ats_net_res[[1]],x)))
+meta_sap_amf <- metaweb(lapply(16:30, function(x) pluck(ats_net_res[[1]],x)))
+meta_pine_amf <- metaweb(lapply(31:45, function(x) pluck(ats_net_res[[1]],x)))
+
+meta_amf<- metaweb(list(meta_control_amf, meta_sap_amf, meta_pine_amf))
+
+meta_control_bac <- metaweb(lapply(1:15, function(x) pluck(bac_net_res[[1]],x)))
+meta_sap_bac <- metaweb(lapply(16:30, function(x) pluck(bac_net_res[[1]],x)))
+meta_pine_bac <- metaweb(lapply(31:45, function(x) pluck(bac_net_res[[1]],x)))
+
+
+meta_bac <- metaweb(list(meta_control_bac, meta_sap_bac, meta_pine_bac))
+
+```
+
+
+# write a function to get the DBase measure from Toju et al, 2017 
+
+```{r}
+library(igraph)
+getDbase <- function(fungiMaster_plants, fun_net_res, meta_list, plot_num){
+  
+  # compute centrality for metacommunity
+  cont_full <- data.frame('value' = eigen_centrality(meta_list,scale = T)$vector)%>% 
+    tibble::rownames_to_column(var = 'id')
+  names(fun_net_res[[1]])
+  # compute local centralities 
+  cont_loc <- 
+    data.frame('value' = eigen_centrality(pluck(fun_net_res[[1]],plot_num))$vector) %>% 
+    mutate(treat = plot_num) %>% 
+    tibble::rownames_to_column(var = 'id')
+  
+  
+  # find 'baseline' i.e. species that appear only once in the community 
+  
+  contr_singletons <- fungiMaster_plants%>% 
+    filter(Treatment == 'Control') %>% 
+    group_by(variable) %>% 
+    summarise(count  = n_distinct(Plot)) %>% 
+    filter(count == 1) %>% 
+    pull('variable')
+  
+  # fit a linear model to predict Dbase 
+  
+  cont_lm <- cont_full %>% 
+    filter(id %in% contr_singletons) %>% 
+    left_join(cont_loc %>% 
+                filter(id %in% contr_singletons), 
+              'id',
+              suffix = c('_reg', '_loc'))%>% 
+    lm( value_reg~value_loc,.) 
+  
+  # get D base 
+  c_l_p <- cont_loc 
+  
+  c_l_p$pred <- predict(cont_lm, data.frame('value_loc' = c_l_p %>% 
+                                              pull(value)))
+  
+  c_l_p$Dbase <- cont_full$value[match(c_l_p$id, cont_full$id)] - c_l_p$pred 
+  
+  return(c_l_p)
+  
+}
+```
+
+
+
+
+
+# get Dbase measure 
+
+
+
+```{r}
+Dbase_fun <- lapply(1:45, function(x) getDbase(fungiMaster_plants,fun_net_res, meta_fun, x)) |> bind_rows()
+
+head(fungiMaster_plants)
+
+Dbase_fun_agg <- 
+Dbase_fun |> 
+group_by(id, treat) |> 
+summarize(Dbase = median(Dbase))
+
+Dbase_fun_agg <- 
+Dbase_fun_agg |> 
+ mutate(
+   treatment = case_when(
+    treat %in% 1:15 ~ 'Control' , 
+    treat %in% 16:30 ~ 'Sapling',
+    treat %in% 31:45 ~ 'Pine'), 
+   taxa = case_when(
+    id %in% fungiMaster_plants$PlantSpecies ~ 'plant', 
+    TRUE ~ 'fungi'), 
+   trophic_group = case_when(
+     id %in% unique(fungiMaster_plants$variable) ~ fungiMaster_plants$trophicMode[match(id,fungiMaster_plants$variable )], 
+     id %in% unique(fungiMaster_plants$PlantSpecies) ~ fungiMaster_plants$PlantFUNCT.group[match(id,fungiMaster_plants$PlantSpecies )], 
+     
+
+
+
+   )
+    )
+head(Dbase_fun_agg)
+tail(Dbase_fun_agg)
+names(fun_net_res[[1]])
+Dbase_fun_agg$treatment <- factor(Dbase_fun_agg$treatment, 
+levels= c('Control', 'Sapling', 'Pine'))
+
+unique(Dbase_fun_agg$trophic_group)
+Dbase_fun_agg |> 
+filter(!trophic_group  %in% c('' , 'NA', 'dense spiny shrub'), 
+       !is.na(trophic_group), 
+       trophic_group %in% c('Pathotroph', "Saprotroph", "Symbiotroph", "evergreen shrub", "flowering plant", "grass")) |> 
+ggplot(aes(treat, Dbase)) + 
+geom_point(aes(col = treatment)) + 
+geom_smooth(method = 'lm')+
+facet_wrap(~taxa + trophic_group, scales = 'free' , ncol = 3, nrow = 3) 
+
+
+
+```
+
+
+
+control_Dbase <- 1:15 %>% 
+  map(~ 
+        getDbase(fungiMaster_plants,fun_net_res, meta_control, .x)
+      
+  ) %>% 
+  bind_rows() %>%
+  group_by(id) %>% 
+  summarize(Dbase = median(Dbase, na.rm=T))%>% 
+  filter(!id %in% c('', unique(fungiMaster_plants$PlantSpecies))) %>% 
+  mutate(trophicMode = fungiMaster_plants$trophicMode[match(id, fungiMaster_plants$variable)], 
+         treatment = 'control')
+
+sapling_Dbase <-15:16 %>% 
+  map(~ 
+        getDbase(fungiMaster_plants,fun_net_res, meta_sap, .x)
+      
+  ) %>% 
+  bind_rows() %>%
+  group_by(id) %>% 
+  summarize(Dbase = median(Dbase, na.rm=T)) %>% 
+  filter(!id %in% c('', unique(fungiMaster_plants$PlantSpecies))) %>% 
+  mutate(trophicMode = fungiMaster_plants$trophicMode[match(id, fungiMaster_plants$variable)], 
+         treatment = 'sapling')
+
+
+
+pine_Dbase <-16:30 %>% 
+  map(~ 
+        getDbase(fungiMaster_plants,fun_net_res, meta_pine, .x)
+      
+  ) %>% 
+  bind_rows() %>%
+  group_by(id) %>% 
+  summarize(Dbase = median(Dbase, na.rm=T)) %>% 
+  filter(!id %in% c('', unique(fungiMaster_plants$PlantSpecies))) %>% 
+  mutate(trophicMode = fungiMaster_plants$trophicMode[match(id, fungiMaster_plants$variable)], 
+         treatment = 'pine') 
+
+
+## Find the most relevant between treatments 
+bind_rows(
+control_Dbase %>% 
+  filter(Dbase > quantile(Dbase, 0.7), 
+         trophicMode %in% c('Symbiotroph', 'Saprotroph', 'Pathotroph')),
+
+sapling_Dbase %>% 
+  filter(Dbase > quantile(Dbase, 0.7, na.rm = T), 
+         trophicMode %in% c('Symbiotroph', 'Saprotroph', 'Pathotroph')) ,
+
+pine_Dbase %>% 
+  filter(Dbase > quantile(Dbase, 0.7, na.rm = T), 
+         trophicMode %in% c('Symbiotroph', 'Saprotroph', 'Pathotroph')) 
+) %>%
+  mutate(treatment = factor(treatment, levels = c('control', 'sapling', 'pine'))) %>% 
+  left_join(fungiTaxFun, by = c('id' = 'V1'))%>% 
+  mutate(V5 = str_remove(V5, 'o__')) %>% 
+  group_by(V5,treatment, trophicMode) %>% 
+  summarize(Dbase = median(Dbase)) %>% 
+  ggplot(aes(treatment,V5)) +
+  geom_tile(aes(fill = Dbase), colour = 'white')+
+  scale_fill_gradient(low = "white", high = 'steelblue')+
+  labs(x = "", y = "") + 
+  facet_wrap(~trophicMode) + 
+    theme_minimal()+
+    theme(axis.text.y =  element_text(size = 10),
+          axis.ticks.x = element_blank(),
+          axis.ticks.y = element_blank())
+  
+  
+  
+  
+  arrange(desc(Dbase)) %>% 
+  left_join(fungiMaster_plants, by = c('id' = 'variable')) %>% 
+  xtabs(value ~ id + PlantSpecies,.)%>% 
+  bipartite::plotweb()
+
+
+
+
+pine_Dbase %>% 
+  filter(Dbase > quantile(Dbase, 0.9, na.rm = T)) %>% 
+  arrange(desc(Dbase))
+
+
+
+
+
+hist(control_Dbase$Dbase)
+hist(sapling_Dbase$Dbase, add = TRUE)
+hist(pine_Dbase$Dbase, add = TRUE)
+
+
+
+# bind all treatments together 
+
+
+Dbase_all_treat <- bind_rows(
+  control_Dbase,
+  sapling_Dbase,
+  pine_Dbase)
+
+
+## Plot change in DBase for ITS fungi across trophic groups 
+
+Dbase_all_treat %>%
+  filter(trophicMode %in% c('Symbiotroph', 'Pathotroph', 'Saprotroph')) %>% 
+  mutate(treatment = factor(treatment, levels = c('control', 'sapling', 'pine'))) %>% 
+ggplot(aes(trophicMode, Dbase, groups = treatment)) +
+  geom_boxplot(aes(fill = treatment), outlier.shape=NA, alpha = 0.5)+ 
+  geom_point(aes(color  = treatment) ,
+             position =position_jitterdodge(jitter.width = 0.25,
+                                            dodge.width = 0.75), 
+             alpha = 0.5) +  
+  scale_fill_brewer(palette="Accent",direction = -1) + 
+  scale_color_brewer(palette="Accent",direction = -1) +
+  theme_minimal()
+
+
+## 
+# Compute fungal to bacteria ratios 
+
+
+unique(BACMaster_plants$variable) %>% 
+  length()
+
+
+
+
+
+data.frame('its' = pluck(fun_net_res, 2, 'WN'),
+           'bac' = pluck(bac_net_res, 2,'WN'), 
+           'amf' = pluck(ats_net_res, 2,'WN')) %>% 
+  reshape2::melt(id.vars = c('bac')) %>%
+  ggplot(aes(bac,value, groups = variable)) + 
+  geom_point( aes(col = variable)) + 
+  geom_smooth(method = 'lm', col = 'black', size = 2, aes( fill = variable))  +
+  theme_minimal() + 
+  ylab('B_wn Fungi') + 
+  xlab('B_wn Bacteria')
+  
+
+
+
+plot(pluck(ats_net_res, 2, 'WN'),pluck(bac_net_res, 2,'WN'))

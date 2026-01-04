@@ -1,0 +1,32 @@
+---
+title: "abstract"
+format: html
+---
+
+The study of ecological networks has progressively evolved from a mostly descriptive science to
+one that attempts to elucidate the processes governing the emerging structure of multitrophic
+communities. To move forward, we propose a conceptual framework using trait-based inference
+of ecological processes to improve our understanding of network assembly and our ability to
+predict network reassembly amid global change. The framework formalizes the view that
+network assembly is governed by processes shaping the composition of resource and consumer
+communities within trophic levels and those dictating species’ interactions between trophic
+levels. To illustrate the framework and show its applicability, we (1) use simulations to explore
+network structures emerging from the interactions of these assembly processes, (2) develop a
+null model approach to infer the processes underlying network assembly from observational
+data, and (3) use the null model approach to quantify the relative influence of bottom-up
+(resource-driven) and top-down (consumer-driven) assembly modes on plant-frugivore networks
+along an elevational gradient. Simulations suggest that assembly processes governing the
+formation of pairwise interactions have a greater influence on network structure than those
+governing the composition of communities within trophic levels. Our case study further shows
+that the mode of network assembly along the gradient is mainly bottom-up controlled, suggesting
+that the filtering of plant traits has a larger effect on network structure relative to the filtering of
+frugivore traits. Combined with increasingly available trait and interaction data, the framework
+provides a timely toolbox to infer assembly processes operating within and between trophic
+levels and to test competing hypotheses about the assembly mode of resource-consumer
+networks along environmental gradients and among biogeographic regions. It is a step toward amore process-based network ecology and complete integration of multitrophic interactions in the
+prediction of future biodiversity
+
+
+**Keywords:** community assembly, deterministic assembly, environmental filtering, functional
+trait, interaction assembly, network assembly mode, network structure, regional species pool,
+trait matching, stochastic assembly

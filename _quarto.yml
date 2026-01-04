@@ -1,0 +1,41 @@
+
+bibliography: references.bib
+project:
+  type: book
+
+book:
+  title: "Layers of Biodiversity Change."
+  author: "Gabriel Munoz-Acevedo"
+  date: today
+  chapters:
+    - index.qmd
+    - part: "Front matter"
+      chapters:
+        - fm/00_Title_page.qmd
+    #     - fm/01_Signature_page.qmd
+    #     - fm/02_cover.qmd
+    #     - fm/04_Acknowledgements.qmd
+    #     - fm/00_dedicatory.qmd
+    #     - fm/06_toc.qmd
+    #     - fm/05_Author_contribution.qmd
+    - 03_thesis_abstract.qmd
+    - intro/07_Introduction.qmd
+    - part: "Chapters"
+      chapters:
+          - chapters/trait_based_assembly/manuscript.qmd
+          - chapters/functional_asymmetry/manuscript.qmd
+          - chapters/fossil_turnover/manuscript.qmd
+    - 11_general_conclusion.qmd
+    - references.qmd
+  appendices:
+         - Supplementary_material/S1_trait_based_assembly.qmd
+         - Supplementary_material/S2_functional_asymmetry.qmd
+         - Supplementary_material/S3_historical_biogeography.qmd
+  #       - Sup_fig/functional_asymmetry.qmd
+  #       - Sup_fig/fossil_turnover.qmd
+  #       - Sup_tab/trait_based_assembly.qmd
+  #       - Sup_tab/functional_asymmetry.qmd
+  #       - Sup_tab/fossil_turnover.qmd
+  #       - Code/trait_based_assembly.qmd
+  #       - Code/functional_asymmetry.qmd
+  #       - Code/fossil_turnover.qmd

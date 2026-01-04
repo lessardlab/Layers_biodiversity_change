@@ -1,0 +1,1354 @@
+---
+title: "Supplementary material: Historical Paleoclimates and the Genesis of Regional Biotas"
+author: 
+  - name: Gabriel Munox
+    affiliation: 'Concordia University'
+execute: 
+  eval: false
+  message: false
+  warning: false
+  cache: false
+---
+
+## Data preprocessing 
+
+```{r}
+#| eval: true 
+#| echo: false 
+#| message: false   
+#| warning: false
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(tidyverse)
+wd <- ("/Users/gabri/Documents/PhD/00_Chapter_fossil/fossil_analysis/")
+```
+
+
+### Fossil data 
+
+We will use a cut of the NOW database, kindly provided by `Shan` 
+
+```{r}
+fossil <- read.csv(paste0(wd,"DATA/NOW_filtered_by_Shan_Oct2019.csv"))
+head(fossil) |> knitr::kable()
+```
+
+The dataset have the following variables 
+```{r}
+glimpse(fossil) |> knitr::kable()
+```
+
+#### Constructing grid-level fossil assemblages 
+
+Let's examine the spatiotemporal extent of the dataset, and filter according to our needs. 
+
+First, lets create two new columns, `time_period_min` and `time_period_max` to assign categorical time periods based on the estimated radiocarbon data. 
+
+```{r}
+## define a function to assign time periods based on literature thresholds 
+
+change_time_to_period <- function(MIN_AGE){
+ case_when(round(MIN_AGE) %in% c(21:23) ~ 'Aquitanian',  
+                                     round(MIN_AGE) %in% c(16:20) ~ 'Burdigalian',
+                                     round(MIN_AGE) %in% c(14:15) ~ 'Langhian',
+                                     round(MIN_AGE) %in% c(12:13) ~ 'Serravallian',
+                                     round(MIN_AGE) %in% c(11:8) ~ 'Tortonian',
+                                     round(MIN_AGE) %in% c(5:7) ~ 'Messinian',
+                                     round(MIN_AGE) %in% c(4:5) ~ 'Zanclean',
+                                     round(MIN_AGE) %in% c(2:3) ~ 'Piacenzian')     
+
+
+}
+
+```
+
+
+```{r}
+## apply the function
+
+fossil <- 
+fossil |> 
+  mutate(
+    time_period_max = change_time_to_period(MAX_AGE), 
+    time_period_min = change_time_to_period(MIN_AGE),
+    midpoint_time = rowMeans(data.frame(MAX_AGE, MIN_AGE), na.rm = T), 
+    midpoint_period = change_time_to_period(midpoint_time)
+  )
+
+```
+
+Second, let's bring region level grid-data and match it the spatial coordinates of our dataset. This will be our region of interest `ROI` 
+
+```{r}
+## Load grided data on regions of north america and europe
+reg_gridded <- st_read(paste0(wd, "DATA/regions_gridded/Data_RegionsGridded.shp"))
+
+plot(reg_gridded$geometry, col = as.factor(reg_gridded$Region))
+```
+
+Let's now make a geographical linkage between the two datasets. 
+
+```{r}
+# convert fosil data to a geographic object
+fossil_dat <- st_as_sf(fossil, coords = c('LONG', 'LAT'), crs = 4326)
+
+# apply spatial filter to add region info to fossil data
+
+subset_fossil <- fossil_dat[lengths(st_intersects(fossil_dat,reg_gridded))>0,] 
+
+## add spatial info to the fossil dataset 
+
+subset_fossil$region <- reg_gridded$Region[st_intersects(fossil_dat,reg_gridded) |> unlist()]
+
+subset_fossil$WorldMapID <- reg_gridded$WorldMapID[st_intersects(fossil_dat,reg_gridded) |> unlist()]
+```
+
+Let's visualize geographical sampling completeness for all time-periods
+```{r}
+## Observe the result 
+
+plot(reg_gridded$geometry, col = as.factor(reg_gridded$Region))
+subset_fossil$geometry |> plot(add = T, pch = 21, cex = 0.2, col = 'white')
+
+```
+
+Let's visualize geographical sampling completeness for each time period 
+ 
+```{r}
+subset_fossil |>
+  group_by(time_period_min, time_period_max) |> 
+  summarize(nloc = n_distinct(geometry)) |> 
+  ggplot() + 
+  geom_sf(data  = reg_gridded, aes(col = Region)) + 
+  facet_wrap(~time_period_min, ncol = 2) + 
+  geom_sf( col = 'black')
+
+
+```
+
+Based on geographical coverage by `time_period_min`, let's exclude records from periods =  to `Aquitanian` and `Zanclean`. However, let's see for `time_period_max`. 
+
+```{r}
+subset_fossil |>
+  group_by(time_period_min, time_period_max) |> 
+  summarize(nloc = n_distinct(geometry)) |> 
+  ggplot() + 
+  geom_sf(data  = reg_gridded, aes(col = Region)) + 
+  facet_wrap(~time_period_max, ncol = 2) + 
+  geom_sf( col = 'black')
+
+
+```
+
+
+Now, let's try grouping observations from the midpoint. 
+
+
+```{r}
+subset_fossil |>
+  group_by(midpoint_period) |> 
+  summarize(nloc = n_distinct(geometry)) |> 
+  ggplot() + 
+  geom_sf(data  = reg_gridded, aes(col = Region)) + 
+  facet_wrap(~midpoint_period, ncol = 2) + 
+  geom_sf( col = 'black')
+
+```
+
+It looks more evenly spread! Let's keep the `midpoint_period` as our reference variable for the temporal axis. 
+
+Finally, let's grid our point based observations by joining both datasets by their spatial coordinates. 
+
+Let's test distinct focal windows to spatially aggregate the assemblages.  Simply, we will use "square-gridcells" at different resolution (2x2, 5x5, 10x10) latitude degrees squared. 
+
+
+```{r}
+xydat <- subset_fossil %>% 
+distinct(geometry)
+xydat <- st_as_sf(xydat, 
+                  coords = c('LONG', 'LAT'), 
+                  crs = 4326)
+
+# keep a grid that represets three  focal window 
+
+grid_2 <-st_make_grid(xydat, cellsize = 2) |> st_sf()
+grid_5 <-st_make_grid(xydat, cellsize = 5) |> st_sf()
+grid_10 <-st_make_grid(xydat, cellsize = 10) |> st_sf()
+```
+
+Let's define a function that matches the focal grids with the fossil sampling locations 
+
+
+```{r}
+assign_grid_id <- function(xydat, grid){
+
+
+my_list <- st_intersects(xydat, grid)
+my_list[lengths(my_list) == 0] <- NA
+
+return(unlist(my_list, use.names = FALSE))
+
+}
+
+```
+
+Now lets observe the gridded coverage for the different focal grids
+
+For focal grid = 2x2
+```{r}
+plot(reg_gridded$geometry, main = 'focal = 2')
+plot(grid_2[assign_grid_id(xydat, grid_2),], col = 'red', add = TRUE)
+plot(xydat, add = T)
+
+```
+
+For focal grid = 5x5
+
+```{r}
+plot(reg_gridded$geometry, main = 'focal = 5')
+plot(grid_5[assign_grid_id(xydat, grid_5),],  col = 'red', add = TRUE)
+plot(xydat, add = T)
+```
+
+For focal grid = 10x10
+
+```{r}
+plot(reg_gridded$geometry, main = 'focal = 10')
+plot(grid_10[assign_grid_id(xydat, grid_10),], col = 'red', add = TRUE)
+plot(xydat, add = T)
+
+```
+
+adding the grid id to the fossil dataset
+
+```{r}
+subset_fossil <- 
+subset_fossil |> 
+  mutate(grid_id_2 = assign_grid_id(geometry, grid_2),
+        grid_id_5  = assign_grid_id(geometry, grid_5), 
+        grid_id_10 = assign_grid_id(geometry, grid_5))
+```
+
+For subsequent analyses, let's focus on the `grid_id_5` as our standard grid resolution to aggregate assemblages. 
+
+#### Evaluate the taxonomic richness of fossil dataset
+
+Now we have a better idea of the spatial distribution of our dataset, we can focus on the taxonomic coverage. 
+
+Let's now count the number of unique species per location and the number of time periods sampled at each location
+
+```{r}
+head(subset_fossil)
+summary_nsp <- 
+subset_fossil %>% 
+  group_by(grid_id_5) %>% 
+  summarize(n_sp = n_distinct(paste(GENUS, SPECIES)), 
+            n_gen = n_distinct(paste(GENUS, SPECIES)),
+            n_i = n_distinct(midpoint_period), 
+            n_loc = n_distinct(LIDNUM))
+```
+
+How many repeated measures we have per location sampled? 
+
+```{r}
+summary_nsp$n_i %>% hist()
+```
+
+Seems ok. 
+
+What is the distribution of species per grid cell? 
+
+```{r}
+summary_nsp$n_sp %>% hist()
+```
+
+What is the distribution of genus per grid cell? 
+
+```{r}
+summary_nsp$n_gen %>% hist()
+```
+
+Let's observe he Sqrt-transformed richness vector
+```{r}
+summary_nsp$n_gen %>% sqrt() %>% hist()
+```
+
+Seems more evenly spread. 
+
+
+```{r}
+library(ggraph)
+library(tidygraph)
+
+## define a function to plot a dendrogram 
+make_dendro <- function(subset_fossil){
+graph_s <- rbind(
+  subset_fossil %>% 
+select(ORDER) %>% 
+mutate(lucy = 1)%>% unique %>% 
+rename('from' = lucy, 'to' = ORDER) , 
+  subset_fossil %>% 
+select(ORDER, FAMILY) %>% unique %>% 
+rename('from' = ORDER, 'to' = FAMILY), 
+subset_fossil %>% unique %>% 
+select(FAMILY, GENUS) %>% 
+rename('from' = FAMILY, 'to' = GENUS ))
+
+
+
+graph_s <- 
+graph_s |> 
+select(from, to) |> 
+as_tbl_graph(directed = TRUE)
+
+ggraph(graph_s, 'dendrogram', circular = TRUE)  + 
+geom_edge_diagonal() + 
+geom_node_text(aes(label = ifelse(name %in% subset_fossil$GENUS, "", name))) +  
+theme_void()
+  
+
+
+}
+
+```
+
+
+:::panel-tabset 
+
+#### Aquitanian 
+
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Aquitanian', ])
+
+```
+
+#### Burdigalian 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Burdigalian', ])
+
+```
+
+#### Langhian 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Langhian', ])
+
+```
+#### Serravallian 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Serravallian', ])
+
+```
+#### Tortonian 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Tortonian', ])
+
+```
+#### Messinian 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Messinian', ])
+
+```
+#### Zanclean 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Zanclean', ])
+
+```
+#### Piacenzian 
+```{r}
+make_dendro(subset_fossil[subset_fossil$midpoint_period == 'Piacenzian', ])
+
+```
+
+:::
+
+Seems like a balanced distribution of GENUS across time periods, with no extreme changes in the information available. 
+
+
+Let's quickly get an idea of the family level dynamics over the timeperiods 
+
+
+```{r}
+
+fam_dynamics <- subset_fossil |>  
+group_by(FAMILY, GENUS, midpoint_period) |> 
+summarize(n_gen = n_distinct(SPECIES), 
+          n_grid = n_distinct(grid_id_5), 
+          gen_div = n_gen/n_grid) |> 
+st_join(subset_fossil %>% 
+select(midpoint_time, midpoint_period) |> 
+distinct())
+
+# fam_dynamics %>% 
+# ggplot(aes(midpoint_time,gen_div, group = FAMILY)) +
+# geom_point() + 
+# geom_smooth(method = 'lm')
+```
+
+
+```{r}
+head(fam_dynamics)
+
+fam_dynamics |> 
+ggplot(aes(midpoint_time,GENUS, group = GENUS)) +
+geom_point(aes(size = gen_div, col = gen_div)) + 
+geom_smooth(method = 'lm') + 
+facet_wrap(~FAMILY) +
+theme_void()
+```
+
+Seems that some families have been present throught the entire Neogene! 
+
+We can also spot the presence of `Indet` data in the dataset. Those records may correspond to unidentified species or something else. But we will find and remove them from the dataset at the GENUS LEVEL. 
+
+```{r}
+library(stringr)
+
+table(str_detect(fossil$GENUS, 'indet'))
+
+# remove indetermined genus 
+subset_fossil <- 
+subset_fossil |> 
+  filter(!GENUS %in% 'indet')
+
+```
+
+After this cleaning steps, lets count the number of species per grid and remain only with the grids-periods of time pairs with at least `5` species each. 
+
+```{r}
+subset_fossil <- subset_fossil |> mutate(sp_id = paste0(GENUS,"_", SPECIES))
+
+
+subset_fossil$gr_id <- as.numeric(is.numeric(subset_fossil$grid_id_5))
+
+# 
+grid_wt_enough_data <- 
+subset_fossil |> 
+  group_by(region, midpoint_period ) |> 
+  summarize(n_sp  = n_distinct(sp_id), 
+            n_gen = n_distinct(GENUS))  |> 
+  filter(n_sp > 5)
+
+
+
+```
+
+
+let's now filter the fossil dataset based on those grid ids 
+
+```{r}
+subset_fossil <- 
+subset_fossil |> 
+    filter(paste(region, midpoint_period) %in% 
+          paste(grid_wt_enough_data$region, grid_wt_enough_data$midpoint_period))
+
+```
+
+
+Finally, let's count the dimensions of our dataset
+
+```{r}
+subset_fossil |> dim()
+```
+
+```{r}
+#| fig-caption: Number of observations per region and time period. Note that the cell numbers have been sqrt transformed for a better visualization of the gradient. 
+#| 
+
+
+## number of records per region and time  
+xtabs(gr_id ~ region + midpoint_period, subset_fossil) |> sqrt() |> heatmap()
+
+
+```
+
+We can observe that regions are relatively equally sample in space, but not in time. Particularly, the periods `Aquitanian`, `Zanclean`, `Serravallian` and `Piacenzian` seem to be relatively less well sampled 
+
+
+```{r}
+#| fig-caption: Number of species counts per region and time period. Note that the cell numbers have been sqrt transformed for a better visualization of the gradient. 
+# number of species per region and time  
+xtabs(ifelse(is.na(subset_fossil$sp_id),0,1) ~ region + midpoint_period, subset_fossil) |> sqrt() |> heatmap()
+
+```
+
+We observe that the species richness patterns follows the sampling effort pattern. 
+
+## Environmental data 
+
+We will load the paleoclimatic reconstruction of `Hagen` for the Neogene 
+
+```{r}
+#load library
+library(raster)
+
+#read csv 
+east <- read.csv("/Users/gabri/Documents/PhD/00_Chapter_fossil/fossil_analysis/DATA/EAST_60to0Ma_Hagen_etal_2019.csv")
+
+```
+
+
+
+## Statistical analyses 
+
+### Correcting tectonic shift in climatic data 
+
+Because we deal with climatic data that spans over a very large period of time, we have to minimally correct for spatial shifts over time, as the geographic location of the fossil records correspond to the contemporary continent configuration. We use a naive formula that estimates an average shift per Ma in terms of gridcells lengths.  For North-America we set up a constant shift rate of 7/21 west and for Europe 2/21 east. 
+
+
+```{r}
+## correct continental shift in temperature records
+library(dplyr)
+library(stringr)
+library(purrr)
+
+east_corrected <- east %>% 
+  dplyr::select(paste0('X', 2:23)) %>% 
+  imap(~{
+    
+    e_corr <- .x %>% 
+      cbind(
+        east %>% 
+          dplyr::select(c('x', 'y'))
+      )%>% 
+      setNames(c(.y, 'x', 'y')) %>% 
+      mutate(x = case_when(x > -50 ~ x + round((2/21) *  str_remove(.y, 'X') %>% as.numeric()),
+                           x < -50 ~ x - round((7/21) *  str_remove(.y, 'X') %>% as.numeric()))) %>% 
+      distinct(x,y, .keep_all = T) %>% 
+      filter(complete.cases(.))
+    
+    
+    st_as_sf(e_corr, coords = c('x', 'y'))
+    
+  })
+
+```
+
+
+The result of this correction is a list of spatial features with the records corrected. 
+
+standardized climate spatial distribution for 2Ma
+
+```{r}
+
+east_corrected[[1]] %>% 
+  ggplot() + 
+  geom_sf(aes(col = X2))
+```
+
+standardized climate distribution for 21 Ma 
+
+```{r}
+
+east_corrected[[20]] %>% 
+  ggplot() + 
+  geom_sf(aes(col = X21))
+
+
+```
+
+Seem comparable now! With raster stacks, we can now aggregate and extract regional climatic data across time periods.
+
+### Aggregating climate records into regional level spatiotemporal climate variables. 
+
+
+Lets first create temporal bins that correspond to the temporal resolution of our fossil data. 
+
+```{r}
+## Create a dictionary of times and time epochs 
+
+dictionary_age_periods <- 
+list('Piacenzian' = c(2:3), 
+      'Zanclean' = c(4:5), 
+      'Messinian' = c(5:7), 
+      'Tortonian' = c(8:11), 
+      'Serravalian' = c(12:13), 
+      'Langhian' = c(14:15), 
+      'Burdigalian' = c(16:20))
+
+```
+
+We will use this dictionary to aggregate the list of rasters. In the raster list, each list slot represent 1 Ma, but our fossil data is coded into geological periods and we need to aggregate accordingly. 
+
+```{r}
+## Join the dataset back in wide format as a dataframe 
+period  =   1:21
+for ( i in period){ 
+  if(i == min(period)) {
+        e1 <- pluck(east_corrected, (i))
+  } else { 
+    e1 <- e1 |>
+            st_join(pluck(east_corrected, (i)))
+  }
+ }
+
+```
+
+
+```{r}
+# we now reshape into long format the df to ease aggregation 
+
+e2 <- reshape2::melt(e1, id.vars = c('geometry'))
+## and fix the variable into a numerical format
+e2 <- 
+  e2 |>
+mutate(variable  = str_remove(variable, 'X') |> as.numeric())
+```
+
+
+Lets aggregate the data into the time bins from our dictionary 
+
+
+
+```{r}
+
+e3 <- 
+dictionary_age_periods |> 
+imap(\(x,y){
+
+  e2 |>
+  filter(variable %in% x ) |> 
+  mutate(period = y)  |>
+  group_by(geometry) |> 
+  summarize(temp = mean(value, na.rm = T), 
+            temp_inst = sd(value, na.rm = T), 
+            period = sample(period,1))
+
+}) |> 
+bind_rows()
+
+head(e3)
+```
+
+
+```{r}
+
+ordered_period <- ## get the ordered records for the time periods
+imap(dictionary_age_periods , \(x,y) x |> data.frame() |> mutate(period = y)) |> bind_rows() |> distinct(period)
+
+
+e4 <- 
+st_as_sf(e3) |>
+mutate(period = factor(period, levels = ordered_period$period)) 
+```
+
+```{r}
+e4 |> 
+ggplot() +
+  geom_sf(aes(color = sqrt(temp)), size = 0.3) +
+  facet_wrap(~period, ncol = 2) +
+  theme_minimal() +
+  labs(title = "Temperature Map Faceted by Period",
+       x = "Longitude",
+       y = "Latitude",
+       color = "Temperature (sqrt)") + 
+  scale_color_gradient2(
+    low = 'darkblue',
+   mid = 'yellow',  
+   high = 'darkred', 
+   midpoint = 2) + 
+  xlim(c(-150, 40)) 
+```
+
+```{r}
+
+library(terra)
+library(stars)
+
+e4_list <- e4 |>
+group_by(period) |>
+group_split()
+
+
+t_mag_raster <- 
+1:length(e4_list) |> 
+purrr::map(\(x){
+
+rast(e4_list[[x]] |> dplyr::select(-c(temp_inst, period)) |> stars::st_rasterize())
+
+})
+
+t_mag_raster1 <- 
+1:length(t_mag_raster) |> 
+purrr::map(\(x){
+grid_5 |> 
+mutate(
+  temp =  terra::extract(t_mag_raster[[x]], grid_5) |> 
+dplyr::group_by(ID) |> 
+dplyr::summarize(value = mean(sqrt(temp), na.rm = T)) |>
+dplyr::pull(value)
+)
+})
+
+t_mag_raster2 <- 
+1:length(t_mag_raster1) |> 
+purrr::map(\(x){
+
+rast(t_mag_raster1[[x]] |> stars::st_rasterize())
+
+})
+
+# stack the raster
+t_mag_raster2 <- rast(t_mag_raster2)
+
+names(t_mag_raster2) <- names(dictionary_age_periods) 
+
+
+```
+
+
+
+```{r}
+library(tidyterra)
+
+temperature_magnitude_plot <- 
+ggplot() + 
+geom_spatraster(data = t_mag_raster2) + 
+facet_wrap(~lyr, ncol = 2) +
+  scale_fill_hypso_b(na.value = "transparent")+
+  # You can use coord_sf
+  coord_sf(crs = 3857) +
+geom_sf(data = grid_5, alpha = 0.2) + 
+geom_sf(data = sf::st_as_sf(xydat),
+ alpha = 0.2,  size= 0.1) +
+ labs(title = 'Atmospheric temperature: Magnitude 5x5 grid cell', 
+ fill = 'Mean annual \n temperature \n (sqrt)')
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/02_fossil/FigureSX_magnitude.png",width = 15, height = 15, units = 'in', dpi = 300  )
+
+```
+
+
+```{r, echo  = FALSE}
+saveRDS(e4, "/Users/gabri/Documents/PhD/00_Chapter_fossil/fossil_analysis/DATA/e4.RDS")
+```
+
+
+### Temperature fluctuations: 
+
+#### Temporal heterogeneity 
+
+
+```{r}
+
+temporal_fluctiation_high_res <- 
+e4 |> 
+filter(abs(temp_inst) < 6 ) |> 
+ggplot() +
+  geom_sf(aes(color = sqrt(temp_inst)), size = 0.3) +
+  facet_wrap(~period, ncol = 2) +
+  theme_minimal() +
+  labs(title = "Temperature fluctuations Faceted by Period",
+       x = "Longitude",
+       y = "Latitude",
+       color = "Temperature") + 
+  scale_color_gradient2(
+    low = 'darkblue',
+   mid = 'yellow',  
+   high = 'darkred', 
+   midpoint = 1) + 
+  xlim(c(-150, 40)) 
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/02_fossil/temporal_fluctiation_high_res.png",width = 15, height = 15, units = 'in', dpi = 300  )
+
+```
+
+
+```{r}
+e4_list <- e4 |>
+group_by(period) |>
+group_split()
+
+
+t_fluc_raster <- 
+1:length(e4_list) |> 
+purrr::map(\(x){
+
+rast(e4_list[[x]] |> select(-c(temp, period)) |> stars::st_rasterize())
+
+})
+
+t_fluc_raster <- 
+1:length(t_fluc_raster) |> 
+purrr::map(\(x){
+grid_5 |> 
+mutate(
+  temp_inst =  terra::extract(t_fluc_raster[[x]], grid_5) |> 
+group_by(ID) |> 
+summarize(value = mean(sqrt(temp_inst), na.rm = T)) |>
+pull(value)
+)
+})
+
+t_fluc_raster <- 
+1:length(t_fluc_raster) |> 
+purrr::map(\(x){
+
+rast(t_fluc_raster[[x]] |> stars::st_rasterize())
+
+})
+
+
+t_fluc_raster <- rast(t_fluc_raster)
+
+names(t_fluc_raster) <- names(dictionary_age_periods) 
+
+
+```
+
+
+
+```{r}
+temporal_fluctuation_low_res <- 
+ggplot() + 
+geom_spatraster(data = t_fluc_raster) + 
+facet_wrap(~lyr, ncol = 2) +
+  scale_fill_hypso_b(na.value = "transparent")+
+  # You can use coord_sf
+  coord_sf(crs = 3857) +
+geom_sf(data = grid_5, alpha = 0.2) + 
+geom_sf(data = sf::st_as_sf(xydat),
+ alpha = 0.2,  size= 0.1) +
+ labs(title = 'Atmospheric temperature: temporal heterogeneity 5x5 grid cell', 
+ fill = 'Mean annual \n temperature \n (sqrt(SD{Ma}))')
+
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/02_fossil/temporal_fluctuation_low_res.png",width = 15, height = 15, 
+units = 'in', dpi = 300  )
+```
+
+
+##### Spatial heterogeneity 
+
+```{r}
+
+e4_slope_list <- 
+e4_list |> 
+map(\(x){
+
+rstr <- stars::st_rasterize(x)
+het <- starsExtra::slope(rstr)
+
+het
+})
+
+
+
+
+e4_slope_stack <- terra::rast(discard(e4_slope_list, is.null) |> purrr::map(terra::rast))
+
+e4_slope_stack <- 
+1:nlyr(e4_slope_stack) |> 
+purrr::map(\(x){
+grid_5 |> 
+mutate(
+  slope =  terra::extract(e4_slope_stack[[x]], grid_5) |> 
+group_by(ID) |> 
+summarize(value = mean(slope, na.rm = T)) |>
+pull(value)
+)
+})
+
+e4_slope_stack <- 
+1:length(e4_slope_stack) |> 
+purrr::map(\(x){
+
+rast(e4_slope_stack[[x]] |> stars::st_rasterize())
+
+})
+
+
+e4_slope_stack <- rast(e4_slope_stack)
+names(e4_slope_stack) <- names(dictionary_age_periods) 
+```
+
+```{r}
+spatial_heterogeneity_low_res <- 
+ggplot() + 
+geom_spatraster(data = e4_slope_stack) + 
+facet_wrap(~lyr, ncol = 2) +
+  scale_fill_hypso_b(na.value = "transparent")+
+  # You can use coord_sf
+  coord_sf(crs = 3857) +
+geom_sf(data = grid_5, alpha = 0.2) + 
+geom_sf(data = sf::st_as_sf(xydat),
+ alpha = 0.2,  size= 0.1) +
+ labs(title = 'Atmospheric temperature: spatial heterogeneity 5x5 grid cell', 
+ fill = 'Slope')
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/02_fossil/spatial_heterogeneity_low_res.png",width = 15, height = 15, 
+units = 'in', dpi = 300  )
+```
+
+Lets coalesce all snapshot objects in a single list. 
+
+
+```{r}
+
+snapshot_predictors <- list(
+  'spat_heter' = e4_slope_stack, 
+  'temp_heter' = t_fluc_raster, 
+  'temp_magni' = t_mag_raster2
+
+)
+
+```
+
+
+```{r, echo = FALSE}
+saveRDS(snapshot_predictors, "/Users/gabri/Documents/PhD/00_Chapter_fossil/fossil_analysis/DATA/snapshot_predictors.RDS")
+```
+
+
+
+### spatiotemporal dissimilarity of fossil assemblages
+
+Let's make the community matrix, where species are rows and grid-timeperiod are columns. 
+
+```{r}
+subset_fossil <- 
+subset_fossil |> 
+filter(midpoint_period != 'NA') |>
+mutate(sp_time_id = paste(grid_id_5,midpoint_period, sep = '_'))
+
+
+
+sp_occ_tab <- xtabs(grid_id_5 ~ sp_id + sp_time_id , subset_fossil)
+
+
+```
+
+Lets now calculate `beta-diversity` as the dissimilarity of species composition. 
+
+`beta-diversity` has two components, turnover and nestedness. and can be computed within grids and between grids, within periods and between timeperiods. 
+
+```{r}
+# make it a incidence binary matrix
+sp_occ_tab[sp_occ_tab>1] <-1
+
+betadiv_matrix <- betapart::beta.pair(t(sp_occ_tab))
+
+
+nested_component <- betadiv_matrix$beta.sne
+turnov_component <- betadiv_matrix$beta.sor
+```
+
+Now lets mantain differences between consecutive time periods (lag = 0) 
+
+Lets add space and temporal id to the pairwise dissimilarity in long format
+
+```{r}
+nested_component1 <- 
+  nested_component |> 
+  as.matrix () |> 
+  reshape2::melt(value.name = 'beta_nested') |>
+  setNames(c('from', 'to', 'beta_nested')) |>
+  separate(from, c('from_grid', 'from_time'), "_") |> 
+  separate(to, c('to_grid', 'to_time'), "_") |> 
+  mutate(key = paste0(from_time, "_", to_time))
+
+
+turnov_component1 <- 
+  turnov_component |> 
+  as.matrix () |> 
+  reshape2::melt(value.name = 'beta_nested') |>
+  setNames(c('from', 'to', 'beta_nested')) |>
+  separate(from, c('from_grid', 'from_time'), "_") |> 
+  separate(to, c('to_grid', 'to_time'), "_") |> 
+  mutate(key = paste0(from_time, "_", to_time))
+
+```
+
+Compute the vector of sequential time period names to filter the dissimilarity observations. 
+
+```{r}
+
+sequential_periods <- 
+data.frame(
+  'from' = rev(names(dictionary_age_periods)),
+  'to' = c(rev(names(dictionary_age_periods))[2:7], NA)
+) |> 
+slice(1:6) |> 
+mutate(key = paste0(from, "_", to))
+
+same_periods <- paste0(names(dictionary_age_periods),"_", names(dictionary_age_periods))
+
+```
+
+Filter out non-sequential time periods 
+
+```{r}
+seq_nested_component <- 
+nested_component1 |> 
+  filter(key %in% c(sequential_periods$key, 
+  same_periods))
+
+seq_turnover_component <- 
+turnov_component1 |> 
+  filter(key %in% c(sequential_periods$key,same_periods))
+```
+
+How many records we kept? 
+
+
+```{r}
+
+dim(seq_nested_component)
+
+```
+
+17655 rows, not bad
+
+
+
+
+
+
+### Temporal patterns in large-mammal fossil assemblage dissimilarity across regions. 
+
+Let's now add regional info to the grid id. 
+
+
+```{r}
+
+head(subset_fossil)
+seq_nested_component <- 
+seq_nested_component |> 
+mutate(
+from_region = subset_fossil$region[match(seq_nested_component$from_grid, subset_fossil$grid_id_5)],
+to_region = subset_fossil$region[match(seq_nested_component$to_grid, subset_fossil$grid_id_5)],
+key_region = paste(from_region, to_region, sep = "_"),
+is_america = (str_detect(from_region, 'America') & str_detect(to_region, 'America')) , 
+is_europe =  (str_detect(from_region, 'Europe') & str_detect(to_region, 'Europe')), 
+from_mp = subset_fossil$midpoint_time[match(from_time, subset_fossil$midpoint_period)] ,
+to_mp = subset_fossil$midpoint_time[match(to_time, subset_fossil$midpoint_period)],
+midpoint = (from_mp + to_mp)/2
+) |> 
+filter((str_detect(from_region, 'America') & str_detect(to_region, 'America') )| 
+      (str_detect(from_region, 'Europe') & str_detect(to_region, 'Europe') )
+ ) |> 
+filter(!is.na(to_region), 
+    !is.na(from_region))
+
+seq_turnover_component <- 
+seq_turnover_component |> 
+mutate(
+from_region = subset_fossil$region[match(seq_turnover_component$from_grid, subset_fossil$grid_id_5)],
+to_region = subset_fossil$region[match(seq_turnover_component$to_grid, subset_fossil$grid_id_5)],
+key_region = paste(from_region, to_region, sep = "_"),
+is_america = (str_detect(from_region, 'America') & str_detect(to_region, 'America')) , 
+is_europe =  (str_detect(from_region, 'Europe') & str_detect(to_region, 'Europe') ),
+from_mp = subset_fossil$midpoint_time[match(from_time, subset_fossil$midpoint_period)] ,
+to_mp = subset_fossil$midpoint_time[match(to_time, subset_fossil$midpoint_period)],
+midpoint = (from_mp + to_mp)/2
+)|> 
+filter((str_detect(from_region, 'America') & str_detect(to_region, 'America') )| 
+      (str_detect(from_region, 'Europe') & str_detect(to_region, 'Europe') )
+ )|> 
+filter(!is.na(to_region), !is.na(from_region))
+
+```
+
+
+
+Now, lets observe the change in betadiversity through time across distinct regions
+
+
+```{r}
+
+# bind both datasets into a single 
+
+dissimilarity_components <- bind_rows(
+  seq_turnover_component |> 
+  mutate(ctype = 'turnover'),
+  seq_nested_component |> 
+  mutate(ctype = 'nested')
+)
+
+dissimilarity_components <- 
+dissimilarity_components |> 
+mutate(beta_type = case_when( 
+(from_grid == to_grid & from_time != to_time) ~ 'temporal',
+(from_grid != to_grid & from_time == to_time) ~ 'spatial',
+(from_grid != to_grid & from_time != to_time) ~ 'spatiotemporal'
+))
+
+```
+
+
+
+
+```{r}
+dissimilarity_components_plot <- 
+dissimilarity_components |> 
+filter(!is.na(beta_type)) |> 
+ggplot(aes((midpoint), (beta_nested))) + 
+geom_point(aes(col = ctype),
+            size = 2, alpha = 0.2) + 
+theme_minimal() + 
+geom_smooth(aes(group = ctype, col = ctype), 
+fill = 'grey', size = 2 , 
+method = "lm", fullrange = TRUE)  + 
+facet_wrap(~is_america + beta_type , ncol = 3, nrow = 2) +
+ylab('Compositional Dissimilarity') + 
+xlab('Time') + 
+scale_color_manual( name = "Dissimilarity \n components",
+ values = c('#d8b365', '#5ab4ac')) + 
+theme(axis.text = element_text(size=24), 
+      axis.title = element_text(size=34), 
+      title = element_text(size = 20)) 
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/02_fossil/dissimilarity_components_plot.png", plot = dissimilarity_components_plot, 
+width = 15, height = 15, 
+units = 'in', dpi = 300  )
+
+```
+
+
+```{r}
+# dissimilarity_components <- 
+# dissimilarity_components |> 
+# filter(!is.na(beta_type), 
+#      beta_type != 'spatiotemporal') 
+
+head(dissimilarity_components)
+```
+
+Bind environmental data to dissimilarirty component dataframe
+
+
+
+```{r}
+# bring back the predictor variables 
+
+t_magni_matrix <- terra::extract((snapshot_predictors$temp_magni), vect(grid_5)) |> group_by(ID) |> slice(1)
+
+temp_heter_matrix <- terra::extract((snapshot_predictors$temp_heter), vect(grid_5)) |> group_by(ID) |> slice(1)
+
+spat_heter_matrix <- terra::extract(snapshot_predictors$spat_heter, vect(grid_5)) |> group_by(ID) |> slice(1)
+
+
+## temperature magnitude
+
+t_magni_matrix <- t_magni_matrix |> reshape2::melt(id.vars = "ID") 
+
+dissimilarity_components$from_temp_magni <-
+t_magni_matrix[
+  match(paste(dissimilarity_components$from_grid, dissimilarity_components$from_time),
+  paste(t_magni_matrix$ID, t_magni_matrix$variable)
+  ),'value']
+
+dissimilarity_components$to_temp_magni <-
+t_magni_matrix[
+  match(paste(dissimilarity_components$to_grid, dissimilarity_components$to_time),
+  paste(t_magni_matrix$ID, t_magni_matrix$variable)
+  ),'value']
+
+
+
+## temporal heterogenity 
+temp_heter_matrix <- temp_heter_matrix |> reshape2::melt(id.vars = "ID") 
+
+dissimilarity_components$from_temp_heter <-
+temp_heter_matrix[
+  match(paste(dissimilarity_components$from_grid, dissimilarity_components$from_time),
+  paste(temp_heter_matrix$ID, temp_heter_matrix$variable)
+  ),'value']
+
+
+dissimilarity_components$to_temp_heter <-
+temp_heter_matrix[
+  match(paste(dissimilarity_components$to_grid, dissimilarity_components$to_time),
+  paste(temp_heter_matrix$ID, temp_heter_matrix$variable)
+  ),'value']
+
+## spatial heterogeneity 
+spat_heter_matrix <- spat_heter_matrix |> reshape2::melt(id.vars = "ID") 
+
+dissimilarity_components$from_spat_heter <-
+spat_heter_matrix[
+  match(paste(dissimilarity_components$from_grid, dissimilarity_components$from_time),
+  paste(spat_heter_matrix$ID, spat_heter_matrix$variable)
+  ),'value']
+
+dissimilarity_components$to_spat_heter <-
+spat_heter_matrix[
+  match(paste(dissimilarity_components$to_grid, dissimilarity_components$to_time),
+  paste(spat_heter_matrix$ID, spat_heter_matrix$variable)
+  ),'value']
+
+```
+
+
+Visualize the binded dataset
+
+
+```{r}
+head(dissimilarity_components |> filter(beta_type == 'temporal'))
+```
+
+Calculate deltas
+
+
+```{r}
+
+dissimilarity_components <- 
+dissimilarity_components |> 
+ mutate(delta_temp_magni = abs(from_temp_magni - to_temp_magni ), 
+        delta_temp_heter = abs(from_temp_heter - to_temp_heter), 
+        delta_spat_heter = abs(from_spat_heter - to_spat_heter), 
+        delta_time = abs(from_mp - to_mp))
+```
+
+
+
+
+```{r}
+
+delta_magnitude_plot <- 
+ dissimilarity_components |> 
+ggplot(aes((midpoint), (delta_temp_magni))) + 
+geom_point(size = 2, alpha = 0.2) + 
+theme_minimal() + 
+geom_smooth(fill = 'grey', size = 2 , 
+method = "lm", fullrange = TRUE)  +
+ylab('Delta temperature magnitude') + 
+xlab('Time') +
+theme(axis.text = element_text(size=12), 
+      axis.title = element_text(size=12), 
+      title = element_text(size = 20)) 
+
+delta_temp_heter_plot <- 
+
+ dissimilarity_components |> 
+ggplot(aes((midpoint), (delta_temp_heter))) + 
+geom_point(size = 2, alpha = 0.2) + 
+theme_minimal() + 
+geom_smooth(fill = 'grey', size = 2 , 
+method = "lm", fullrange = TRUE)  +
+ylab('Delta temporal seasonality') + 
+xlab('Time') +
+theme(axis.text = element_text(size=12), 
+      axis.title = element_text(size=12), 
+      title = element_text(size = 20)) 
+delta_spat_heter_plot <- 
+
+ dissimilarity_components |> 
+ggplot(aes((midpoint), (delta_spat_heter))) + 
+geom_point(size = 2, alpha = 0.2) + 
+theme_minimal() + 
+geom_smooth(fill = 'grey', size = 2 , 
+method = "lm", fullrange = TRUE)  +
+ylab('Delta spatial heterogeneity') + 
+xlab('Time') +
+theme(axis.text = element_text(size=12), 
+      axis.title = element_text(size=12), 
+      title = element_text(size = 20)) 
+
+deltas_plot <- 
+gridExtra::grid.arrange(delta_magnitude_plot, 
+          delta_temp_heter_plot,
+          delta_spat_heter_plot )
+
+
+ggsave("/Users/gabri/Documents/PhD/Dissertation_book/figs/02_fossil/deltas_plot.png",deltas_plot, width = 15, height = 15, units = 'in', dpi = 500  )
+
+
+
+
+
+
+```
+
+### Fit  models 
+
+
+```{r}
+library(lme4)
+
+
+mod_am_sp <- lme4::lmer(beta_nested ~ delta_temp_magni + delta_spat_heter + delta_temp_heter +  (1|key/key_region), 
+ dissimilarity_components |> filter(ctype == 'turnover', 
+                                    beta_type == 'spatial'), 
+ control=lmerControl(optimizer="bobyqa"))
+
+dissimilarity_components |> filter(ctype == 'turnover', 
+                                    beta_type == 'spatial')
+mod_am_temp <- lme4::lmer(beta_nested ~ delta_temp_magni + 
+delta_spat_heter + delta_temp_heter  +delta_time+  (1|key/key_region), 
+ dissimilarity_components |> filter(ctype == 'turnover', 
+                                    beta_type == 'temporal'), 
+ control=lmerControl(optimizer="bobyqa"))
+
+
+mod_am_sp_temp <- lme4::lmer(beta_nested ~ delta_temp_magni + delta_spat_heter + delta_temp_heter + delta_time +  (1|key/key_region), 
+ dissimilarity_components |> filter(ctype == 'turnover', 
+                                    beta_type == 'spatiotemporal'), 
+ control=lmerControl(optimizer="bobyqa"))
+
+sjPlot::tab_model(mod_am_sp)
+sjPlot::tab_model(mod_am_temp)
+sjPlot::tab_model(mod_am_sp_temp)
+
+ranef(mod_am_sp)$key[c(4,6,3,5,2,1),] |> barplot()
+dev.off()
+names(dictionary_age_periods)
+```
+
+
+sensitivity test with other optimizers
+
+
+```{r}
+library(broom.mixed)
+
+all_fit_mod_turn <- lme4::allFit(mod_am_sp)
+
+glance(all_fit_mod_turn) |> select(optimizer, AIC, NLL_rel) |> arrange(NLL_rel)
+
+
+
+
+tidy(all_fit_mod_turn, conf.int = TRUE) |> 
+     arrange(effect, term, estimate) |> 
+     select(-c(std.error, statistic))
+```
+
+
+
+```{r}
+plot(effects::predictorEffects(mod_am_sp), 
+     axes=list(y = list(lab ="Compositional dissimilarity (spatial)",
+     cex = 2),
+               x = list(rotate = 90, cex = 2,
+                        lab = 'Delta temperature magnitude')),
+     lines = list(lty=1, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '', 
+     lattice=list(layout=c(1,1)) )
+
+plot(effects::predictorEffects(mod_am_temp), 
+     axes=list(y = list(lab ="Compositional dissimilarity (spatial)",
+     cex = 2),
+               x = list(rotate = 90, 
+               cex = 2,
+                        lab = 'Delta temperature magnitude')),
+     lines = list(lty=1, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '', 
+     lattice=list(layout=c(1,1)) )
+
+
+plot(effects::predictorEffects(mod_am_sp_temp), 
+     axes=list(y = list(lab ="Compositional dissimilarity (spatiotemporal)",
+     cex = 2),
+               x = list(rotate = 90, 
+               cex = 2,
+                        lab = 'Delta temperature magnitude')),
+     lines = list(lty=1, lwd = 3, col = 'firebrick'),
+     confint =list(col="gray", alpha=.3), main = '', 
+     lattice=list(layout=c(1,1)) )
+
+```

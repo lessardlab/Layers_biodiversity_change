@@ -193,7 +193,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/fossil_turnover/manuscript.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Historical Paleoclimates and the Genesis of Regional Biotas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Climate change drove the deep-time assembly of biological diversity</span></span></a>
   </div>
 </li>
       </ul>
@@ -249,24 +249,21 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#fossil-data" id="toc-fossil-data" class="nav-link active" data-scroll-target="#fossil-data"><span class="header-section-number">C.1</span> Fossil data</a>
+  <li><a href="#paleoclimatic-data" id="toc-paleoclimatic-data" class="nav-link active" data-scroll-target="#paleoclimatic-data"><span class="header-section-number">C.1</span> Paleoclimatic data</a>
   <ul class="collapse">
-  <li><a href="#spatial-binning" id="toc-spatial-binning" class="nav-link" data-scroll-target="#spatial-binning"><span class="header-section-number">C.1.1</span> Spatial binning</a></li>
-  <li><a href="#taxonomic-summary" id="toc-taxonomic-summary" class="nav-link" data-scroll-target="#taxonomic-summary"><span class="header-section-number">C.1.2</span> Taxonomic summary</a></li>
+  <li><a href="#neogene-paleotemperature-layers-used-in-climate-reconstructions." id="toc-neogene-paleotemperature-layers-used-in-climate-reconstructions." class="nav-link" data-scroll-target="#neogene-paleotemperature-layers-used-in-climate-reconstructions."><span class="header-section-number">C.1.1</span> <strong>Neogene paleotemperature layers used in climate reconstructions.</strong></a></li>
+  <li><a href="#sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." id="toc-sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." class="nav-link" data-scroll-target="#sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices."><span class="header-section-number">C.1.2</span> <strong>Sensitivity of Neogene temperature‐change estimates to GAM smoothing choices.</strong></a></li>
   </ul></li>
-  <li><a href="#paleoclimatic-data" id="toc-paleoclimatic-data" class="nav-link" data-scroll-target="#paleoclimatic-data"><span class="header-section-number">C.2</span> Paleoclimatic data</a>
+  <li><a href="#fossil-data" id="toc-fossil-data" class="nav-link" data-scroll-target="#fossil-data"><span class="header-section-number">C.2</span> Fossil data</a>
   <ul class="collapse">
-  <li><a href="#temporal-binning-of-climatic-rasters-1-ma-within-neogene-stages" id="toc-temporal-binning-of-climatic-rasters-1-ma-within-neogene-stages" class="nav-link" data-scroll-target="#temporal-binning-of-climatic-rasters-1-ma-within-neogene-stages"><span class="header-section-number">C.2.1</span> Temporal binning of climatic rasters (1 Ma) within Neogene stages</a></li>
-  <li><a href="#delineating-paleoclimatic-zones" id="toc-delineating-paleoclimatic-zones" class="nav-link" data-scroll-target="#delineating-paleoclimatic-zones"><span class="header-section-number">C.2.2</span> Delineating paleoclimatic zones</a></li>
+  <li><a href="#taxonomic-summary" id="toc-taxonomic-summary" class="nav-link" data-scroll-target="#taxonomic-summary"><span class="header-section-number">C.2.1</span> Taxonomic summary</a></li>
   </ul></li>
-  <li><a href="#evaluating-fossil-dissimilarity" id="toc-evaluating-fossil-dissimilarity" class="nav-link" data-scroll-target="#evaluating-fossil-dissimilarity"><span class="header-section-number">C.3</span> Evaluating fossil dissimilarity</a></li>
-  <li><a href="#delineating-paleobiogeographic-regions" id="toc-delineating-paleobiogeographic-regions" class="nav-link" data-scroll-target="#delineating-paleobiogeographic-regions"><span class="header-section-number">C.4</span> Delineating paleobiogeographic regions</a></li>
-  <li><a href="#evaluating-the-relationship-between-turnover-and-climate" id="toc-evaluating-the-relationship-between-turnover-and-climate" class="nav-link" data-scroll-target="#evaluating-the-relationship-between-turnover-and-climate"><span class="header-section-number">C.5</span> Evaluating the relationship between turnover and climate</a>
+  <li><a href="#evaluating-the-relationship-between-turnover-and-climate" id="toc-evaluating-the-relationship-between-turnover-and-climate" class="nav-link" data-scroll-target="#evaluating-the-relationship-between-turnover-and-climate"><span class="header-section-number">C.3</span> Evaluating the relationship between turnover and climate</a>
   <ul class="collapse">
-  <li><a href="#spatial-join-between-climatic-variables-with-fossil-localities" id="toc-spatial-join-between-climatic-variables-with-fossil-localities" class="nav-link" data-scroll-target="#spatial-join-between-climatic-variables-with-fossil-localities"><span class="header-section-number">C.5.1</span> Spatial join between climatic variables with fossil localities</a></li>
-  <li><a href="#subset-the-dissimilarity-matrix" id="toc-subset-the-dissimilarity-matrix" class="nav-link" data-scroll-target="#subset-the-dissimilarity-matrix"><span class="header-section-number">C.5.2</span> Subset the dissimilarity matrix</a></li>
-  <li><a href="#repeat-for-all-climatic-clusters-across-all-time-bins" id="toc-repeat-for-all-climatic-clusters-across-all-time-bins" class="nav-link" data-scroll-target="#repeat-for-all-climatic-clusters-across-all-time-bins"><span class="header-section-number">C.5.3</span> Repeat for all climatic clusters across all time bins</a></li>
-  <li><a href="#beta-regression-modelling" id="toc-beta-regression-modelling" class="nav-link" data-scroll-target="#beta-regression-modelling"><span class="header-section-number">C.5.4</span> Beta-regression modelling</a></li>
+  <li><a href="#spatial-join-between-climatic-variables-with-fossil-localities" id="toc-spatial-join-between-climatic-variables-with-fossil-localities" class="nav-link" data-scroll-target="#spatial-join-between-climatic-variables-with-fossil-localities"><span class="header-section-number">C.3.1</span> Spatial join between climatic variables with fossil localities</a></li>
+  <li><a href="#subset-the-dissimilarity-matrix" id="toc-subset-the-dissimilarity-matrix" class="nav-link" data-scroll-target="#subset-the-dissimilarity-matrix"><span class="header-section-number">C.3.2</span> Subset the dissimilarity matrix</a></li>
+  <li><a href="#repeat-for-all-climatic-clusters-across-all-time-bins" id="toc-repeat-for-all-climatic-clusters-across-all-time-bins" class="nav-link" data-scroll-target="#repeat-for-all-climatic-clusters-across-all-time-bins"><span class="header-section-number">C.3.3</span> Repeat for all climatic clusters across all time bins</a></li>
+  <li><a href="#beta-regression-modelling" id="toc-beta-regression-modelling" class="nav-link" data-scroll-target="#beta-regression-modelling"><span class="header-section-number">C.3.4</span> Beta-regression modelling</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -293,830 +290,88 @@ window.Quarto = {
 </header>
 
 
-<section id="fossil-data" class="level2" data-number="C.1">
-<h2 data-number="C.1" class="anchored" data-anchor-id="fossil-data"><span class="header-section-number">C.1</span> Fossil data</h2>
-<section id="assigning-fossil-locations-to-a-period-in-the-neogene" class="level4" data-number="C.1.0.1">
-<h4 data-number="C.1.0.1" class="anchored" data-anchor-id="assigning-fossil-locations-to-a-period-in-the-neogene"><span class="header-section-number">C.1.0.1</span> Assigning fossil locations to a period in the Neogene</h4>
-<p>Fossil occurrences were assigned to discrete Neogene stages based on the midpoint of their reported geological age ranges (Ma). Midpoint ages were intersected with the standard Neogene chronostratigraphic framework (Aquitanian–Piacenzian). Midpoint ages within a single stage were assigned directly to that stage. This discretization facilitates stage-level comparisons while acknowledging that fossil ages are inherently uncertain.</p>
+<section id="paleoclimatic-data" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="paleoclimatic-data"><span class="header-section-number">C.1</span> Paleoclimatic data</h2>
+<section id="neogene-paleotemperature-layers-used-in-climate-reconstructions." class="level3" data-number="C.1.1">
+<h3 data-number="C.1.1" class="anchored" data-anchor-id="neogene-paleotemperature-layers-used-in-climate-reconstructions."><span class="header-section-number">C.1.1</span> <strong>Neogene paleotemperature layers used in climate reconstructions.</strong></h3>
+<p>Spatially explicit reconstructions of mean annual surface temperature across the Northern Hemisphere from 23 to 2 Ma, shown at 1-Myr intervals and 1° × 1° spatial resolution. Each panel represents a single time slice, displayed using a common diverging color scale to facilitate comparison across time. These layers form the basis for estimating directional temperature change and climatic instability used in subsequent analyses.</p>
+<p><img src="images/clipboard-586487958.png" class="img-fluid"></p>
+</section>
+<section id="sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." class="level3" data-number="C.1.2">
+<h3 data-number="C.1.2" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices."><span class="header-section-number">C.1.2</span> <strong>Sensitivity of Neogene temperature‐change estimates to GAM smoothing choices.</strong></h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-1496738460.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Temporal distribution of Neogene fossil assemblages.** Points show individual fossil assemblage ages (Ma) plotted by Neogene stage, arranged using stage midpoints on the y-axis. Blue points represent assemblage mid-age estimates, while red ticks indicate the full temporal range of age uncertainty for each assemblage. Horizontal black lines summarize the overall age span represented within each stage. The figure illustrates both the concentration of fossil data through time and the variation in temporal uncertainty across Neogene intervals.</figcaption>
+<p><img src="images/clipboard-1262033941.png" class="img-fluid figure-img"></p>
+<figcaption>Mean continental rates of temperature change (°C Myr⁻¹) from 22 to 2 Ma estimated using generalized additive models with alternative smoothing parameterizations (degrees of freedom and polynomial degree). Curves show that while the magnitude of rates varies slightly with smoothing choice, the overall temporal pattern of Neogene cooling and subsequent moderation is robust across model specifications.</figcaption>
 </figure>
 </div>
 </section>
-<section id="evaluating-sampling-effort" class="level4" data-number="C.1.0.2">
-<h4 data-number="C.1.0.2" class="anchored" data-anchor-id="evaluating-sampling-effort"><span class="header-section-number">C.1.0.2</span> Evaluating sampling effort</h4>
+</section>
+<section id="fossil-data" class="level2" data-number="C.2">
+<h2 data-number="C.2" class="anchored" data-anchor-id="fossil-data"><span class="header-section-number">C.2</span> Fossil data</h2>
+<section id="binning-fossil-locations-into-assemblage" class="level4" data-number="C.2.0.1">
+<h4 data-number="C.2.0.1" class="anchored" data-anchor-id="binning-fossil-locations-into-assemblage"><span class="header-section-number">C.2.0.1</span> Binning fossil locations into assemblage</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3495850485.png" class="img-fluid figure-img"></p>
+<figcaption>Paleorotated coordinates were used to assign fossil occurrences to a discrete grid cells of approximately 100 × 100 km in paleogeographic space. Grid aggregation reduces the influence of uneven spatial sampling density and local clustering of fossil localities, while retaining sufficient spatial resolution to capture broad-scale paleobiogeographic structure. Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single paleoassemblage, which served as the fundamental unit for subsequent diversity, compositional, and network analyses.</figcaption>
+</figure>
+</div>
+</section>
+<section id="assigning-fossil-assemblages-to-a-period-in-the-neogene" class="level4" data-number="C.2.0.2">
+<h4 data-number="C.2.0.2" class="anchored" data-anchor-id="assigning-fossil-assemblages-to-a-period-in-the-neogene"><span class="header-section-number">C.2.0.2</span> Assigning fossil assemblages to a period in the Neogene</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-865054988.png" class="img-fluid figure-img"></p>
+<figcaption>Temporal distribution of fossil localities across the Neogene. Bars show the log-transformed number of fossil localities per 1-Myr time bin, plotted against geological time (Ma). The reversed x-axis follows geological convention, with older ages on the left and younger ages on the right, illustrating changes in sampling intensity through time.</figcaption>
+</figure>
+</div>
+</section>
+<section id="rarefied-richness-across-geological-time" class="level4" data-number="C.2.0.3">
+<h4 data-number="C.2.0.3" class="anchored" data-anchor-id="rarefied-richness-across-geological-time"><span class="header-section-number">C.2.0.3</span> Rarefied richness across geological time</h4>
+<p><img src="images/clipboard-4080731061.png" class="img-fluid"></p>
+</section>
+<section id="estimating-turnover-among-fossil-paleoassemblages" class="level4" data-number="C.2.0.4">
+<h4 data-number="C.2.0.4" class="anchored" data-anchor-id="estimating-turnover-among-fossil-paleoassemblages"><span class="header-section-number">C.2.0.4</span> Estimating turnover among fossil paleoassemblages</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1792363359.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Pairwise compositional dissimilarity across space and time.</strong> Heatmaps show pairwise Simpson dissimilarity (β_SIM) among fossil paleoassemblages for all taxa, herbivores, and carnivores. Colors represent increasing compositional dissimilarity from low (dark) to high (yellow), highlighting differences in turnover structure among trophic groups across spatiotemporal assemblages.</figcaption>
+</figure>
+</div>
+</section>
+<section id="paleobiogeographic-regions-estimation" class="level4" data-number="C.2.0.5">
+<h4 data-number="C.2.0.5" class="anchored" data-anchor-id="paleobiogeographic-regions-estimation"><span class="header-section-number">C.2.0.5</span> Paleobiogeographic regions estimation</h4>
+</section>
+<section id="space-time-covariates" class="level4" data-number="C.2.0.6">
+<h4 data-number="C.2.0.6" class="anchored" data-anchor-id="space-time-covariates"><span class="header-section-number">C.2.0.6</span> Space time covariates</h4>
+<p><img src="images/clipboard-2514000500.png" class="img-fluid"></p>
+</section>
+<section id="range-of-cluster-estimation" class="level4" data-number="C.2.0.7">
+<h4 data-number="C.2.0.7" class="anchored" data-anchor-id="range-of-cluster-estimation"><span class="header-section-number">C.2.0.7</span> Range of cluster estimation</h4>
+<p><img src="images/clipboard-1105226037.png" class="img-fluid"></p>
+</section>
+<section id="reduced-turnover-matrices" class="level4" data-number="C.2.0.8">
+<h4 data-number="C.2.0.8" class="anchored" data-anchor-id="reduced-turnover-matrices"><span class="header-section-number">C.2.0.8</span> Reduced turnover matrices</h4>
+<p><img src="images/clipboard-417304926.png" class="img-fluid"></p>
+</section>
+<section id="evaluating-sampling-effort" class="level4" data-number="C.2.0.9">
+<h4 data-number="C.2.0.9" class="anchored" data-anchor-id="evaluating-sampling-effort"><span class="header-section-number">C.2.0.9</span> Evaluating sampling effort</h4>
 <p>Sampling effort was evaluated as the relationship between the number of sampled fossil localities and observed generic richness for every stage in the Neogene. Sampling–richness relationships were examined within each Neogene stage to assess how efficiently additional localities contributed to the recovery of new genera and to identify stages showing evidence of saturation versus continued sampling dependence.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-525139519.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Sampling–richness relationships across Neogene stages.** Panels show the relationship between sampling effort and observed generic richness for each Neogene stage. Black points represent individual paleoassemblages, blue lines depict fitted smooth relationships, and grey ribbons indicate 95% confidence intervals. Across stages, richness generally increases with sampling effort but with marked differences in slope and saturation, highlighting temporal variation in sampling completeness and the efficiency with which taxonomic richness is recovered through the Neogene.</figcaption>
-</figure>
-</div>
+<p><img src="images/clipboard-2034292060.png" class="img-fluid"></p>
 </section>
-<section id="richness-estimates" class="level4" data-number="C.1.0.3">
-<h4 data-number="C.1.0.3" class="anchored" data-anchor-id="richness-estimates"><span class="header-section-number">C.1.0.3</span> Richness estimates</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1108257504.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Temporal variation in family-level taxonomic richness through the Neogene.** The line depicts changes in the richness of families across the Neogene plotted against geological age (Ma). The stratigraphic bar below the plot indicates Neogene stages and their grouping within the Neogene period, providing temporal context for observed richness fluctuations. The figure highlights both short-term variability among stages and longer-term trends in family-level diversity through Neogene time.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1370459882.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Rarefied family-level richness across Neogene stages.** Bars show mean rarefied richness of families for each Neogene stage, with error bars indicating uncertainty around the estimates (e.g., ±1 SE). Rarefaction accounts for differences in sampling intensity among stages, allowing direct comparison of family-level diversity through the Neogene. The results indicate higher standardized richness during the early to middle Neogene and a decline toward the late Neogene.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-874659174.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Temporal variation in generic richness through the Neogene.** The line shows changes in observed genus-level richness plotted against geological age (Ma) across the Neogene. The stratigraphic bar below the plot delineates individual Neogene stages and their grouping within the Neogene period, providing temporal context for richness fluctuations. The figure illustrates pronounced stage-to-stage variability in generic diversity superimposed on broader Neogene-scale trends.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2178958226.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Rarefied genus-level richness across Neogene stages.** Bars show mean rarefied generic richness for each Neogene stage, with error bars indicating uncertainty around the estimates (e.g., ±1 SE). By standardizing for sampling effort, rarefaction allows direct comparison of genus-level diversity through time, revealing highest standardized richness during the middle Neogene and a decline toward the late Neogene.</figcaption>
-</figure>
-</div>
+<section id="sampling-intensity-of-paleobiographic-regions" class="level4" data-number="C.2.0.10">
+<h4 data-number="C.2.0.10" class="anchored" data-anchor-id="sampling-intensity-of-paleobiographic-regions"><span class="header-section-number">C.2.0.10</span> Sampling intensity of paleobiographic regions</h4>
+<p><img src="images/clipboard-1189386106.png" class="img-fluid" width="500"></p>
 </section>
-<section id="spatial-binning" class="level3" data-number="C.1.1">
-<h3 data-number="C.1.1" class="anchored" data-anchor-id="spatial-binning"><span class="header-section-number">C.1.1</span> Spatial binning</h3>
-<section id="paleoreotation-of-fossil-coordinates" class="level4" data-number="C.1.1.1">
-<h4 data-number="C.1.1.1" class="anchored" data-anchor-id="paleoreotation-of-fossil-coordinates"><span class="header-section-number">C.1.1.1</span> Paleoreotation of fossil coordinates</h4>
-<p>Present-day geographic coordinates of fossil localities were converted to paleogeographic coordinates using plate tectonic rotation models to relocate fossil occurrences to their estimated positions at the time of deposition, based on their assigned geological ages (midpoint estimates). Paleorotation was performed independently for each fossil occurrence using its stage-level age assignment, ensuring temporal consistency between spatial location and geological period. The rotation model (MERDITH2021) accounts for large-scale plate motions through time and produces paleolongitude and paleolatitude estimates that are directly comparable across Neogene stages.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-990372967.png" class="img-fluid figure-img"></p>
-<figcaption>Figure S1: Spatial distribution of mammalian fossil localities across eight Neogene time intervals (Aquitanian–Piacenzian) in Europe and North America. Each panel represents the geographic occurrence of fossil assemblages within a 1° grid. Present-day (black) and rotated (red) paleoocordinates are shown.</figcaption>
-</figure>
-</div>
-</section>
-<section id="grid-aggregation-of-fossil-data" class="level4" data-number="C.1.1.2">
-<h4 data-number="C.1.1.2" class="anchored" data-anchor-id="grid-aggregation-of-fossil-data"><span class="header-section-number">C.1.1.2</span> Grid aggregation of fossil data</h4>
-<p>Paleorotated coordinates were subsequently used to assign fossil occurrences to a discrete grid cells of approximately 100 × 100 km in paleogeographic space. Grid aggregation reduces the influence of uneven spatial sampling density and local clustering of fossil localities, while retaining sufficient spatial resolution to capture broad-scale paleobiogeographic structure. Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single paleoassemblage, which served as the fundamental unit for subsequent diversity, compositional, and network analyses.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2312117507.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Geographic distribution of fossil assemblage centroids.** Points represent the longitude–latitude coordinates of paleoassemblage grid-cell centroids included in the analysis. Assemblages are concentrated in two main regions corresponding broadly to North America (western cluster) and Europe–western Eurasia (eastern cluster), reflecting the spatial coverage of the fossil record used in this study. The figure highlights both the geographic extent and the uneven spatial sampling underlying subsequent analyses.</figcaption>
-</figure>
-</div>
+<section id="taxonomic-summary" class="level3" data-number="C.2.1">
+<h3 data-number="C.2.1" class="anchored" data-anchor-id="taxonomic-summary"><span class="header-section-number">C.2.1</span> Taxonomic summary</h3>
 </section>
 </section>
-<section id="taxonomic-summary" class="level3" data-number="C.1.2">
-<h3 data-number="C.1.2" class="anchored" data-anchor-id="taxonomic-summary"><span class="header-section-number">C.1.2</span> Taxonomic summary</h3>
-<div class="callout callout-style-simple callout-none no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Table C1. Summary of fossil sampling and taxonomic richness across Neogene stages in Europe and North America.
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For each stage, the table reports the number of fossil observations, observed species and genera richness, number of sampled locations (grid-cell paleoassemblages), and sampling intensity (genera per location). Values are shown separately for Europe and North America to facilitate comparison of temporal changes in sampling coverage and taxonomic recovery through the Neogene.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="phjpxipnmy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#phjpxipnmy table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#phjpxipnmy thead, #phjpxipnmy tbody, #phjpxipnmy tfoot, #phjpxipnmy tr, #phjpxipnmy td, #phjpxipnmy th {
-  border-style: none;
-}
-
-#phjpxipnmy p {
-  margin: 0;
-  padding: 0;
-}
-
-#phjpxipnmy .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#phjpxipnmy .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#phjpxipnmy .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#phjpxipnmy .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#phjpxipnmy .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#phjpxipnmy .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#phjpxipnmy .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#phjpxipnmy .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#phjpxipnmy .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#phjpxipnmy .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#phjpxipnmy .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#phjpxipnmy .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#phjpxipnmy .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#phjpxipnmy .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#phjpxipnmy .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#phjpxipnmy .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#phjpxipnmy .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#phjpxipnmy .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#phjpxipnmy .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#phjpxipnmy .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#phjpxipnmy .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#phjpxipnmy .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#phjpxipnmy .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#phjpxipnmy .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#phjpxipnmy .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#phjpxipnmy .gt_left {
-  text-align: left;
-}
-
-#phjpxipnmy .gt_center {
-  text-align: center;
-}
-
-#phjpxipnmy .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#phjpxipnmy .gt_font_normal {
-  font-weight: normal;
-}
-
-#phjpxipnmy .gt_font_bold {
-  font-weight: bold;
-}
-
-#phjpxipnmy .gt_font_italic {
-  font-style: italic;
-}
-
-#phjpxipnmy .gt_super {
-  font-size: 65%;
-}
-
-#phjpxipnmy .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#phjpxipnmy .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#phjpxipnmy .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#phjpxipnmy .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#phjpxipnmy .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#phjpxipnmy .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#phjpxipnmy .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#phjpxipnmy .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#phjpxipnmy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="gt_col_headings gt_spanner_row header">
-<th colspan="2" rowspan="2" id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="colgroup"></th>
-<th colspan="8" id="Neogene Epoch" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
-Neogene Epoch
-</div></th>
-</tr>
-<tr class="gt_col_headings even">
-<th id="Aquitanian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Aquitanian (23–20 Ma)</th>
-<th id="Burdigalian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Burdigalian (20–16 Ma)</th>
-<th id="Langhian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Langhian (15–13 Ma)</th>
-<th id="Serravallian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Serravallian (13–11 Ma)</th>
-<th id="Tortonian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Tortonian (11–7 Ma)</th>
-<th id="Messinian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Messinian (7–5 Ma)</th>
-<th id="Zanclean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Zanclean (5–3 Ma)</th>
-<th id="Piacenzian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Piacenzian (3–2 Ma)</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="gt_row_group_first odd">
-<td rowspan="5" class="gt_row gt_left gt_stub_row_group" headers="Europe stub_2_1 stub_1">Europe</td>
-<td id="stub_2_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of observations</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Aquitanian">192</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Burdigalian">1,018</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Langhian">1,124</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Serravallian">1,075</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Tortonian">1,752</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Messinian">1,536</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Zanclean">207</td>
-<td class="gt_row gt_right" headers="Europe stub_2_1 Piacenzian">856</td>
-</tr>
-<tr class="even">
-<td id="Aquitanian_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of species</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Aquitanian">73</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Burdigalian">161</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Langhian">174</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Serravallian">199</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Tortonian">400</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Messinian">293</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Zanclean">103</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_2 Piacenzian">183</td>
-</tr>
-<tr class="odd">
-<td id="Aquitanian_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of genera</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Aquitanian">50</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Burdigalian">87</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Langhian">94</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Serravallian">124</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Tortonian">198</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Messinian">139</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Zanclean">68</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_3 Piacenzian">98</td>
-</tr>
-<tr class="even">
-<td id="Aquitanian_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of locations</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Aquitanian">45</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Burdigalian">203</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Langhian">170</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Serravallian">225</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Tortonian">381</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Messinian">207</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Zanclean">46</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_4 Piacenzian">130</td>
-</tr>
-<tr class="odd">
-<td id="Aquitanian_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Genera per location</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Aquitanian">1.11</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Burdigalian">0.43</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Langhian">0.55</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Serravallian">0.55</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Tortonian">0.52</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Messinian">0.67</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Zanclean">1.48</td>
-<td class="gt_row gt_right" headers="Europe Aquitanian_5 Piacenzian">0.75</td>
-</tr>
-<tr class="gt_row_group_first even">
-<td rowspan="5" class="gt_row gt_left gt_stub_row_group" headers="North America stub_2_6 stub_1">North America</td>
-<td id="stub_2_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of observations</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Aquitanian">177</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Burdigalian">524</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Langhian">440</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Serravallian">826</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Tortonian">373</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Messinian">495</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Zanclean">231</td>
-<td class="gt_row gt_right" headers="North America stub_2_6 Piacenzian">240</td>
-</tr>
-<tr class="odd">
-<td id="Aquitanian_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of species</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Aquitanian">106</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Burdigalian">191</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Langhian">169</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Serravallian">231</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Tortonian">146</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Messinian">147</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Zanclean">73</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_7 Piacenzian">71</td>
-</tr>
-<tr class="even">
-<td id="Aquitanian_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of genera</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Aquitanian">62</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Burdigalian">105</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Langhian">89</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Serravallian">104</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Tortonian">83</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Messinian">88</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Zanclean">51</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_8 Piacenzian">46</td>
-</tr>
-<tr class="odd">
-<td id="Aquitanian_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Number of locations</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Aquitanian">31</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Burdigalian">83</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Langhian">45</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Serravallian">95</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Tortonian">56</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Messinian">70</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Zanclean">43</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_9 Piacenzian">53</td>
-</tr>
-<tr class="even">
-<td id="Aquitanian_10" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Genera per location</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Aquitanian">2.00</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Burdigalian">1.26</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Langhian">1.97</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Serravallian">1.09</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Tortonian">1.48</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Messinian">1.25</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Zanclean">1.18</td>
-<td class="gt_row gt_right" headers="North America Aquitanian_10 Piacenzian">0.86</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="paleoclimatic-data" class="level2" data-number="C.2">
-<h2 data-number="C.2" class="anchored" data-anchor-id="paleoclimatic-data"><span class="header-section-number">C.2</span> Paleoclimatic data</h2>
-<section id="temporal-binning-of-climatic-rasters-1-ma-within-neogene-stages" class="level3" data-number="C.2.1">
-<h3 data-number="C.2.1" class="anchored" data-anchor-id="temporal-binning-of-climatic-rasters-1-ma-within-neogene-stages"><span class="header-section-number">C.2.1</span> Temporal binning of climatic rasters (1 Ma) within Neogene stages</h3>
-<p>Paleoclimate reconstructions were organized into discrete, stage-specific climate stacks by <strong>binning rasters at 1 Ma resolution</strong> within each Neogene stage (Aquitanian–Piacenzian). For each stage, we identified all paleoatmospheric temperature rasters whose time stamps fell within that stage’s chronostratigraphic boundaries and grouped them into a single multi-layer object (e.g., “Temp.1”, “Temp.2”, … in Fig. S3). This procedure preserves within-stage temporal information while ensuring that all climatic summaries are computed from time slices that are chronologically consistent with the fossil data assigned to that stage. Because stages differ in duration, the number of 1 Ma rasters per stage varies, reflecting the amount of temporal coverage available within each interval.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-664722752.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure S3. Paleotemperature reconstructions for the Neogene.** Spatial reconstructions of paleoatmospheric temperature for eight Neogene stages (Aquitanian–Piacenzian), shown separately for North America and Europe. For each stage, multiple temperature layers (“Temp” fields) represent alternative reconstructions or time slices within the stage, capturing spatial heterogeneity and within-stage climatic variability. Color scales denote reconstructed temperature (°C), illustrating the persistence and evolution of large-scale temperature gradients through the Neogene.</figcaption>
-</figure>
-</div>
-<p>These stage-specific raster stacks were subsequently used to derive three complementary climatic descriptors for each grid cell: <strong>(i)</strong> the mean temperature across all 1 Ma slices within the stage (capturing average climatic conditions), <strong>(ii)</strong> the temporal slope of temperature through the stage (capturing directional change), and <strong>(iii)</strong> temporal instability, quantified as within-stage variability among 1 Ma slices (capturing fluctuations around the mean). These variables capture average conditions, directional climatic change, and within-stage variability, respectively, and together describe the climatic context experienced by fossil assemblages. Together, this temporal binning strategy allows climate to be summarized in a way that matches the temporal granularity of Neogene stages while retaining meaningful information on both climatic trends and variability within each stage.</p>
-<section id="mean-atmospheric-temperature" class="level4" data-number="C.2.1.1">
-<h4 data-number="C.2.1.1" class="anchored" data-anchor-id="mean-atmospheric-temperature"><span class="header-section-number">C.2.1.1</span> Mean atmospheric temperature</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-434465375.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Mean atmospheric temperature across Neogene stages.** Panels show the mean reconstructed atmospheric temperature for each Neogene stage (Aquitanian–Piacenzian), obtained by averaging paleoatmospheric temperature layers within each stage. Maps are shown for North America and Europe, with colors indicating temperature in °C. The figure summarizes broad-scale spatial temperature gradients and their temporal evolution through the Neogene, providing a baseline climatic context for subsequent analyses.</figcaption>
-</figure>
-</div>
-</section>
-<section id="temporal-slope-of-atmospheric-temperature-magnitude-direction-climate-change" class="level4" data-number="C.2.1.2">
-<h4 data-number="C.2.1.2" class="anchored" data-anchor-id="temporal-slope-of-atmospheric-temperature-magnitude-direction-climate-change"><span class="header-section-number">C.2.1.2</span> Temporal slope of atmospheric temperature (Magnitude &amp; Direction Climate Change)</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3500197986.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Mean atmospheric temperature across Neogene stages.** Panels show the mean reconstructed atmospheric temperature for each Neogene stage (Aquitanian–Piacenzian), obtained by averaging paleoatmospheric temperature layers within each stage. Maps are shown for North America and Europe, with colors indicating temperature in °C. The figure summarizes broad-scale spatial temperature gradients and their temporal evolution through the Neogene, providing a baseline climatic context for subsequent analyses.</figcaption>
-</figure>
-</div>
-</section>
-<section id="temporal-instability-of-atmospheric-temperature" class="level4" data-number="C.2.1.3">
-<h4 data-number="C.2.1.3" class="anchored" data-anchor-id="temporal-instability-of-atmospheric-temperature"><span class="header-section-number">C.2.1.3</span> Temporal instability of atmospheric temperature</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-894893703.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Temporal instability of atmospheric temperature across Neogene stages.** Panels depict the temporal instability of reconstructed atmospheric temperature for each Neogene stage (Aquitanian–Piacenzian), quantified as the within-stage variability among paleoatmospheric temperature layers. Higher values (warm colors) indicate greater temporal variability, whereas lower values (cool colors) reflect more stable climatic conditions. The figure illustrates spatial heterogeneity in climatic stability through the Neogene and provides a complementary metric to mean temperature and temporal slope patterns.</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="delineating-paleoclimatic-zones" class="level3" data-number="C.2.2">
-<h3 data-number="C.2.2" class="anchored" data-anchor-id="delineating-paleoclimatic-zones"><span class="header-section-number">C.2.2</span> Delineating paleoclimatic zones</h3>
-<p>Paleoclimatic zones were delineated to identify spatially and temporally coherent units of climatic conditions across the Neogene. For each grid cell and Neogene stage, we summarized paleoclimate using three complementary descriptors derived from the 1 Ma–binned mean atmospheric temperature rasters. To reduce dimensionality and account for covariance among climatic descriptors, we applied principal component analysis (PCA) to the standardized climate variables across all grid cells and stages. The leading principal components, which captured the majority of climatic variation, were retained and used as inputs for clustering.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-485544766.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Variance explained by principal components of paleoclimatic variables.** Bar plot showing the variance explained by each principal component derived from the paleoclimatic dataset. The first component accounts for the majority of the total variance, whereas subsequent components explain progressively smaller proportions, indicating that most large-scale climatic variation through the Neogene is captured along a dominant primary gradient.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2218908946.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Spatial patterns of principal components of temporal temperature instability.** Maps show the spatial loadings of the first eight principal components (PC1–PC8) derived from the temporal instability of atmospheric temperature across the Neogene. PC1 captures the dominant large-scale gradient in climatic instability, whereas higher-order components explain progressively finer-scale or weaker spatial structure. Color scales indicate the magnitude and direction of component loadings, illustrating how major modes of climatic instability are distributed across North America and Europe.</figcaption>
-</figure>
-</div>
-<p>Paleoclimatic zones were then defined using k-means clustering in this reduced climatic space, grouping grid cells with similar climatic histories across space and time. The optimal number of clusters was selected based on the Calinski–Harabasz criterion, balancing within-cluster homogeneity and between-cluster separation.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2113623670.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Comparison of K-means clustering solutions and selection of the optimal number of clusters.** The left panel shows K-means partitions of objects for solutions with increasing numbers of clusters (k), illustrating how group membership changes as k increases. The right panel reports the Calinski–Harabasz criterion for each k, with the highlighted point indicating the optimal clustering solution based on the maximum criterion value. Together, these panels justify the choice of k used in subsequent analyses.</figcaption>
-</figure>
-</div>
-<p>Resulting clusters represent <strong>climatic spatiotemporal zones</strong> that integrate both geographic structure and temporal climatic dynamics. Each grid cell–stage combination was assigned to a climatic spatiotemporal zone. This grouping captures shared climatic histories and provides a way to account for spatial autocorrelation, given that nearby grid cells tend to exhibit similar climatic trajectories through time.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3873671215.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Climatic spatiotemporal zones derived from multivariate clustering.** Hexagonal grid cells across North America and Europe are classified into five climatic spatiotemporal zones based on multivariate climate characteristics through the Neogene. Colors denote cluster membership (zones 1–5), capturing coherent regions that integrate both spatial structure and temporal climatic dynamics. Unfilled hexagons indicate areas without sufficient data coverage. The map illustrates broad-scale climatic regionalization used to define comparative units in subsequent analyses.</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="evaluating-fossil-dissimilarity" class="level2" data-number="C.3">
-<h2 data-number="C.3" class="anchored" data-anchor-id="evaluating-fossil-dissimilarity"><span class="header-section-number">C.3</span> Evaluating fossil dissimilarity</h2>
-<p>Compositional dissimilarity among fossil assemblages was quantified to characterize spatial and temporal variation in taxonomic composition across the Neogene. For each pair of paleoassemblages, we calculated taxonomic dissimilarity using presence–absence data at the genus level. Assemblages were defined as unique combinations of spatial grid cells and Neogene stages, ensuring that dissimilarity comparisons reflected both spatial and temporal separation.</p>
-<p>We used the Simpson dissimilarity index (β_SIM) to quantify compositional turnover between assemblages. β_SIM emphasizes taxon replacement while minimizing the influence of differences in richness, making it well suited for fossil data where sampling intensity varies among assemblages.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3452728301.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Pairwise compositional dissimilarity among paleoassemblages.** Heat map showing pairwise Simpson dissimilarity (β_SIM) between all paleoassemblages, where values range from 0 (identical composition) to 1 (complete turnover). Warmer colors indicate greater compositional dissimilarity. Block-like structure along the diagonal reflects groups of paleoassemblages with relatively similar taxonomic composition, whereas high off-diagonal values indicate strong turnover between assemblages separated in space and/or time.</figcaption>
-</figure>
-</div>
-<p>The nestedness-resultant component (β_SNE), reflects turnover-driven differences from those arising through nested subsets of taxa and can be more sensitive to differences in sampling completeness. We don’t consider (β_SNE) in our subsequent analyses.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3317284457.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Pairwise compositional dissimilarity due to nestedness among paleoassemblages.** Heat map showing pairwise nestedness-resultant dissimilarity (β_SNE) between all paleoassemblages. Values range from 0 (no nestedness difference) to 1 (strong nestedness-driven dissimilarity), with warmer colors indicating greater nestedness effects. Overall low β_SNE values indicate that most compositional differences among paleoassemblages are driven by species turnover rather than nestedness.</figcaption>
-</figure>
-</div>
-<p>We used multidimensional ordination (NMDS) to visualize major gradients in paleoassemblage composition.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3569736544.png" class="img-fluid figure-img"></p>
-<figcaption>Figure S2: Ordination of mammalian fossil assemblages using NMDS based on genus composition across Neogene time intervals. Colors denote geological age (Ma), and shapes distinguish continents. The ordination shows a clear temporal gradient and gradual compositional separation between faunas of Europe and North America.</figcaption>
-</figure>
-</div>
-</section>
-<section id="delineating-paleobiogeographic-regions" class="level2" data-number="C.4">
-<h2 data-number="C.4" class="anchored" data-anchor-id="delineating-paleobiogeographic-regions"><span class="header-section-number">C.4</span> Delineating paleobiogeographic regions</h2>
-<p>We evaluated model fitting across increasing numbers of latent groups in the stochastic block model, summarized using the geometric mean of the numbers of row (Q₁) and column (Q₂) groups. ICL balances model fit and complexity by penalizing overparameterization, with higher values indicating better-supported partitions. The observed plateau in ICL values indicates stabilization of model support with increasing numbers of groups, beyond which additional complexity yields little improvement in explanatory power.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2926012574.png" class="img-fluid figure-img"></p>
-<figcaption>Figure S6: Model selection for stochastic block modeling based on the Integrated Completed Likelihood (ICL) criterion. The curve shows ICL values across increasing numbers of latent groups (geometric mean of Q₁ and Q₂). The plateau indicates model stabilization and the optimal complexity threshold used to define the final network partition.</figcaption>
-</figure>
-</div>
-<p>Geographic and temporal distance covariates were included to account for spatial and temporal autocorrelation among paleoassemblages.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1333518372.png" class="img-fluid figure-img"></p>
-<figcaption>Figure S7: Hierarchical clustering of geographical and temporal distance matrices between pairs of paleo assemblages.</figcaption>
-</figure>
-</div>
-<p>To reveal large-scale structure, rows and columns of the dissimilarity matrix are reordered according to the inferred grouping of paleoassemblages obtained from SBM. This reordering does not alter dissimilarity values but makes coherent patterns of similarity and dissimilarity visually explicit.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2101878972.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Block structure of the paleoassemblage dissimilarity matrix.** Heat map of the paleoassemblage × paleoassemblage dissimilarity matrix, with rows and columns ordered consistently. Cell shading represents pairwise dissimilarity values, while the overlaid grid highlights block-like structure within the matrix. Distinct blocks along the diagonal indicate groups of paleoassemblages with relatively similar taxonomic composition, whereas higher contrast between blocks reflects strong compositional differentiation among assemblage groups across space and time.</figcaption>
-</figure>
-</div>
-<section id="spatio-temporal-distribution-of-paleobiogeographic-regions" class="level4" data-number="C.4.0.1">
-<h4 data-number="C.4.0.1" class="anchored" data-anchor-id="spatio-temporal-distribution-of-paleobiogeographic-regions"><span class="header-section-number">C.4.0.1</span> Spatio temporal distribution of paleobiogeographic regions</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3116595040.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Spatial representation of paleoassemblage clusters across climatic spatiotemporal zones.** Each panel shows the geographic distribution of paleoassemblages assigned to a single cluster (panels 1–40), plotted in a common map projection. Points represent paleoassemblage centroids, colored according to their associated climatic spatiotemporal zone (color scale). White graticules indicate latitude and longitude for spatial reference.</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="evaluating-the-relationship-between-turnover-and-climate" class="level2" data-number="C.5">
-<h2 data-number="C.5" class="anchored" data-anchor-id="evaluating-the-relationship-between-turnover-and-climate"><span class="header-section-number">C.5</span> Evaluating the relationship between turnover and climate</h2>
-<section id="spatial-join-between-climatic-variables-with-fossil-localities" class="level3" data-number="C.5.1">
-<h3 data-number="C.5.1" class="anchored" data-anchor-id="spatial-join-between-climatic-variables-with-fossil-localities"><span class="header-section-number">C.5.1</span> Spatial join between climatic variables with fossil localities</h3>
+<section id="evaluating-the-relationship-between-turnover-and-climate" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="evaluating-the-relationship-between-turnover-and-climate"><span class="header-section-number">C.3</span> Evaluating the relationship between turnover and climate</h2>
+<section id="spatial-join-between-climatic-variables-with-fossil-localities" class="level3" data-number="C.3.1">
+<h3 data-number="C.3.1" class="anchored" data-anchor-id="spatial-join-between-climatic-variables-with-fossil-localities"><span class="header-section-number">C.3.1</span> Spatial join between climatic variables with fossil localities</h3>
 <p>For each paleoassemblage, climatic values were extracted from the raster cell corresponding to the assemblage’s grid cell centroid.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1125,8 +380,8 @@ Neogene Epoch
 </figure>
 </div>
 </section>
-<section id="subset-the-dissimilarity-matrix" class="level3" data-number="C.5.2">
-<h3 data-number="C.5.2" class="anchored" data-anchor-id="subset-the-dissimilarity-matrix"><span class="header-section-number">C.5.2</span> Subset the dissimilarity matrix</h3>
+<section id="subset-the-dissimilarity-matrix" class="level3" data-number="C.3.2">
+<h3 data-number="C.3.2" class="anchored" data-anchor-id="subset-the-dissimilarity-matrix"><span class="header-section-number">C.3.2</span> Subset the dissimilarity matrix</h3>
 <p>To quantify compositional turnover within climatic spatiotemporal zones, we subset the global paleoassemblage dissimilarity matrix according to climatic cluster membership and time region. The full matrix contains pairwise Simpson dissimilarity (β_SIM) values between all paleoassemblages. For each climatic cluster and Neogene stage (or time region), we extracted the submatrix corresponding only to paleoassemblages belonging to that cluster–time combination.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1134,8 +389,8 @@ Neogene Epoch
 <figcaption>**Figure X. Clustered compositional dissimilarity among climatic spatiotemporal zones.** Heat map displays pairwise compositional dissimilarity between climatic spatiotemporal zones, with rows and columns ordered by hierarchical clustering. Dendrograms summarize similarity relationships among zones, highlighting groups of zones with relatively similar taxonomic composition. Color intensity reflects the magnitude of dissimilarity, with lighter colors indicating greater similarity and darker colors indicating stronger compositional differentiation among zones.</figcaption>
 </figure>
 </div>
-<section id="extract-the-diagonal-of-the-matrix-subset-and-get-its-mean" class="level4" data-number="C.5.2.1">
-<h4 data-number="C.5.2.1" class="anchored" data-anchor-id="extract-the-diagonal-of-the-matrix-subset-and-get-its-mean"><span class="header-section-number">C.5.2.1</span> Extract the diagonal of the matrix subset and get its mean</h4>
+<section id="extract-the-diagonal-of-the-matrix-subset-and-get-its-mean" class="level4" data-number="C.3.2.1">
+<h4 data-number="C.3.2.1" class="anchored" data-anchor-id="extract-the-diagonal-of-the-matrix-subset-and-get-its-mean"><span class="header-section-number">C.3.2.1</span> Extract the diagonal of the matrix subset and get its mean</h4>
 <p>To summarize within-zone compositional turnover quantitatively, we extracted the diagonal of each subset matrix and calculated its mean. This mean dissimilarity represents the average compositional turnover among paleoassemblages within a given climatic spatiotemporal zone. These values provide a standardized measure of internal turnover that can be compared across zones and through time.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1145,8 +400,8 @@ Neogene Epoch
 </div>
 </section>
 </section>
-<section id="repeat-for-all-climatic-clusters-across-all-time-bins" class="level3" data-number="C.5.3">
-<h3 data-number="C.5.3" class="anchored" data-anchor-id="repeat-for-all-climatic-clusters-across-all-time-bins"><span class="header-section-number">C.5.3</span> Repeat for all climatic clusters across all time bins</h3>
+<section id="repeat-for-all-climatic-clusters-across-all-time-bins" class="level3" data-number="C.3.3">
+<h3 data-number="C.3.3" class="anchored" data-anchor-id="repeat-for-all-climatic-clusters-across-all-time-bins"><span class="header-section-number">C.3.3</span> Repeat for all climatic clusters across all time bins</h3>
 <p>We repeated the procedure for all climatic spatiotemporal zone and Neogene stage combinations. In addition to mean, we calculated the standard deviation to capture the variance.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1161,8 +416,8 @@ Neogene Epoch
 </figure>
 </div>
 </section>
-<section id="beta-regression-modelling" class="level3" data-number="C.5.4">
-<h3 data-number="C.5.4" class="anchored" data-anchor-id="beta-regression-modelling"><span class="header-section-number">C.5.4</span> Beta-regression modelling</h3>
+<section id="beta-regression-modelling" class="level3" data-number="C.3.4">
+<h3 data-number="C.3.4" class="anchored" data-anchor-id="beta-regression-modelling"><span class="header-section-number">C.3.4</span> Beta-regression modelling</h3>
 <p>The beta regression model is fitted with a logit link and that for our project answers the following question.</p>
 <p><em>How does mean turnover (bounded 0–1) respond to the magnitude of atmospheric temperature change, its direction (warming vs cooling), and instability, and do these relationships differ by continent</em>?</p>
 <div class="callout callout-style-simple callout-none no-icon">
@@ -1181,8 +436,8 @@ Neogene Epoch
 </div>
 </div>
 </div>
-<section id="beta-regression-model-diagnosis" class="level4" data-number="C.5.4.1">
-<h4 data-number="C.5.4.1" class="anchored" data-anchor-id="beta-regression-model-diagnosis"><span class="header-section-number">C.5.4.1</span> Beta regression model diagnosis</h4>
+<section id="beta-regression-model-diagnosis" class="level4" data-number="C.3.4.1">
+<h4 data-number="C.3.4.1" class="anchored" data-anchor-id="beta-regression-model-diagnosis"><span class="header-section-number">C.3.4.1</span> Beta regression model diagnosis</h4>
 <p>Model adequacy was evaluated using standardized weighted residuals. Residuals were plotted against fitted values to assess potential deviations from model assumptions. The absence of systematic patterns or trends and the approximately symmetric distribution of residuals around zero indicate an adequate model fit and no strong evidence of heteroscedasticity or misspecification on the response scale.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1191,8 +446,8 @@ Neogene Epoch
 </figure>
 </div>
 </section>
-<section id="beta-regression-model-predictions" class="level4" data-number="C.5.4.2">
-<h4 data-number="C.5.4.2" class="anchored" data-anchor-id="beta-regression-model-predictions"><span class="header-section-number">C.5.4.2</span> Beta regression model predictions</h4>
+<section id="beta-regression-model-predictions" class="level4" data-number="C.3.4.2">
+<h4 data-number="C.3.4.2" class="anchored" data-anchor-id="beta-regression-model-predictions"><span class="header-section-number">C.3.4.2</span> Beta regression model predictions</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-1981417995.png" class="img-fluid figure-img"></p>

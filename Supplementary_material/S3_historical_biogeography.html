@@ -68,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -256,14 +227,8 @@ window.Quarto = {
   </ul></li>
   <li><a href="#fossil-data" id="toc-fossil-data" class="nav-link" data-scroll-target="#fossil-data"><span class="header-section-number">C.2</span> Fossil data</a>
   <ul class="collapse">
-  <li><a href="#taxonomic-summary" id="toc-taxonomic-summary" class="nav-link" data-scroll-target="#taxonomic-summary"><span class="header-section-number">C.2.1</span> Taxonomic summary</a></li>
-  </ul></li>
-  <li><a href="#evaluating-the-relationship-between-turnover-and-climate" id="toc-evaluating-the-relationship-between-turnover-and-climate" class="nav-link" data-scroll-target="#evaluating-the-relationship-between-turnover-and-climate"><span class="header-section-number">C.3</span> Evaluating the relationship between turnover and climate</a>
-  <ul class="collapse">
-  <li><a href="#spatial-join-between-climatic-variables-with-fossil-localities" id="toc-spatial-join-between-climatic-variables-with-fossil-localities" class="nav-link" data-scroll-target="#spatial-join-between-climatic-variables-with-fossil-localities"><span class="header-section-number">C.3.1</span> Spatial join between climatic variables with fossil localities</a></li>
-  <li><a href="#subset-the-dissimilarity-matrix" id="toc-subset-the-dissimilarity-matrix" class="nav-link" data-scroll-target="#subset-the-dissimilarity-matrix"><span class="header-section-number">C.3.2</span> Subset the dissimilarity matrix</a></li>
-  <li><a href="#repeat-for-all-climatic-clusters-across-all-time-bins" id="toc-repeat-for-all-climatic-clusters-across-all-time-bins" class="nav-link" data-scroll-target="#repeat-for-all-climatic-clusters-across-all-time-bins"><span class="header-section-number">C.3.3</span> Repeat for all climatic clusters across all time bins</a></li>
-  <li><a href="#beta-regression-modelling" id="toc-beta-regression-modelling" class="nav-link" data-scroll-target="#beta-regression-modelling"><span class="header-section-number">C.3.4</span> Beta-regression modelling</a></li>
+  <li><a href="#predicted-effects" id="toc-predicted-effects" class="nav-link" data-scroll-target="#predicted-effects"><span class="header-section-number">C.2.1</span> Predicted effects</a></li>
+  <li><a href="#carnivores-1" id="toc-carnivores-1" class="nav-link" data-scroll-target="#carnivores-1"><span class="header-section-number">C.2.2</span> Carnivores</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -351,124 +316,54 @@ window.Quarto = {
 <h4 data-number="C.2.0.7" class="anchored" data-anchor-id="range-of-cluster-estimation"><span class="header-section-number">C.2.0.7</span> Range of cluster estimation</h4>
 <p><img src="images/clipboard-1105226037.png" class="img-fluid"></p>
 </section>
-<section id="reduced-turnover-matrices" class="level4" data-number="C.2.0.8">
-<h4 data-number="C.2.0.8" class="anchored" data-anchor-id="reduced-turnover-matrices"><span class="header-section-number">C.2.0.8</span> Reduced turnover matrices</h4>
-<p><img src="images/clipboard-417304926.png" class="img-fluid"></p>
+<section id="number-of-optimal-clusters" class="level4" data-number="C.2.0.8">
+<h4 data-number="C.2.0.8" class="anchored" data-anchor-id="number-of-optimal-clusters"><span class="header-section-number">C.2.0.8</span> Number of optimal clusters</h4>
+<p><img src="images/clipboard-2624542944.png" class="img-fluid"></p>
 </section>
-<section id="evaluating-sampling-effort" class="level4" data-number="C.2.0.9">
-<h4 data-number="C.2.0.9" class="anchored" data-anchor-id="evaluating-sampling-effort"><span class="header-section-number">C.2.0.9</span> Evaluating sampling effort</h4>
+<section id="temporal-variation" class="level4" data-number="C.2.0.9">
+<h4 data-number="C.2.0.9" class="anchored" data-anchor-id="temporal-variation"><span class="header-section-number">C.2.0.9</span> Temporal variation</h4>
+<section id="all-taxa" class="level5" data-number="C.2.0.9.1">
+<h5 data-number="C.2.0.9.1" class="anchored" data-anchor-id="all-taxa"><span class="header-section-number">C.2.0.9.1</span> All taxa</h5>
+<p><img src="images/clipboard-800941234.png" class="img-fluid"></p>
+</section>
+<section id="herbivores" class="level5" data-number="C.2.0.9.2">
+<h5 data-number="C.2.0.9.2" class="anchored" data-anchor-id="herbivores"><span class="header-section-number">C.2.0.9.2</span> Herbivores</h5>
+<p><img src="images/clipboard-507020829.png" class="img-fluid"></p>
+</section>
+<section id="carnivores" class="level5" data-number="C.2.0.9.3">
+<h5 data-number="C.2.0.9.3" class="anchored" data-anchor-id="carnivores"><span class="header-section-number">C.2.0.9.3</span> Carnivores</h5>
+<p><img src="images/clipboard-196373022.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="reduced-turnover-matrices" class="level4" data-number="C.2.0.10">
+<h4 data-number="C.2.0.10" class="anchored" data-anchor-id="reduced-turnover-matrices"><span class="header-section-number">C.2.0.10</span> Reduced turnover matrices</h4>
+<p><img src="images/clipboard-417304926.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3023089739.png" class="img-fluid"></p>
+</section>
+<section id="evaluating-sampling-effort" class="level4" data-number="C.2.0.11">
+<h4 data-number="C.2.0.11" class="anchored" data-anchor-id="evaluating-sampling-effort"><span class="header-section-number">C.2.0.11</span> Evaluating sampling effort</h4>
 <p>Sampling effort was evaluated as the relationship between the number of sampled fossil localities and observed generic richness for every stage in the Neogene. Sampling–richness relationships were examined within each Neogene stage to assess how efficiently additional localities contributed to the recovery of new genera and to identify stages showing evidence of saturation versus continued sampling dependence.</p>
 <p><img src="images/clipboard-2034292060.png" class="img-fluid"></p>
 </section>
-<section id="sampling-intensity-of-paleobiographic-regions" class="level4" data-number="C.2.0.10">
-<h4 data-number="C.2.0.10" class="anchored" data-anchor-id="sampling-intensity-of-paleobiographic-regions"><span class="header-section-number">C.2.0.10</span> Sampling intensity of paleobiographic regions</h4>
+<section id="sampling-intensity-of-paleobiographic-regions" class="level4" data-number="C.2.0.12">
+<h4 data-number="C.2.0.12" class="anchored" data-anchor-id="sampling-intensity-of-paleobiographic-regions"><span class="header-section-number">C.2.0.12</span> Sampling intensity of paleobiographic regions</h4>
 <p><img src="images/clipboard-1189386106.png" class="img-fluid" width="500"></p>
 </section>
-<section id="taxonomic-summary" class="level3" data-number="C.2.1">
-<h3 data-number="C.2.1" class="anchored" data-anchor-id="taxonomic-summary"><span class="header-section-number">C.2.1</span> Taxonomic summary</h3>
+<section id="predicted-effects" class="level3" data-number="C.2.1">
+<h3 data-number="C.2.1" class="anchored" data-anchor-id="predicted-effects"><span class="header-section-number">C.2.1</span> Predicted effects</h3>
+<section id="herbivores-1" class="level4" data-number="C.2.1.1">
+<h4 data-number="C.2.1.1" class="anchored" data-anchor-id="herbivores-1"><span class="header-section-number">C.2.1.1</span> Herbivores</h4>
+<p><img src="images/clipboard-4069483964.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1705750470.png" class="img-fluid"></p>
 </section>
 </section>
-<section id="evaluating-the-relationship-between-turnover-and-climate" class="level2" data-number="C.3">
-<h2 data-number="C.3" class="anchored" data-anchor-id="evaluating-the-relationship-between-turnover-and-climate"><span class="header-section-number">C.3</span> Evaluating the relationship between turnover and climate</h2>
-<section id="spatial-join-between-climatic-variables-with-fossil-localities" class="level3" data-number="C.3.1">
-<h3 data-number="C.3.1" class="anchored" data-anchor-id="spatial-join-between-climatic-variables-with-fossil-localities"><span class="header-section-number">C.3.1</span> Spatial join between climatic variables with fossil localities</h3>
-<p>For each paleoassemblage, climatic values were extracted from the raster cell corresponding to the assemblage’s grid cell centroid.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2378010586.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Relationship between climatic change magnitude and climatic instability.** Scatter plot showing the association between the magnitude of climatic change and climatic instability across paleoassemblages. Points represent individual paleoassemblages, with symbols indicating continent (Europe vs.&nbsp;North America). Climatic instability increases with the absolute magnitude of climatic change, producing a characteristic V-shaped pattern that reflects greater temporal variability under both strong warming and strong cooling regimes.</figcaption>
-</figure>
-</div>
-</section>
-<section id="subset-the-dissimilarity-matrix" class="level3" data-number="C.3.2">
-<h3 data-number="C.3.2" class="anchored" data-anchor-id="subset-the-dissimilarity-matrix"><span class="header-section-number">C.3.2</span> Subset the dissimilarity matrix</h3>
-<p>To quantify compositional turnover within climatic spatiotemporal zones, we subset the global paleoassemblage dissimilarity matrix according to climatic cluster membership and time region. The full matrix contains pairwise Simpson dissimilarity (β_SIM) values between all paleoassemblages. For each climatic cluster and Neogene stage (or time region), we extracted the submatrix corresponding only to paleoassemblages belonging to that cluster–time combination.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3823221323.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Clustered compositional dissimilarity among climatic spatiotemporal zones.** Heat map displays pairwise compositional dissimilarity between climatic spatiotemporal zones, with rows and columns ordered by hierarchical clustering. Dendrograms summarize similarity relationships among zones, highlighting groups of zones with relatively similar taxonomic composition. Color intensity reflects the magnitude of dissimilarity, with lighter colors indicating greater similarity and darker colors indicating stronger compositional differentiation among zones.</figcaption>
-</figure>
-</div>
-<section id="extract-the-diagonal-of-the-matrix-subset-and-get-its-mean" class="level4" data-number="C.3.2.1">
-<h4 data-number="C.3.2.1" class="anchored" data-anchor-id="extract-the-diagonal-of-the-matrix-subset-and-get-its-mean"><span class="header-section-number">C.3.2.1</span> Extract the diagonal of the matrix subset and get its mean</h4>
-<p>To summarize within-zone compositional turnover quantitatively, we extracted the diagonal of each subset matrix and calculated its mean. This mean dissimilarity represents the average compositional turnover among paleoassemblages within a given climatic spatiotemporal zone. These values provide a standardized measure of internal turnover that can be compared across zones and through time.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2989690152.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Distribution of turnover among climatic spatiotemporal zones.** Histogram showing the distribution of compositional turnover values across climatic spatiotemporal zones. The red vertical line indicates the mean turnover. The distribution illustrates substantial variation in turnover among zones, with most values clustered at intermediate levels and a smaller number of zones exhibiting high compositional turnover.</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="repeat-for-all-climatic-clusters-across-all-time-bins" class="level3" data-number="C.3.3">
-<h3 data-number="C.3.3" class="anchored" data-anchor-id="repeat-for-all-climatic-clusters-across-all-time-bins"><span class="header-section-number">C.3.3</span> Repeat for all climatic clusters across all time bins</h3>
-<p>We repeated the procedure for all climatic spatiotemporal zone and Neogene stage combinations. In addition to mean, we calculated the standard deviation to capture the variance.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2493386599.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Temporal patterns of compositional turnover across climatic clusters.** Points show mean compositional turnover values for climatic clusters through time, plotted against geological age (Ma). Vertical dashed lines indicate Neogene stage boundaries. Symbols denote different climatic clusters, illustrating both within-stage variability and among-cluster differences in turnover. The figure reveals temporal structure in turnover dynamics, with distinct climatic clusters exhibiting different magnitudes and trajectories of compositional change across the Neogene.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2322334233.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Temporal variation in the variability of compositional turnover across climatic clusters.** Points show the standard deviation of compositional turnover within climatic clusters through time, plotted against geological age (Ma). Vertical dashed lines indicate Neogene stage boundaries, and symbols distinguish climatic clusters. Higher values indicate greater within-cluster variability in turnover, revealing differences in the stability and heterogeneity of compositional change among climatic clusters across the Neogene.</figcaption>
-</figure>
-</div>
-</section>
-<section id="beta-regression-modelling" class="level3" data-number="C.3.4">
-<h3 data-number="C.3.4" class="anchored" data-anchor-id="beta-regression-modelling"><span class="header-section-number">C.3.4</span> Beta-regression modelling</h3>
-<p>The beta regression model is fitted with a logit link and that for our project answers the following question.</p>
-<p><em>How does mean turnover (bounded 0–1) respond to the magnitude of atmospheric temperature change, its direction (warming vs cooling), and instability, and do these relationships differ by continent</em>?</p>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Using the following general formula</p>
-<p><span class="math inline">\(y_i = \beta(u_i\phi, (1-u_i)\phi), \space logit(u_i) = n_i\)</span></p>
-<p>where:</p>
-<p><span class="math inline">\(u_i = \mathbb{E}(y_i)\)</span> is the mean turnover, with <span class="math inline">\(y_i\)</span>​ is the observed mean turnover,</p>
-<p><span class="math inline">\(n_i\)</span> is the linear predictor, and <span class="math inline">\(\phi\)</span> is constant.</p>
-<p>Taking Europe as the baseline continent and cooling as the baseline direction of temperature change, the linear predictor is</p>
-<p><span class="math display">\[ n_i = \beta_0 + \beta_1|Slope_i| + \beta_2Warming_i + \beta_3Instability_i + \beta_4|Slope_i| \times Warming_i + \beta_5|Slope_i| \times Instability_i + \beta_6Continent_i + \beta_7|Slope_i| \times Continent_i \]</span></p>
-</div>
-</div>
-</div>
-<section id="beta-regression-model-diagnosis" class="level4" data-number="C.3.4.1">
-<h4 data-number="C.3.4.1" class="anchored" data-anchor-id="beta-regression-model-diagnosis"><span class="header-section-number">C.3.4.1</span> Beta regression model diagnosis</h4>
-<p>Model adequacy was evaluated using standardized weighted residuals. Residuals were plotted against fitted values to assess potential deviations from model assumptions. The absence of systematic patterns or trends and the approximately symmetric distribution of residuals around zero indicate an adequate model fit and no strong evidence of heteroscedasticity or misspecification on the response scale.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1098745496.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Residual diagnostics for the beta regression model.** Plot of standardized weighted residuals against fitted values for the beta regression model. The absence of systematic patterns or trends and the roughly symmetric distribution of residuals around zero indicate an adequate model fit and no strong evidence of heteroscedasticity or misspecification on the response scale.</figcaption>
-</figure>
-</div>
-</section>
-<section id="beta-regression-model-predictions" class="level4" data-number="C.3.4.2">
-<h4 data-number="C.3.4.2" class="anchored" data-anchor-id="beta-regression-model-predictions"><span class="header-section-number">C.3.4.2</span> Beta regression model predictions</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1981417995.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 3: Compositional turnover variation across five climatic zones in North America and Europe during the Neogene. Boxplots show the distribution of turnover values (0–1) estimated for fossil assemblages within each climatic zone. Compositional turnover reflects the average turnover between fossil assemblages within paleobiogeographic regions for each climatic zone, measured at the Genus level</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2694330650.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Predicted compositional turnover as a function of climate change magnitude and climatic instability.** Panels show model-predicted turnover across gradients of climate change magnitude and climatic instability for two climatic clusters (panels 1 and 2). Colored surfaces represent predicted turnover values from the beta regression model, with warmer colors indicating higher turnover, and white contour lines indicating equal predicted turnover. Points show observed data. The figure illustrates how turnover increases nonlinearly with both the magnitude of climatic change and climatic instability, with differences in response surfaces between clusters.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1492045757.png" class="img-fluid figure-img"></p>
-<figcaption>**Figure X. Predicted compositional turnover under cooling and warming regimes.** Panels show model-predicted compositional turnover as a function of the absolute magnitude of climate change (|slope|) and climatic instability, stratified by climatic cluster (columns 1–2) and by the direction of temperature change (cooling: top row; warming: bottom row). Colored surfaces represent predicted turnover from the beta regression model, with contour lines indicating equal predicted values and points showing observed data. Dashed lines mark zero climatic instability and the boundary between cooling and warming regimes. The figure illustrates asymmetric turnover responses to warming versus cooling and differences in sensitivity among climatic clusters.</figcaption>
-</figure>
-</div>
+<section id="carnivores-1" class="level3" data-number="C.2.2">
+<h3 data-number="C.2.2" class="anchored" data-anchor-id="carnivores-1"><span class="header-section-number">C.2.2</span> Carnivores</h3>
+<p><img src="images/clipboard-2060037250.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2318167226.png" class="img-fluid"></p>
+<p><img src="images/clipboard-19712437.png" class="img-fluid"></p>
 
 
-</section>
 </section>
 </section>
 

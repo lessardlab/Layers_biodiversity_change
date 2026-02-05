@@ -222,12 +222,12 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#paleoclimatic-data" id="toc-paleoclimatic-data" class="nav-link active" data-scroll-target="#paleoclimatic-data"><span class="header-section-number">C.1</span> Paleoclimatic data</a>
   <ul class="collapse">
-  <li><a href="#neogene-paleotemperature-layers-used-in-climate-reconstructions." id="toc-neogene-paleotemperature-layers-used-in-climate-reconstructions." class="nav-link" data-scroll-target="#neogene-paleotemperature-layers-used-in-climate-reconstructions."><span class="header-section-number">C.1.1</span> <strong>Neogene paleotemperature layers used in climate reconstructions.</strong></a></li>
-  <li><a href="#sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." id="toc-sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." class="nav-link" data-scroll-target="#sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices."><span class="header-section-number">C.1.2</span> <strong>Sensitivity of Neogene temperature‐change estimates to GAM smoothing choices.</strong></a></li>
+  <li><a href="#neogene-paleotemperature-layers-used-in-climate-reconstructions." id="toc-neogene-paleotemperature-layers-used-in-climate-reconstructions." class="nav-link" data-scroll-target="#neogene-paleotemperature-layers-used-in-climate-reconstructions."><span class="header-section-number">C.1.1</span> Neogene paleotemperature layers used in climate reconstructions.</a></li>
+  <li><a href="#computing-the-rate-of-climate-change" id="toc-computing-the-rate-of-climate-change" class="nav-link" data-scroll-target="#computing-the-rate-of-climate-change"><span class="header-section-number">C.1.2</span> Computing the rate of climate change</a></li>
   </ul></li>
   <li><a href="#fossil-data" id="toc-fossil-data" class="nav-link" data-scroll-target="#fossil-data"><span class="header-section-number">C.2</span> Fossil data</a>
   <ul class="collapse">
-  <li><a href="#predicted-effects" id="toc-predicted-effects" class="nav-link" data-scroll-target="#predicted-effects"><span class="header-section-number">C.2.1</span> Predicted effects</a></li>
+  <li><a href="#predicted-effects-of-climate-change-in-paleobiogeographic-turnover" id="toc-predicted-effects-of-climate-change-in-paleobiogeographic-turnover" class="nav-link" data-scroll-target="#predicted-effects-of-climate-change-in-paleobiogeographic-turnover"><span class="header-section-number">C.2.1</span> Predicted effects of climate change in paleobiogeographic turnover</a></li>
   <li><a href="#carnivores-1" id="toc-carnivores-1" class="nav-link" data-scroll-target="#carnivores-1"><span class="header-section-number">C.2.2</span> Carnivores</a></li>
   </ul></li>
   </ul>
@@ -258,12 +258,23 @@ ul.task-list li input[type="checkbox"] {
 <section id="paleoclimatic-data" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="paleoclimatic-data"><span class="header-section-number">C.1</span> Paleoclimatic data</h2>
 <section id="neogene-paleotemperature-layers-used-in-climate-reconstructions." class="level3" data-number="C.1.1">
-<h3 data-number="C.1.1" class="anchored" data-anchor-id="neogene-paleotemperature-layers-used-in-climate-reconstructions."><span class="header-section-number">C.1.1</span> <strong>Neogene paleotemperature layers used in climate reconstructions.</strong></h3>
+<h3 data-number="C.1.1" class="anchored" data-anchor-id="neogene-paleotemperature-layers-used-in-climate-reconstructions."><span class="header-section-number">C.1.1</span> Neogene paleotemperature layers used in climate reconstructions.</h3>
 <p>Spatially explicit reconstructions of mean annual surface temperature across the Northern Hemisphere from 23 to 2 Ma, shown at 1-Myr intervals and 1° × 1° spatial resolution. Each panel represents a single time slice, displayed using a common diverging color scale to facilitate comparison across time. These layers form the basis for estimating directional temperature change and climatic instability used in subsequent analyses.</p>
 <p><img src="images/clipboard-586487958.png" class="img-fluid"></p>
 </section>
-<section id="sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." class="level3" data-number="C.1.2">
-<h3 data-number="C.1.2" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices."><span class="header-section-number">C.1.2</span> <strong>Sensitivity of Neogene temperature‐change estimates to GAM smoothing choices.</strong></h3>
+<section id="computing-the-rate-of-climate-change" class="level3" data-number="C.1.2">
+<h3 data-number="C.1.2" class="anchored" data-anchor-id="computing-the-rate-of-climate-change"><span class="header-section-number">C.1.2</span> Computing the rate of climate change</h3>
+<p>We reconstructed smooth, continuous temperature trajectories through time for every spatial grid cell and then quantifies how temperature changes between successive time steps.</p>
+<p>First, all climate rasters are brought onto a common spatial grid so that each pixel represents the same geographic location across time. Only grid cells with at least one valid observation are retained, ensuring that subsequent analyses are based on empirical information rather than interpolation alone. For each grid cell, temperature values through time are treated as a time series. A smooth trajectory is estimated using a generalized additive model (GAM). This smoothing step captures long-term temporal structure while reducing the influence of short-term fluctuations or reconstruction noise.</p>
+<p>Once smoothed trajectories are obtained, temperature change is quantified as the difference between consecutive time steps. These first differences approximate the rate and direction of temperature change through time, allowing spatially explicit assessment of climatic dynamics rather than static climate conditions.</p>
+<section id="sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices." class="level4" data-number="C.1.2.1">
+<h4 data-number="C.1.2.1" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates-to-gam-smoothing-choices."><span class="header-section-number">C.1.2.1</span> Sensitivity of Neogene temperature‐change estimates to GAM smoothing choices.</h4>
+<p>We tested three model configurations represent alternative assumptions about how <strong>smooth or flexible</strong> temperature trajectories are allowed to be through time. Together, they form a sensitivity analysis of temporal smoothing choices.</p>
+<ul>
+<li><p><strong><code>gam_6_3</code> (df = 6, degree = 3)</strong>: This specification allows relatively high temporal flexibility. With more degrees of freedom, the fitted temperature trajectories can follow finer-scale temporal variation while still remaining smooth. Conceptually, this version captures both long-term trends and moderate mid-frequency fluctuations, making it more responsive to shorter climatic events.</p></li>
+<li><p><strong><code>gam_4_3</code> (df = 4, degree = 3):</strong> This represents an intermediate level of smoothing. Fewer degrees of freedom constrain the model to emphasize broader temporal structure while still allowing curved (nonlinear) trajectories. In practical terms, this version prioritizes long-term climatic trends while down-weighting smaller oscillations.</p></li>
+<li><p><strong><code>gam_4_2</code> (df = 4, degree = 2):</strong> This is the most conservative specification. With fewer degrees of freedom and a lower polynomial degree, temperature trajectories are forced to be smoother and closer to simple curvature. This emphasizes persistent, low-frequency climatic change and minimizes sensitivity to short-term variability or noise in the reconstructions.</p></li>
+</ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-1262033941.png" class="img-fluid figure-img"></p>
@@ -272,19 +283,18 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 </section>
+</section>
 <section id="fossil-data" class="level2" data-number="C.2">
 <h2 data-number="C.2" class="anchored" data-anchor-id="fossil-data"><span class="header-section-number">C.2</span> Fossil data</h2>
-<section id="binning-fossil-locations-into-assemblage" class="level4" data-number="C.2.0.1">
-<h4 data-number="C.2.0.1" class="anchored" data-anchor-id="binning-fossil-locations-into-assemblage"><span class="header-section-number">C.2.0.1</span> Binning fossil locations into assemblage</h4>
+<section id="spatiotemporal-binning-of-fossil-locations-into-fossil-paleoassemblages" class="level4" data-number="C.2.0.1">
+<h4 data-number="C.2.0.1" class="anchored" data-anchor-id="spatiotemporal-binning-of-fossil-locations-into-fossil-paleoassemblages"><span class="header-section-number">C.2.0.1</span> Spatiotemporal binning of fossil locations into fossil paleoassemblages</h4>
+<p>Fossil occurrences were aggregated into standardized paleoassemblages using a spatiotemporal binning procedure. Records were first assigned to continents and then spatially grouped into regularly spaced bins (~100 km) to reduce the effects of uneven sampling intensity. Each spatial bin was combined with a discrete temporal bin based on rounded midpoint ages to define unique spatiotemporal assemblages. These paleoassemblages provide comparable units of community composition for subsequent analyses of turnover and paleobiogeographic structure.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-3495850485.png" class="img-fluid figure-img"></p>
-<figcaption>Paleorotated coordinates were used to assign fossil occurrences to a discrete grid cells of approximately 100 × 100 km in paleogeographic space. Grid aggregation reduces the influence of uneven spatial sampling density and local clustering of fossil localities, while retaining sufficient spatial resolution to capture broad-scale paleobiogeographic structure. Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single paleoassemblage, which served as the fundamental unit for subsequent diversity, compositional, and network analyses.</figcaption>
+<figcaption>Paleocoordinates were used to assign fossil occurrences to a discrete grid cells of approximately 100 × 100 km in paleogeographic space. Grid aggregation reduces the influence of uneven spatial sampling density and local clustering of fossil localities, while retaining sufficient spatial resolution to capture broad-scale paleobiogeographic structure. Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single paleoassemblage, which served as the fundamental unit for subsequent diversity, compositional, and network analyses.</figcaption>
 </figure>
 </div>
-</section>
-<section id="assigning-fossil-assemblages-to-a-period-in-the-neogene" class="level4" data-number="C.2.0.2">
-<h4 data-number="C.2.0.2" class="anchored" data-anchor-id="assigning-fossil-assemblages-to-a-period-in-the-neogene"><span class="header-section-number">C.2.0.2</span> Assigning fossil assemblages to a period in the Neogene</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-865054988.png" class="img-fluid figure-img"></p>
@@ -292,12 +302,19 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="rarefied-richness-across-geological-time" class="level4" data-number="C.2.0.3">
-<h4 data-number="C.2.0.3" class="anchored" data-anchor-id="rarefied-richness-across-geological-time"><span class="header-section-number">C.2.0.3</span> Rarefied richness across geological time</h4>
-<p><img src="images/clipboard-4080731061.png" class="img-fluid"></p>
+<section id="rarefied-richness-across-geological-time" class="level4" data-number="C.2.0.2">
+<h4 data-number="C.2.0.2" class="anchored" data-anchor-id="rarefied-richness-across-geological-time"><span class="header-section-number">C.2.0.2</span> Rarefied richness across geological time</h4>
+<p>Species richness was evaluated within each continent, trophic guild, and time bin using both rarefaction and richness estimation approaches. Fossil occurrence data were split into spatiotemporal subsets (continent × trophic guild × time bin), and for each subset we computed sample-based species accumulation curves (via repeated random permutations) to quantify how observed richness increases with the number of sampled localities. In parallel, we estimated pooled richness for each subset using nonparametric estimators to account for unseen taxa. Outputs from all subsets were then combined into a single data frame containing the number of sites sampled, mean accumulated richness, and uncertainty (standard deviation and standard error across permutations) for direct comparison of sampling completeness and richness trajectories across continents, trophic groups, and time intervals.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4080731061.png" class="img-fluid figure-img"></p>
+<figcaption>Temporal patterns of mammalian genus richness across the Neogene in Europe and North America. Genus richness is shown as a function of geological time (Ma) for Europe (left panel) and North America (right panel), with bars representing observed richness within individual time bins and colors denoting trophic groups (carnivores, herbivores, omnivores). Solid lines indicate fitted temporal trends for each trophic group, highlighting differences in richness trajectories through time and between continents. Geological time is plotted from past to present along the x-axis.</figcaption>
+</figure>
+</div>
 </section>
-<section id="estimating-turnover-among-fossil-paleoassemblages" class="level4" data-number="C.2.0.4">
-<h4 data-number="C.2.0.4" class="anchored" data-anchor-id="estimating-turnover-among-fossil-paleoassemblages"><span class="header-section-number">C.2.0.4</span> Estimating turnover among fossil paleoassemblages</h4>
+<section id="estimating-turnover-among-fossil-paleoassemblages" class="level4" data-number="C.2.0.3">
+<h4 data-number="C.2.0.3" class="anchored" data-anchor-id="estimating-turnover-among-fossil-paleoassemblages"><span class="header-section-number">C.2.0.3</span> Estimating turnover among fossil paleoassemblages</h4>
+<p>We estimated compositional turnover among paleoassemblages using genus-level presence–absence data. It first converts the fossil occurrences into a <em>genus</em> × <em>paleoassemblage</em> incidence matrix, then removes poorly sampled paleoassemblages by requiring a minimum number of observations (<code>default: &gt;3</code>). Abundances are reduced to presence–absence to focus on composition rather than counts. Pairwise dissimilarities are then computed among paleoassemblages using the Simpson-based turnover component (<code>β_SIM</code>) from the <em>betapart</em> framework, yielding a matrix that quantifies the degree of taxonomic replacement (turnover) between all pairs of paleoassemblages.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-1792363359.png" class="img-fluid figure-img"></p>
@@ -305,63 +322,135 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="paleobiogeographic-regions-estimation" class="level4" data-number="C.2.0.5">
-<h4 data-number="C.2.0.5" class="anchored" data-anchor-id="paleobiogeographic-regions-estimation"><span class="header-section-number">C.2.0.5</span> Paleobiogeographic regions estimation</h4>
+<section id="paleobiogeographic-regions-estimation" class="level4" data-number="C.2.0.4">
+<h4 data-number="C.2.0.4" class="anchored" data-anchor-id="paleobiogeographic-regions-estimation"><span class="header-section-number">C.2.0.4</span> Paleobiogeographic regions estimation</h4>
 </section>
-<section id="space-time-covariates" class="level4" data-number="C.2.0.6">
-<h4 data-number="C.2.0.6" class="anchored" data-anchor-id="space-time-covariates"><span class="header-section-number">C.2.0.6</span> Space time covariates</h4>
-<p><img src="images/clipboard-2514000500.png" class="img-fluid"></p>
+<section id="space-time-covariates" class="level4" data-number="C.2.0.5">
+<h4 data-number="C.2.0.5" class="anchored" data-anchor-id="space-time-covariates"><span class="header-section-number">C.2.0.5</span> Space time covariates</h4>
+<p>We used spatial and temporal covariates to estimate paleobiogeographic regions with a distance-informed stochastic block model (SBM). First, we parse the paleoassemblage identifiers to recover each assemblage’s geographic coordinates and time assignment. Then, we match those time labels to numeric ages. Using these values, we build two pairwise covariate matrices: a geographic distance matrix among assemblages (great-circle distance on Earth) and a temporal distance matrix based on differences in age. These covariates are then supplied to a Gaussian SBM fitted to the turnover matrix (<code>β_SIM</code>), so that assemblages are clustered into paleobiogeographic regions based on their compositional relationships while explicitly accounting for the tendency of nearby (in space and/or time) assemblages to be more similar.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2514000500.png" class="img-fluid figure-img"></p>
+<figcaption>Estimation of paleobiogeographic regions using space–time distance structure. Heatmaps show pairwise distance matrices among spatiotemporal fossil assemblages (left) and among inferred paleobiogeographic regions (right), where cell values represent combined spatial and temporal distances used as covariates in the clustering procedure.</figcaption>
+</figure>
+</div>
 </section>
-<section id="range-of-cluster-estimation" class="level4" data-number="C.2.0.7">
-<h4 data-number="C.2.0.7" class="anchored" data-anchor-id="range-of-cluster-estimation"><span class="header-section-number">C.2.0.7</span> Range of cluster estimation</h4>
-<p><img src="images/clipboard-1105226037.png" class="img-fluid"></p>
+<section id="range-of-cluster-estimation" class="level4" data-number="C.2.0.6">
+<h4 data-number="C.2.0.6" class="anchored" data-anchor-id="range-of-cluster-estimation"><span class="header-section-number">C.2.0.6</span> Range of cluster estimation</h4>
+<p>The stochastic block model was fitted using an iterative estimation procedure with a fixed maximum number of iterations to ensure convergence while limiting overfitting. Model complexity was explored by allowing the number of paleobiogeographic regions to vary within a predefined range, defined by minimum and maximum group numbers. This constrained exploration ensures that inferred regionalizations capture meaningful structure in the turnover matrix while avoiding solutions that are either overly coarse or excessively fragmented. We assigned each paleoassemblage to an inferred paleobiogeographic region at a maximization of ICL.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1105226037.png" class="img-fluid figure-img"></p>
+<figcaption>Model selection for paleobiogeographic regionalization based on space–time covariates. Integrated Classification Likelihood (ICL) values are shown as a function of the geometrical mean of the connectivity parameters (Q1, Q2) controlling the relative influence of spatial and temporal distances in the model. Points represent candidate model configurations, with higher ICL values indicating better-supported solutions. The curve highlights a broad optimum, ident</figcaption>
+</figure>
+</div>
 </section>
-<section id="number-of-optimal-clusters" class="level4" data-number="C.2.0.8">
-<h4 data-number="C.2.0.8" class="anchored" data-anchor-id="number-of-optimal-clusters"><span class="header-section-number">C.2.0.8</span> Number of optimal clusters</h4>
-<p><img src="images/clipboard-2624542944.png" class="img-fluid"></p>
+<section id="number-of-paleobiogeographic-regions" class="level4" data-number="C.2.0.7">
+<h4 data-number="C.2.0.7" class="anchored" data-anchor-id="number-of-paleobiogeographic-regions"><span class="header-section-number">C.2.0.7</span> Number of paleobiogeographic regions</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2624542944.png" class="img-fluid figure-img"></p>
+<figcaption>Number of inferred paleobiogeographic regions by trophic group. Bars show the total number of paleobiogeographic regions identified for all taxa, herbivores, and carnivores using the space–time–constrained regionalization framework. Differences among trophic groups reflect variation in the spatial and temporal structuring of mammalian assemblages, with fewer regions inferred for carnivores relative to herbivores and the full assemblage, consistent with broader geographic ranges and higher dispersal potential.</figcaption>
+</figure>
+</div>
 </section>
-<section id="temporal-variation" class="level4" data-number="C.2.0.9">
-<h4 data-number="C.2.0.9" class="anchored" data-anchor-id="temporal-variation"><span class="header-section-number">C.2.0.9</span> Temporal variation</h4>
-<section id="all-taxa" class="level5" data-number="C.2.0.9.1">
-<h5 data-number="C.2.0.9.1" class="anchored" data-anchor-id="all-taxa"><span class="header-section-number">C.2.0.9.1</span> All taxa</h5>
-<p><img src="images/clipboard-800941234.png" class="img-fluid"></p>
+<section id="temporal-variation" class="level4" data-number="C.2.0.8">
+<h4 data-number="C.2.0.8" class="anchored" data-anchor-id="temporal-variation"><span class="header-section-number">C.2.0.8</span> Temporal variation</h4>
+<section id="all-taxa" class="level5" data-number="C.2.0.8.1">
+<h5 data-number="C.2.0.8.1" class="anchored" data-anchor-id="all-taxa"><span class="header-section-number">C.2.0.8.1</span> All taxa</h5>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-800941234.png" class="img-fluid figure-img"></p>
+<figcaption>Temporal extent of paleobiogeographic regions in Europe and North America. Boxplots summarize the temporal distribution of fossil assemblages assigned to each paleobiogeographic region for Europe (left) and North America (right). The x-axis shows geological time (Ma), and the y-axis indexes region membership as inferred from the space–time–constrained clustering. For each region, boxes indicate the interquartile range of temporal occurrence, whiskers denote the full temporal extent, and points represent individual assemblages.</figcaption>
+</figure>
+</div>
 </section>
-<section id="herbivores" class="level5" data-number="C.2.0.9.2">
-<h5 data-number="C.2.0.9.2" class="anchored" data-anchor-id="herbivores"><span class="header-section-number">C.2.0.9.2</span> Herbivores</h5>
-<p><img src="images/clipboard-507020829.png" class="img-fluid"></p>
+<section id="herbivores" class="level5" data-number="C.2.0.8.2">
+<h5 data-number="C.2.0.8.2" class="anchored" data-anchor-id="herbivores"><span class="header-section-number">C.2.0.8.2</span> Herbivores</h5>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-507020829.png" class="img-fluid figure-img"></p>
+<figcaption>Temporal extent of paleobiogeographic regions in Europe and North America. Boxplots summarize the temporal distribution of fossil assemblages assigned to each paleobiogeographic region for Europe (left) and North America (right). The x-axis shows geological time (Ma), and the y-axis indexes region membership as inferred from the space–time–constrained clustering. For each region, boxes indicate the interquartile range of temporal occurrence, whiskers denote the full temporal extent, and points represent individual assemblages.</figcaption>
+</figure>
+</div>
 </section>
-<section id="carnivores" class="level5" data-number="C.2.0.9.3">
-<h5 data-number="C.2.0.9.3" class="anchored" data-anchor-id="carnivores"><span class="header-section-number">C.2.0.9.3</span> Carnivores</h5>
-<p><img src="images/clipboard-196373022.png" class="img-fluid"></p>
+<section id="carnivores" class="level5" data-number="C.2.0.8.3">
+<h5 data-number="C.2.0.8.3" class="anchored" data-anchor-id="carnivores"><span class="header-section-number">C.2.0.8.3</span> Carnivores</h5>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-196373022.png" class="img-fluid figure-img"></p>
+<figcaption>Temporal extent of paleobiogeographic regions in Europe and North America. Boxplots summarize the temporal distribution of fossil assemblages assigned to each paleobiogeographic region for Europe (left) and North America (right). The x-axis shows geological time (Ma), and the y-axis indexes region membership as inferred from the space–time–constrained clustering. For each region, boxes indicate the interquartile range of temporal occurrence, whiskers denote the full temporal extent, and points represent individual assemblages.</figcaption>
+</figure>
+</div>
 </section>
 </section>
-<section id="reduced-turnover-matrices" class="level4" data-number="C.2.0.10">
-<h4 data-number="C.2.0.10" class="anchored" data-anchor-id="reduced-turnover-matrices"><span class="header-section-number">C.2.0.10</span> Reduced turnover matrices</h4>
-<p><img src="images/clipboard-417304926.png" class="img-fluid"></p>
-<p><img src="images/clipboard-3023089739.png" class="img-fluid"></p>
+<section id="reduced-turnover-matrices" class="level4" data-number="C.2.0.9">
+<h4 data-number="C.2.0.9" class="anchored" data-anchor-id="reduced-turnover-matrices"><span class="header-section-number">C.2.0.9</span> Reduced turnover matrices</h4>
+<p>To derive a region-level measure of compositional turnover, we extracted from the SBM model the diagonal elements of the SBM connectivity matrix, which summarize the average compositional dissimilarity among assemblages belonging to the same paleobiogeographic region. These region-level turnover values are then joined back to the paleoassemblage data, allowing each assemblage to inherit the turnover estimate of its assigned region.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-417304926.png" class="img-fluid figure-img"></p>
+<figcaption>Reduced compositional turnover matrices among paleobiogeographic regions. Heatmaps show reduced pairwise turnover matrices (β_SIM) calculated among paleobiogeographic regions after aggregation of spatiotemporal fossil assemblages. Cell values represent Simpson dissimilarity, with warmer colors indicating lower turnover (higher compositional similarity) and cooler colors indicating higher turnover between regions. Each panel corresponds to a different trophic grouping or regionalization scheme, illustrating how patterns of faunal turnover vary once assemblages are summarized at the level of inferred paleobiogeographic regions rather than individual localities.</figcaption>
+</figure>
+</div>
 </section>
-<section id="evaluating-sampling-effort" class="level4" data-number="C.2.0.11">
-<h4 data-number="C.2.0.11" class="anchored" data-anchor-id="evaluating-sampling-effort"><span class="header-section-number">C.2.0.11</span> Evaluating sampling effort</h4>
-<p>Sampling effort was evaluated as the relationship between the number of sampled fossil localities and observed generic richness for every stage in the Neogene. Sampling–richness relationships were examined within each Neogene stage to assess how efficiently additional localities contributed to the recovery of new genera and to identify stages showing evidence of saturation versus continued sampling dependence.</p>
-<p><img src="images/clipboard-2034292060.png" class="img-fluid"></p>
+<section id="evaluating-sampling-effort" class="level4" data-number="C.2.0.10">
+<h4 data-number="C.2.0.10" class="anchored" data-anchor-id="evaluating-sampling-effort"><span class="header-section-number">C.2.0.10</span> Evaluating sampling effort</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2034292060.png" class="img-fluid figure-img"></p>
+<figcaption>Sampling effort was evaluated as the relationship between the number of sampled fossil localities and observed generic richness for every stage in the Neogene. Sampling–richness relationships were examined within each Neogene stage to assess how efficiently additional localities contributed to the recovery of new genera and to identify stages showing evidence of saturation versus continued sampling dependence.</figcaption>
+</figure>
+</div>
 </section>
-<section id="sampling-intensity-of-paleobiographic-regions" class="level4" data-number="C.2.0.12">
-<h4 data-number="C.2.0.12" class="anchored" data-anchor-id="sampling-intensity-of-paleobiographic-regions"><span class="header-section-number">C.2.0.12</span> Sampling intensity of paleobiographic regions</h4>
-<p><img src="images/clipboard-1189386106.png" class="img-fluid" width="500"></p>
+<section id="sampling-intensity-of-paleobiographic-regions" class="level4" data-number="C.2.0.11">
+<h4 data-number="C.2.0.11" class="anchored" data-anchor-id="sampling-intensity-of-paleobiographic-regions"><span class="header-section-number">C.2.0.11</span> Sampling intensity of paleobiographic regions</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1189386106.png" class="img-fluid figure-img" width="500"></p>
+<figcaption>Relationship between sampling intensity and within-region compositional turnover. Within-region compositional turnover is shown as a function of the number of paleoassemblages contributing to each paleobiogeographic region for North America (left panels) and Europe (right panels). Points represent individual regions, solid lines show fitted linear relationships, and shaded bands indicate 95% confidence intervals. Panels correspond to different trophic groupings (top to bottom). The positive relationships in most panels indicate increasing estimated turnover with greater sampling intensity, whereas weaker or flat trends suggest limited sensitivity of turnover estimates to sample size in some trophic–continental subsets.</figcaption>
+</figure>
+</div>
 </section>
-<section id="predicted-effects" class="level3" data-number="C.2.1">
-<h3 data-number="C.2.1" class="anchored" data-anchor-id="predicted-effects"><span class="header-section-number">C.2.1</span> Predicted effects</h3>
+<section id="predicted-effects-of-climate-change-in-paleobiogeographic-turnover" class="level3" data-number="C.2.1">
+<h3 data-number="C.2.1" class="anchored" data-anchor-id="predicted-effects-of-climate-change-in-paleobiogeographic-turnover"><span class="header-section-number">C.2.1</span> Predicted effects of climate change in paleobiogeographic turnover</h3>
+<p>We linked climatic dynamics to paleobiogeographic regions by directly extracting temperature-change and instability values for the fossil assemblages that define each region. We first ensured that each paleoassemblage has a numeric time assignment and an associated paleobiogeographic region derived from the SBM. We then use raster stacks of GAM-derived temperature change (first differences between consecutive time steps) as spatially explicit climate covariates. For each time bin represented in the fossil data, we extract temperature-change values at the locations of paleoassemblages and associate them with their corresponding regions. We merge these climate values with region-level within-region turnover estimates and aggregate them by time, region, and continent to calculate mean (magnitude) and instability (standard deviation) in temperature change. This produces a region-level dataset that aligns climatic dynamics with compositional turnover in space and time, enabling subsequent analyses of climate–turnover relationships. We modeled within-region compositional turnover using beta regression to quantify the effects of climate dynamics while explicitly accounting for sampling effort and separately for herbivores and carnivores.</p>
 <section id="herbivores-1" class="level4" data-number="C.2.1.1">
 <h4 data-number="C.2.1.1" class="anchored" data-anchor-id="herbivores-1"><span class="header-section-number">C.2.1.1</span> Herbivores</h4>
-<p><img src="images/clipboard-4069483964.png" class="img-fluid"></p>
-<p><img src="images/clipboard-1705750470.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4069483964.png" class="img-fluid figure-img"></p>
+<figcaption>Predicted effects of temperature instability on within-region turnover in herbivores.** Model-based predictions show the relationship between temperature instability and within-region compositional turnover for herbivorous mammals in North America (left) and Europe (right). Solid lines indicate predicted mean turnover values, and shaded bands represent 95% confidence intervals. Opposing trends between continents indicate a negative association between instability and turnover in North America and a positive association in Europe, highlighting continent-specific herbivore responses to climatic variability through the Neogene.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1705750470.png" class="img-fluid figure-img"></p>
+<figcaption>Predicted effects of temperature change on within-region turnover in herbivores.** Model-based predictions illustrate the relationship between rates of temperature change and within-region compositional turnover for herbivorous mammals in North America (left) and Europe (right). Solid lines show predicted mean turnover, with shaded bands indicating 95% confidence intervals. Turnover shows little sensitivity to temperature change in North America, whereas a negative association is evident in Europe, suggesting reduced herbivore turnover under more rapid temperature change in that continent.</figcaption>
+</figure>
+</div>
 </section>
 </section>
 <section id="carnivores-1" class="level3" data-number="C.2.2">
 <h3 data-number="C.2.2" class="anchored" data-anchor-id="carnivores-1"><span class="header-section-number">C.2.2</span> Carnivores</h3>
-<p><img src="images/clipboard-2060037250.png" class="img-fluid"></p>
-<p><img src="images/clipboard-2318167226.png" class="img-fluid"></p>
-<p><img src="images/clipboard-19712437.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2060037250.png" class="img-fluid figure-img"></p>
+<figcaption>Predicted effects of temperature instability on within-region turnover in carnivores.** Predicted relationships between temperature instability and within-region compositional turnover are shown for carnivorous mammals in North America (left) and Europe (right). Solid lines represent model-predicted mean turnover, with shaded bands denoting 95% confidence intervals. In both continents, turnover increases with greater temperature instability, indicating a consistent positive response of carnivore assemblage reorganization to climatic variability through the Neogene.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2318167226.png" class="img-fluid figure-img"></p>
+<figcaption>Predicted effects of temperature change on within-region turnover in carnivores.** Model-predicted relationships between rates of temperature change and within-region compositional turnover are shown for carnivorous mammals in North America (left) and Europe (right). Solid lines indicate predicted mean turnover, and shaded bands represent 95% confidence intervals. In both continents, turnover declines with increasing temperature change, suggesting reduced compositional reorganization of carnivore assemblages under more rapid climatic change during the Neogene.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-19712437.png" class="img-fluid figure-img"></p>
+<figcaption>Predicted effects of sampling effort on within-region compositional turnover.** Model-based predictions show the relationship between sampling effort (number of paleoassemblages) and within-region compositional turnover for North America (left) and Europe (right). Solid lines represent predicted mean turnover, and shaded bands indicate 95% confidence intervals. In both continents, predicted turnover declines with increasing sampling effort, suggesting that higher sampling intensity reduces apparent within-region turnover by more fully capturing regional faunal composition.</figcaption>
+</figure>
+</div>
 
 
 </section>

@@ -1,2 +1,11 @@
 # Conclusion {.unnumbered} 
 
+::: small 
+
+This thesis shows that ecological structure is not a single property that changes in parallel with species composition, but a multidimensional outcome constrained by processes operating across scales. Biodiversity change is often described in terms of species gains, losses, and turnover, yet these compositional changes only partially capture how ecosystems reorganize. A central contribution of this thesis is to provide a quantitative framework to understand how different processes constrain different dimensions of ecological structure. 
+
+Applying the layered assembly perspective, this thesis showed that in contemporary multitrophic systems, climatic gradients reshuffle the relative strength of bottom-up and top-down constraints, generating predictable changes in trait distributions and interaction structure. At the regional scale, different responses between trophic levels to climatic gradients can limit the functional space available for local species interactions. In deep time, planetary shifts in atmospheric temperature, from long-term cooling to short-term warming, resulted in more fragmented communities and increased extinction. 
+
+Taken together, these findings advance Ecology by reframing biodiversity change as a problem of constrained emergence, contingent on both contemporary and historical and biogeographic context. Ecological structure can be interpreted as a dynamic state of biodiversity, which emerges from the intersection of multiple assembly processes, each restricting the space of possible community assembly configurations. This thesis provides a coherent approach for studying how ecological systems are assembled, maintained, and reorganized. This perspective offers a stronger foundation for predicting ecosystem responses to ongoing global change, particularly in a world where environmental conditions are shifting faster than the processes that generate ecological structure can equilibrate.
+
+::: 

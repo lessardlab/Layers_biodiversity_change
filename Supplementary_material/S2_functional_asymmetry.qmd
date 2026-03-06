@@ -432,8 +432,8 @@ the following as spatial predictors:
     variation, and indicates how evenly precipitation is distributed
     throughout the year.
 
-![Figure B9. Climatic context of the Neotropics used in network analyses.
-Spatial distributions of mean annual temperature, total annual
+![Figure B9. Climatic context of the Neotropics used in network
+analyses. Spatial distributions of mean annual temperature, total annual
 precipitation, precipitation seasonality, and temperature seasonality
 across the Neotropics. Maps summarize the broad climatic gradients that
 structure species distributions and interaction assemblages, and serve
@@ -481,18 +481,18 @@ interpretation.](images/clipboard-288217907.png)
 ::: callout
 #### Table B2: Model estimates between FR and climate.
 
-Parametric terms from separate GAMs predicting functional richness (FR) in palms (“FR
-Palms”) and mammal frugivores (“FR Mammals”). The leftmost column lists
-the model predictors: the intercept; four climatic main effects—Mean
-Annual Temperature (MAT), Total Annual Precipitation (TAP), Temperature
-Seasonality (TS), and Precipitation Seasonality (PS); and interaction
-terms between each climate variable and the seven interaction guilds
-(IG-1 through IG-7). Columns “Estimates,” “Std. Error,” and “p” give the
-coefficient, its standard error, and significance for each predictor in
-the palm and mammal models, respectively. “IG-n” refers to the nᵗʰ
-palm–mammal guild as defined in the reference guild table. The bottom
-rows report the number of grid‐cell observations and the model R² (or
-adjusted R² for mammals).
+Parametric terms from separate GAMs predicting functional richness (FR)
+in palms (“FR Palms”) and mammal frugivores (“FR Mammals”). The leftmost
+column lists the model predictors: the intercept; four climatic main
+effects—Mean Annual Temperature (MAT), Total Annual Precipitation (TAP),
+Temperature Seasonality (TS), and Precipitation Seasonality (PS); and
+interaction terms between each climate variable and the seven
+interaction guilds (IG-1 through IG-7). Columns “Estimates,”
+“Std. Error,” and “p” give the coefficient, its standard error, and
+significance for each predictor in the palm and mammal models,
+respectively. “IG-n” refers to the nᵗʰ palm–mammal guild as defined in
+the reference guild table. The bottom rows report the number of
+grid‐cell observations and the model R² (or adjusted R² for mammals).
 
 ```{r}
 #| echo: false
@@ -714,12 +714,14 @@ for interaction strength is small and non‐significant (β = 0.18, 95 % CI
 –0.27 to 0.62, p = 0.426).](images/clipboard-924046659.png)
 
 ::: callout
-####Table B3: Simple linear regression of adjusted Functional Trophic Asymmetry (FTA) on interaction strength.
+####Table B3: Simple linear regression of adjusted Functional Trophic
+Asymmetry (FTA) on interaction strength.
 
-The intercept of 0.19 (95 % CI: 0.12–0.25, p \< 0.001) represents the baseline FTA when interaction
-strength is zero, while the slope coefficient for interaction strength
-is 0.18 (95 % CI: –0.27–0.62, p = 0.426), indicating that variation in
-interaction strength does not significantly predict changes in FTA.
+The intercept of 0.19 (95 % CI: 0.12–0.25, p \< 0.001) represents the
+baseline FTA when interaction strength is zero, while the slope
+coefficient for interaction strength is 0.18 (95 % CI: –0.27–0.62, p =
+0.426), indicating that variation in interaction strength does not
+significantly predict changes in FTA.
 
 ```{r}
 #| echo: false
@@ -765,7 +767,6 @@ mod_gt
 ```
 :::
 
-
 ### Does climate determine FTA?
 
 We used generalized additive models (mgcv) to relate the response to
@@ -794,6 +795,7 @@ stable and well-conditioned model.
 
 ::: callout
 #### Table B4. Basis-dimension diagnostics for generalized additive model smooth terms.
+
 The table reports the basis dimension ((k′)), effective degrees of
 freedom (EDF), k-index, and associated p-values for each smooth term.
 
@@ -854,8 +856,7 @@ gam_diag_gt <-
 gam_diag_gt
 
 ```
-::: 
-
+:::
 
 ![Figure S8. Estimated smooth relationships from a GAM of Functional
 Trophic Asymmetry (FTA) against four climatic variables and interaction
@@ -924,11 +925,10 @@ specialization](images/clipboard-3970149461.png)
 ::: callout
 #### Table B5: Simple linear model relating network specialization (H2′) to total functional trophic asymmetry (FTAsum).
 
-The model intercept is
-–0.03 (95 % CI: –0.13–0.06, p = 0.489), and FTAsum has a positive
-estimate of 0.05 (95 % CI: 0.02–0.07, p \< 0.001), suggesting a small
-but statistically significant increase in specialization with greater
-trait mismatch.
+The model intercept is –0.03 (95 % CI: –0.13–0.06, p = 0.489), and
+FTAsum has a positive estimate of 0.05 (95 % CI: 0.02–0.07, p \< 0.001),
+suggesting a small but statistically significant increase in
+specialization with greater trait mismatch.
 
 ```{r}
 #| echo: false
@@ -970,8 +970,7 @@ ns2_gt <- ns2_table %>%
 ns2_gt
 
 ```
-::: 
-
+:::
 
 #### Evaluating the relationship between FTA and the spectral radius
 
@@ -983,15 +982,14 @@ Each point represents a rarefied network realization, with the fitted
 regression line and confidence interval illustrating a strong positive
 association.](images/clipboard-1692998543.png)
 
-
 ::: callout
 #### Table B6: Effect of functional trophic asymmetry on network spectral radius.
 
-The table show the results of a simple linear regression
-showing the relationship between functional trophic asymmetry and
-spectral radius. Estimates indicate a strong positive association, with
-higher asymmetry corresponding to networks that are more ordered, with
-lower-dimensional interaction structure.
+The table show the results of a simple linear regression showing the
+relationship between functional trophic asymmetry and spectral radius.
+Estimates indicate a strong positive association, with higher asymmetry
+corresponding to networks that are more ordered, with lower-dimensional
+interaction structure.
 
 ```{r}
 #| echo: false
@@ -1030,4 +1028,3 @@ tibble(
 
 ```
 :::
-

@@ -1,5 +1,14 @@
-# Understanding the layers of biodiversity change  {.unnumbered}
-# Gabriel Munoz-Acevedo  {.unnumbered}
+
+<div style="text-align: center">
+
+# Assembly Layers Structuring Biodiversity  {.unnumbered}
+
+
+**by**
+
+**Gabriel Munoz-Acevedo**
+
+<hr>
 
 
 A Thesis 
@@ -11,7 +20,7 @@ In the Department of:
 
 
 Presented in Partial Fulfillment of the
-Requirments for the Degree of: 
+Requirements for the Degree of: 
 
 
 **Doctor of Philosophy (Biology)**
@@ -20,8 +29,12 @@ Requirments for the Degree of:
 at Concordia University. 
 
 
+
 Montreal, Quebec, Canada. 
 
 January 2026 
+</div>
+
+<hr>
 
 (c) Gabriel Munoz-Acevedo, 2026

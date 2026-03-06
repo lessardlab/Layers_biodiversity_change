@@ -4,7 +4,7 @@ project:
   type: book
 
 book:
-  title: "Layers of Biodiversity Change."
+  title: "Assembly Layers Structuring Biodiversity"
   author: "Gabriel Munoz-Acevedo"
   date: today
   chapters:
@@ -22,15 +22,15 @@ book:
     - intro/07_Introduction.qmd
     - part: "Chapters"
       chapters:
+          - chapters/fossil_turnover/manuscript.qmd
           - chapters/trait_based_assembly/manuscript.qmd
           - chapters/functional_asymmetry/manuscript.qmd
-          - chapters/fossil_turnover/manuscript.qmd
     - 11_general_conclusion.qmd
     - references.qmd
   appendices:
+         - Supplementary_material/S3_historical_biogeography.qmd
          - Supplementary_material/S1_trait_based_assembly.qmd
          - Supplementary_material/S2_functional_asymmetry.qmd
-         - Supplementary_material/S3_historical_biogeography.qmd
   #       - Sup_fig/functional_asymmetry.qmd
   #       - Sup_fig/fossil_turnover.qmd
   #       - Sup_tab/trait_based_assembly.qmd

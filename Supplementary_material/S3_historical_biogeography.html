@@ -227,7 +227,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#statistical-analyses" id="toc-statistical-analyses" class="nav-link" data-scroll-target="#statistical-analyses"><span class="header-section-number">A.1</span> Statistical analyses</a>
   <ul class="collapse">
   <li><a href="#sampling-intensity" id="toc-sampling-intensity" class="nav-link" data-scroll-target="#sampling-intensity"><span class="header-section-number">A.1.1</span> Sampling intensity</a></li>
-  <li><a href="#sensitivity-of-gdm-effect-estimates" id="toc-sensitivity-of-gdm-effect-estimates" class="nav-link" data-scroll-target="#sensitivity-of-gdm-effect-estimates"><span class="header-section-number">A.1.2</span> Sensitivity of GDM effect estimates</a></li>
+  </ul></li>
+  <li><a href="#relative-contribution-of-gdm-variables" id="toc-relative-contribution-of-gdm-variables" class="nav-link" data-scroll-target="#relative-contribution-of-gdm-variables"><span class="header-section-number">A.2</span> Relative contribution of GDM variables</a>
+  <ul class="collapse">
+  <li><a href="#geography-inclusionexclusion" id="toc-geography-inclusionexclusion" class="nav-link" data-scroll-target="#geography-inclusionexclusion"><span class="header-section-number">A.2.1</span> Geography inclusion/exclusion</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -326,28 +329,25 @@ ul.task-list li input[type="checkbox"] {
 <section id="richness-of-fossil-assemblages-rarefied-across-geological-time" class="level4" data-number="A.1.1.1">
 <h4 data-number="A.1.1.1" class="anchored" data-anchor-id="richness-of-fossil-assemblages-rarefied-across-geological-time"><span class="header-section-number">A.1.1.1</span> Richness of fossil assemblages rarefied across geological time</h4>
 <p>Species richness was evaluated within each continent, trophic guild, and time bin using both rarefaction and richness estimation approaches. Fossil occurrence data were split into spatiotemporal subsets (continent × trophic guild × time bin), and for each subset we computed sample-based species accumulation curves (via repeated random permutations) to quantify how observed richness increases with the number of sampled localities. In parallel, we estimated pooled richness for each subset using nonparametric estimators to account for unseen taxa. Outputs from all subsets were then combined into a single data frame containing the number of sites sampled, mean accumulated richness, and uncertainty (standard deviation and standard error across permutations) for direct comparison of sampling completeness and richness trajectories across continents, trophic groups, and time intervals.</p>
+</section>
+</section>
+</section>
+<section id="relative-contribution-of-gdm-variables" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="relative-contribution-of-gdm-variables"><span class="header-section-number">A.2</span> Relative contribution of GDM variables</h2>
+<section id="geography-inclusionexclusion" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="geography-inclusionexclusion"><span class="header-section-number">A.2.1</span> Geography inclusion/exclusion</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-3317158724.png" class="img-fluid figure-img"></p>
-<figcaption>Fossil genus richness across the Neogene and separated by continents and by trophic guilds. Each point represents the asymptote estimates of a rarefaction curve. We show data for two estimates, Jacknife SE-1 (continous lines) and Chao2 (dashed lines).</figcaption>
+<p><img src="images/clipboard-4173779030.png" class="img-fluid figure-img"></p>
+<figcaption>Relative contributions of spatial, temporal, and climatic drivers to mammalian compositional turnover across continents and trophic guilds. (A) Partitioning of turnover explained by geographic distance (space), temporal separation (time), climate change magnitude (°C Myr⁻¹), mean temperature, and climatic instability. (B) Same analysis excluding spatial distance to highlight the relative importance of temporal and climatic predictors. Values represent normalized relative influence (0–1) from generalized dissimilarity models, shown for all mammals, herbivores, and carnivores in Europe and North America.</figcaption>
 </figure>
 </div>
-</section>
-<section id="taxonomic-replacement-across-the-neogene" class="level4" data-number="A.1.1.2">
-<h4 data-number="A.1.1.2" class="anchored" data-anchor-id="taxonomic-replacement-across-the-neogene"><span class="header-section-number">A.1.1.2</span> Taxonomic replacement across the Neogene</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-4110372601.png" class="img-fluid figure-img"></p>
-<figcaption>**Temporal distribution of mammalian families across trophic guilds in Europe and North America.** The figure illustrates the temporal coverage and richness distribution of mammalian families included in the analyses. Points represent occurrences of mammalian families through time, plotted by the midpoint age of fossil assemblages (Ma). Panels are separated by **continent** (Europe and North America) and **trophic guild** (carnivores, herbivores, and omnivores). Each row corresponds to a family, with points indicating occurrences through time and colored according to assemblage midpoint age. Point size reflects **genus richness** within each assemblage. Grey bars summarize the temporal range of occurrences for each family within the corresponding continent and guild.</figcaption>
-</figure>
-</div>
-</section>
-<section id="sensitivity-analyses" class="level4" data-number="A.1.1.3">
-<h4 data-number="A.1.1.3" class="anchored" data-anchor-id="sensitivity-analyses"><span class="header-section-number">A.1.1.3</span> Sensitivity analyses</h4>
+<section id="sensitivity-analyses" class="level4" data-number="A.2.1.1">
+<h4 data-number="A.2.1.1" class="anchored" data-anchor-id="sensitivity-analyses"><span class="header-section-number">A.2.1.1</span> Sensitivity analyses</h4>
 <p>We tested four model configurations that represent different assumptions about how smooth temperature trajectories are through time. When analyzed together, they provide a sensitivity analysis to understand the impact of different temporal smoothing choices for the shape of temporal climatic trajectories and climate-fossil turnover relationships.</p>
 </section>
-<section id="sensitivity-of-neogene-temperaturechange-estimates" class="level4" data-number="A.1.1.4">
-<h4 data-number="A.1.1.4" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates"><span class="header-section-number">A.1.1.4</span> Sensitivity of Neogene temperature‐change estimates</h4>
+<section id="sensitivity-of-neogene-temperaturechange-estimates" class="level4" data-number="A.2.1.2">
+<h4 data-number="A.2.1.2" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates"><span class="header-section-number">A.2.1.2</span> Sensitivity of Neogene temperature‐change estimates</h4>
 <ul>
 <li><p><strong>gam_6_3 (df = 6, degree = 3):</strong> Allows relatively high flexibility. Temperature trajectories can follow finer temporal variation while remaining smooth, capturing long-term trends as well as moderate shorter-term fluctuations.</p></li>
 <li><p><strong>gam_4_3 (df = 4, degree = 3):</strong> An intermediate level of smoothing. With fewer degrees of freedom, the model emphasizes broader temporal patterns while still allowing nonlinear trajectories.</p></li>
@@ -373,11 +373,10 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-</section>
-<section id="sensitivity-of-gdm-effect-estimates" class="level3" data-number="A.1.2">
-<h3 data-number="A.1.2" class="anchored" data-anchor-id="sensitivity-of-gdm-effect-estimates"><span class="header-section-number">A.1.2</span> Sensitivity of GDM effect estimates</h3>
-<section id="sensitivity-to-climate-change" class="level4" data-number="A.1.2.1">
-<h4 data-number="A.1.2.1" class="anchored" data-anchor-id="sensitivity-to-climate-change"><span class="header-section-number">A.1.2.1</span> Sensitivity to climate change</h4>
+<section id="sensitivity-of-gdm-effect-estimates" class="level4" data-number="A.2.1.3">
+<h4 data-number="A.2.1.3" class="anchored" data-anchor-id="sensitivity-of-gdm-effect-estimates"><span class="header-section-number">A.2.1.3</span> Sensitivity of GDM effect estimates</h4>
+<section id="sensitivity-to-climate-change" class="level5" data-number="A.2.1.3.1">
+<h5 data-number="A.2.1.3.1" class="anchored" data-anchor-id="sensitivity-to-climate-change"><span class="header-section-number">A.2.1.3.1</span> Sensitivity to climate change</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-545247659.png" class="img-fluid figure-img"></p>
@@ -385,8 +384,8 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="sensitivity-to-climatic-instability" class="level4" data-number="A.1.2.2">
-<h4 data-number="A.1.2.2" class="anchored" data-anchor-id="sensitivity-to-climatic-instability"><span class="header-section-number">A.1.2.2</span> Sensitivity to climatic instability</h4>
+<section id="sensitivity-to-climatic-instability" class="level5" data-number="A.2.1.3.2">
+<h5 data-number="A.2.1.3.2" class="anchored" data-anchor-id="sensitivity-to-climatic-instability"><span class="header-section-number">A.2.1.3.2</span> Sensitivity to climatic instability</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-1113362592.png" class="img-fluid figure-img"></p>
@@ -394,8 +393,8 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="sensitivity-to-mean-temperature" class="level4" data-number="A.1.2.3">
-<h4 data-number="A.1.2.3" class="anchored" data-anchor-id="sensitivity-to-mean-temperature"><span class="header-section-number">A.1.2.3</span> Sensitivity to mean temperature</h4>
+<section id="sensitivity-to-mean-temperature" class="level5" data-number="A.2.1.3.3">
+<h5 data-number="A.2.1.3.3" class="anchored" data-anchor-id="sensitivity-to-mean-temperature"><span class="header-section-number">A.2.1.3.3</span> Sensitivity to mean temperature</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-644417373.png" class="img-fluid figure-img"></p>
@@ -404,6 +403,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+</section>
 </section>
 </section>
 </section>

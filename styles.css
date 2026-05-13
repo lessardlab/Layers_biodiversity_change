@@ -14,7 +14,7 @@
 
 .appendix-figure-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
   gap: 1.2rem 1.4rem;
   align-items: start;
   max-width: 100%;

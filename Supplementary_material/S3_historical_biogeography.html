@@ -70,6 +70,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -224,14 +225,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#paleoatmospheric-temperature-data" id="toc-paleoatmospheric-temperature-data" class="nav-link active" data-scroll-target="#paleoatmospheric-temperature-data"><span class="header-section-number">A.0.1</span> Paleoatmospheric temperature data</a></li>
   <li><a href="#obtaining-the-rate-of-climate-change" id="toc-obtaining-the-rate-of-climate-change" class="nav-link" data-scroll-target="#obtaining-the-rate-of-climate-change"><span class="header-section-number">A.0.2</span> Obtaining the rate of climate change</a></li>
   <li><a href="#estimating-climate-instability" id="toc-estimating-climate-instability" class="nav-link" data-scroll-target="#estimating-climate-instability"><span class="header-section-number">A.0.3</span> Estimating climate instability</a></li>
-  <li><a href="#statistical-analyses" id="toc-statistical-analyses" class="nav-link" data-scroll-target="#statistical-analyses"><span class="header-section-number">A.1</span> Statistical analyses</a>
+  <li><a href="#statistical-analyses" id="toc-statistical-analyses" class="nav-link" data-scroll-target="#statistical-analyses"><span class="header-section-number">A.1</span> Statistical analyses</a></li>
+  <li><a href="#sensitivity-analyses" id="toc-sensitivity-analyses" class="nav-link" data-scroll-target="#sensitivity-analyses"><span class="header-section-number">A.2</span> Sensitivity analyses</a>
   <ul class="collapse">
-  <li><a href="#sampling-intensity" id="toc-sampling-intensity" class="nav-link" data-scroll-target="#sampling-intensity"><span class="header-section-number">A.1.1</span> Sampling intensity</a></li>
-  </ul></li>
-  <li><a href="#estimated-turnover-across-space-and-time" id="toc-estimated-turnover-across-space-and-time" class="nav-link" data-scroll-target="#estimated-turnover-across-space-and-time"><span class="header-section-number">A.2</span> Estimated turnover across space and time</a></li>
-  <li><a href="#relative-contribution-of-gdm-variables" id="toc-relative-contribution-of-gdm-variables" class="nav-link" data-scroll-target="#relative-contribution-of-gdm-variables"><span class="header-section-number">A.3</span> Relative contribution of GDM variables</a>
-  <ul class="collapse">
-  <li><a href="#geography-inclusionexclusion" id="toc-geography-inclusionexclusion" class="nav-link" data-scroll-target="#geography-inclusionexclusion"><span class="header-section-number">A.3.1</span> Geography inclusion/exclusion</a></li>
+  <li><a href="#sensitivity-of-fossil-paleoassemblages-to-spatial-binning" id="toc-sensitivity-of-fossil-paleoassemblages-to-spatial-binning" class="nav-link" data-scroll-target="#sensitivity-of-fossil-paleoassemblages-to-spatial-binning"><span class="header-section-number">A.2.1</span> Sensitivity of fossil paleoassemblages to spatial binning</a></li>
+  <li><a href="#sensitivity-of-neogene-temperaturechange-estimates" id="toc-sensitivity-of-neogene-temperaturechange-estimates" class="nav-link" data-scroll-target="#sensitivity-of-neogene-temperaturechange-estimates"><span class="header-section-number">A.2.2</span> Sensitivity of Neogene temperature‐change estimates</a></li>
+  <li><a href="#sensitivity-of-gdm-predictive-power" id="toc-sensitivity-of-gdm-predictive-power" class="nav-link" data-scroll-target="#sensitivity-of-gdm-predictive-power"><span class="header-section-number">A.2.3</span> Sensitivity of GDM predictive power</a></li>
+  <li><a href="#sensitivity-of-gdm-effect-estimates" id="toc-sensitivity-of-gdm-effect-estimates" class="nav-link" data-scroll-target="#sensitivity-of-gdm-effect-estimates"><span class="header-section-number">A.2.4</span> Sensitivity of GDM effect estimates</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -300,60 +300,64 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="temporal-binning-of-fossil-locations-into-fossil-paleoassemblages" class="level4" data-number="A.1.0.2">
-<h4 data-number="A.1.0.2" class="anchored" data-anchor-id="temporal-binning-of-fossil-locations-into-fossil-paleoassemblages"><span class="header-section-number">A.1.0.2</span> Temporal binning of fossil locations into fossil paleoassemblages</h4>
+<section id="temporal-trends-in-genus-richness-of-continental-pools" class="level4" data-number="A.1.0.2">
+<h4 data-number="A.1.0.2" class="anchored" data-anchor-id="temporal-trends-in-genus-richness-of-continental-pools"><span class="header-section-number">A.1.0.2</span> Temporal trends in genus richness of continental pools</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-865054988.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S5: Temporal distribution of fossil localities across the Neogene.</strong> Bars show the log-transformed number of fossil localities per 1-Myr time bin, plotted against geological time (Ma). The reversed x-axis follows geological convention, with older ages on the left and younger ages on the right, illustrating changes in sampling intensity through time.</figcaption>
+<p><img src="images/clipboard-3191521585.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure S5: Temporal trends in fossil genus richness across trophic guilds and continents.</strong> Observed genus richness (points) and richness estimators (lines) are shown for carnivores, herbivores, and omnivores in Europe and North America. Solid and dashed lines represent smoothed trends from generalized additive models (GAMs) fitted to Chao and first-order jackknife estimators, respectively. Time is shown in millions of years before present (Ma), with values decreasing toward the present. Colours denote trophic guilds.</figcaption>
 </figure>
 </div>
 </section>
-<section id="estimating-turnover-among-fossil-paleoassemblages" class="level4" data-number="A.1.0.3">
-<h4 data-number="A.1.0.3" class="anchored" data-anchor-id="estimating-turnover-among-fossil-paleoassemblages"><span class="header-section-number">A.1.0.3</span> Estimating turnover among fossil paleoassemblages</h4>
-<p>We estimated compositional turnover among paleoassemblages using genus-level presence–absence data. It first converts the fossil occurrences into a <em>genus</em> × <em>paleoassemblage</em> incidence matrix, then removes poorly sampled paleoassemblages by requiring a minimum number of observations (<code>default: &gt;3</code>). Abundances are reduced to presence–absence to focus on composition rather than counts. Pairwise dissimilarities are then computed among paleoassemblages using the Simpson-based turnover component (<code>β_SIM</code>) from the <em>betapart</em> framework, yielding a matrix that quantifies the degree of taxonomic replacement (turnover) between all pairs of paleoassemblages.</p>
+<section id="temporal-trends-in-genus-richness-of-fossil-assemblages" class="level4" data-number="A.1.0.3">
+<h4 data-number="A.1.0.3" class="anchored" data-anchor-id="temporal-trends-in-genus-richness-of-fossil-assemblages"><span class="header-section-number">A.1.0.3</span> Temporal trends in genus richness of fossil assemblages</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-1792363359.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S6: Pairwise compositional dissimilarity across space and time.</strong> Heatmaps show pairwise Simpson dissimilarity (β_SIM) among fossil paleoassemblages for all taxa, herbivores, and carnivores. Colors represent increasing compositional dissimilarity from low (dark) to high (yellow), highlighting differences in turnover structure among trophic groups across spatiotemporal assemblages.</figcaption>
+<p><img src="images/clipboard-4137080004.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure S6. Fossil assemblage richness across time and spatial resolutions.</strong> Temporal variation in genus richness of fossil assemblages in Europe and North America across H3 spatial resolutions (h0–h3; coarse to fine). Boxplots summarize the distribution of genus richness within each time bin (Ma), with points indicating outliers. Richness is consistently higher and more variable at coarser resolutions (h0), reflecting spatial aggregation of assemblages, and declines with increasing spatial resolution (h1–h3) as assemblages become more spatially constrained. Both continents show substantial temporal heterogeneity, though patterns are more variable in Europe than in North America.</figcaption>
 </figure>
 </div>
 </section>
-<section id="sampling-intensity" class="level3" data-number="A.1.1">
-<h3 data-number="A.1.1" class="anchored" data-anchor-id="sampling-intensity"><span class="header-section-number">A.1.1</span> Sampling intensity</h3>
+<section id="temporal-trends-in-mammal-lineage-replacement" class="level4" data-number="A.1.0.4">
+<h4 data-number="A.1.0.4" class="anchored" data-anchor-id="temporal-trends-in-mammal-lineage-replacement"><span class="header-section-number">A.1.0.4</span> Temporal trends in mammal lineage replacement</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-2034292060.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S7: Sampling effort was evaluated as the relationship between the number of sampled fossil localities and observed generic richness for every stage in the Neogene</strong>. Sampling–richness relationships were examined within each Neogene stage to assess how efficiently additional localities contributed to the recovery of new genera and to identify stages showing evidence of saturation versus continued sampling dependence.</figcaption>
+<p><img src="images/clipboard-2239525509.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure S7. Spatial-temporal distributions of mammalian families across trophic guilds in Europe and North America.</strong> Horizontal boxplots show the distribution of fossil occurrences through time (Ma) for each family, grouped by trophic guild (carnivores, omnivores, herbivores) and continent. Boxes represent the interquartile range, central lines indicate medians, and whiskers extend to the range of observed values; points denote outliers. Time is expressed in millions of years before present (Ma), decreasing toward the present. Colours denote trophic guilds.</figcaption>
 </figure>
 </div>
 </section>
 </section>
-<section id="estimated-turnover-across-space-and-time" class="level2" data-number="A.2">
-<h2 data-number="A.2" class="anchored" data-anchor-id="estimated-turnover-across-space-and-time"><span class="header-section-number">A.2</span> Estimated turnover across space and time</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2313766766.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S8: Partial effects of geographic distance and geological time on fossil turnover across continents and trophic guilds.</strong> Panels show generalized dissimilarity model (GDM) I-spline responses, where the y-axis represents the relative contribution to compositional turnover (β_sim) and the x-axis shows either geographic distance (A–B) or geological time (C–D). Lines correspond to all mammals (black), carnivores (orange), and herbivores (green).</figcaption>
-</figure>
-</div>
-</section>
-<section id="relative-contribution-of-gdm-variables" class="level2" data-number="A.3">
-<h2 data-number="A.3" class="anchored" data-anchor-id="relative-contribution-of-gdm-variables"><span class="header-section-number">A.3</span> Relative contribution of GDM variables</h2>
-<section id="geography-inclusionexclusion" class="level3" data-number="A.3.1">
-<h3 data-number="A.3.1" class="anchored" data-anchor-id="geography-inclusionexclusion"><span class="header-section-number">A.3.1</span> Geography inclusion/exclusion</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-4173779030.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S9: Relative contributions of spatial, temporal, and climatic drivers to mammalian compositional turnover across continents and trophic guilds.</strong> (A) Partitioning of turnover explained by geographic distance (space), temporal separation (time), climate change magnitude (°C Myr⁻¹), mean temperature, and climatic instability. (B) Same analysis excluding spatial distance to highlight the relative importance of temporal and climatic predictors. Values represent normalized relative influence (0–1) from generalized dissimilarity models, shown for all mammals, herbivores, and carnivores in Europe and North America.</figcaption>
-</figure>
-</div>
-<section id="sensitivity-analyses" class="level4" data-number="A.3.1.1">
-<h4 data-number="A.3.1.1" class="anchored" data-anchor-id="sensitivity-analyses"><span class="header-section-number">A.3.1.1</span> Sensitivity analyses</h4>
+<section id="sensitivity-analyses" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="sensitivity-analyses"><span class="header-section-number">A.2</span> Sensitivity analyses</h2>
 <p>We tested four model configurations that represent different assumptions about how smooth temperature trajectories are through time. When analyzed together, they provide a sensitivity analysis to understand the impact of different temporal smoothing choices for the shape of temporal climatic trajectories and climate-fossil turnover relationships.</p>
+<section id="sensitivity-of-fossil-paleoassemblages-to-spatial-binning" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="sensitivity-of-fossil-paleoassemblages-to-spatial-binning"><span class="header-section-number">A.2.1</span> Sensitivity of fossil paleoassemblages to spatial binning</h3>
+<p>Spatial aggregation of fossil occurrences was performed using the <strong>H3 hierarchical hexagonal indexing system</strong> (developed by Uber Engineering; Brodsky, 2018), which partitions the Earth’s surface into equal-area hexagonal cells across multiple nested resolutions.</p>
+<p>We used four resolutions spanning a broad range of spatial grains:</p>
+<ul>
+<li><p><strong>h0 (~1918 km spacing)</strong> – continental-scale aggregation</p></li>
+<li><p><strong>h1 (~725 km)</strong> – subcontinental scale</p></li>
+<li><p><strong>h2 (~274 km)</strong> – regional scale</p></li>
+<li><p><strong>h3 (~104 km)</strong> – local scale</p></li>
+</ul>
+<pre><code>At each resolution, fossil occurrences were assigned to H3 cells and aggregated into **paleo-assemblages**, with each cell representing a sampling unit for richness and turnover analyses.</code></pre>
+<p>The H3 system provides several advantages for macroecological analyses:</p>
+<ul>
+<li><p><strong>Equal-area cells</strong>, minimizing latitudinal distortion</p></li>
+<li><p><strong>Compact hexagonal geometry</strong>, reducing edge effects</p></li>
+<li><p><strong>Hierarchical nesting</strong>, enabling explicit comparison across spatial scales</p></li>
+</ul>
+<pre><code>Varying spatial resolution allowed us to assess how **assemblage definition influences estimates of diversity and turnover**, as well as the sensitivity of GDM results to spatial grain.</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-756231444.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure S8. Spatial patterns of genus richness across resolutions in Europe and North America.</strong> Maps of fossil assemblage genus richness (log-transformed) across H3 spatial resolutions (h0–h3; coarse to fine) for Europe and North America. Each hexagon represents a spatial cell, colored by log(richness). At coarse resolutions (h0), richness appears high and spatially smooth due to aggregation of occurrences within large cells. As spatial resolution increases (h1–h3), richness declines and spatial heterogeneity becomes more pronounced, revealing localized patterns and patchiness in diversity. Fine-resolution maps (h3) show sparse and fragmented assemblages, reflecting the underlying distribution of fossil occurrences.</figcaption>
+</figure>
+</div>
 </section>
-<section id="sensitivity-of-neogene-temperaturechange-estimates" class="level4" data-number="A.3.1.2">
-<h4 data-number="A.3.1.2" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates"><span class="header-section-number">A.3.1.2</span> Sensitivity of Neogene temperature‐change estimates</h4>
+<section id="sensitivity-of-neogene-temperaturechange-estimates" class="level3" data-number="A.2.2">
+<h3 data-number="A.2.2" class="anchored" data-anchor-id="sensitivity-of-neogene-temperaturechange-estimates"><span class="header-section-number">A.2.2</span> Sensitivity of Neogene temperature‐change estimates</h3>
 <ul>
 <li><p><strong>gam_6_3 (df = 6, degree = 3):</strong> Allows relatively high flexibility. Temperature trajectories can follow finer temporal variation while remaining smooth, capturing long-term trends as well as moderate shorter-term fluctuations.</p></li>
 <li><p><strong>gam_4_3 (df = 4, degree = 3):</strong> An intermediate level of smoothing. With fewer degrees of freedom, the model emphasizes broader temporal patterns while still allowing nonlinear trajectories.</p></li>
@@ -363,53 +367,86 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-2759316063.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S10: Smoothed trajectories of mean atmospheric temperature across the Neogene under alternative GAM specifications.</strong> Mean atmospheric temperature (°C) from 23 to 2 Ma is shown as smoothed trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect the reconstructed temporal trajectory of temperature used in subsequent analyses.</figcaption>
+<figcaption><strong>Figure S9: Smoothed trajectories of mean atmospheric temperature across the Neogene under alternative GAM specifications.</strong> Mean atmospheric temperature (°C) from 23 to 2 Ma is shown as smoothed trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect the reconstructed temporal trajectory of temperature used in subsequent analyses.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-515109549.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S11: Estimated rates of temperature change across the Neogene under alternative GAM specifications.</strong> Mean rates of atmospheric temperature change (°C Myr⁻¹) from 23 to 2 Ma are shown for trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how different smoothing assumptions influence the estimated temporal pattern of temperature change used in subsequent analyses.</figcaption>
+<figcaption><strong>Figure S10: Estimated rates of temperature change across the Neogene under alternative GAM specifications.</strong> Mean rates of atmospheric temperature change (°C Myr⁻¹) from 23 to 2 Ma are shown for trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how different smoothing assumptions influence the estimated temporal pattern of temperature change used in subsequent analyses.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-3923543440.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S12: Temporal variation in temperature instability across the Neogene under alternative GAM specifications</strong>. Temperature instability (°C Myr⁻¹), calculated as the absolute rate of temperature change, is shown from 23 to 2 Ma using trajectories derived from generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect estimates of climatic instability used in subsequent analyses.</figcaption>
+<figcaption><strong>Figure S11: Temporal variation in temperature instability across the Neogene under alternative GAM specifications</strong>. Temperature instability (°C Myr⁻¹), calculated as the absolute rate of temperature change, is shown from 23 to 2 Ma using trajectories derived from generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect estimates of climatic instability used in subsequent analyses.</figcaption>
 </figure>
 </div>
 </section>
-<section id="sensitivity-of-gdm-effect-estimates" class="level4" data-number="A.3.1.3">
-<h4 data-number="A.3.1.3" class="anchored" data-anchor-id="sensitivity-of-gdm-effect-estimates"><span class="header-section-number">A.3.1.3</span> Sensitivity of GDM effect estimates</h4>
-<section id="sensitivity-to-climate-change" class="level5" data-number="A.3.1.3.1">
-<h5 data-number="A.3.1.3.1" class="anchored" data-anchor-id="sensitivity-to-climate-change"><span class="header-section-number">A.3.1.3.1</span> Sensitivity to climate change</h5>
+<section id="sensitivity-of-gdm-predictive-power" class="level3" data-number="A.2.3">
+<h3 data-number="A.2.3" class="anchored" data-anchor-id="sensitivity-of-gdm-predictive-power"><span class="header-section-number">A.2.3</span> Sensitivity of GDM predictive power</h3>
+<p>We evaluated the sensitivity of GDM performance (deviance explained) to spatial resolution and spline parameterization, providing a direct assessment of how modeling choices influence inference of climate–turnover relationships. The sensitivity of GDM predictive power to spatial resolution provides direct evidence that fossil turnover is governed by scale-dependent assembly processes, where climate constraints are strong but spatially localized, and become obscured under aggregation.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-3873710493.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S13: Effects of climate change magnitude on ecological distance under alternative GAM smoothness settings.</strong> Partial ecological distance is plotted against climate change magnitude (°C Myr⁻¹) for mammalian assemblages in North America (top row) and Europe (bottom row), separated by all mammals, herbivores, and carnivores. Curves represent generalized additive model (GAM) smooths fitted with different hyperparameter combinations controlling spline degrees of freedom (df = 4–2, 4–3, 6–3, and 8–3), shown in different colors. Each panel illustrates the fitted response of ecological distance to climate change magnitude for the corresponding continent and trophic grouping under these alternative smoothing specifications.</figcaption>
+<p><img src="images/clipboard-37643667.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure S12. Sensitivity of GDM predictive performance to spatial resolution and spline parameterization.</strong> Deviance explained (%) of GDM models for Europe and North America across (A) H3 spatial resolutions and (B) spline settings. Points represent individual model fits, with shapes indicating spatial resolution (h0–h3; coarse to fine) and colors indicating spline parameterizations (degrees of freedom and polynomial degree). Boxplots summarize the distribution of deviance explained for each continent. Model performance is consistently higher in North America than in Europe. Finer spatial resolutions (e.g., h3) tend to yield higher deviance explained, whereas coarser resolutions reduce explanatory power, indicating loss of ecological signal with spatial aggregation. In contrast, variation in spline settings has minimal influence on model performance, demonstrating that results are robust to smoothing choices and primarily driven by spatial scale rather than model specification.</figcaption>
 </figure>
 </div>
 </section>
-<section id="sensitivity-to-climatic-instability" class="level5" data-number="A.3.1.3.2">
-<h5 data-number="A.3.1.3.2" class="anchored" data-anchor-id="sensitivity-to-climatic-instability"><span class="header-section-number">A.3.1.3.2</span> Sensitivity to climatic instability</h5>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-824982498.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S14: Effects of climate instability on ecological distance under alternative GAM smoothness settings.</strong> Partial ecological distance is plotted against climate instability (°C Myr⁻¹) for mammalian assemblages in North America (top row) and Europe (bottom row), separated by all mammals, herbivores, and carnivores. Curves represent generalized additive model (GAM) smooths fitted using different hyperparameter combinations controlling spline degrees of freedom (df = 4–2, 4–3, 6–3, and 8–3), shown in different colors. Each panel displays the fitted relationship between ecological distance and climate instability for the corresponding continent and trophic group under these alternative smoothing specifications.</figcaption>
-</figure>
+<section id="sensitivity-of-gdm-effect-estimates" class="level3" data-number="A.2.4">
+<h3 data-number="A.2.4" class="anchored" data-anchor-id="sensitivity-of-gdm-effect-estimates"><span class="header-section-number">A.2.4</span> Sensitivity of GDM effect estimates</h3>
+<section id="appendix-s13-gdm-estimates-of-climatic-effects-with-geography-as-predictor" class="level4" data-number="A.2.4.1">
+<h4 data-number="A.2.4.1" class="anchored" data-anchor-id="appendix-s13-gdm-estimates-of-climatic-effects-with-geography-as-predictor"><span class="header-section-number">A.2.4.1</span> Appendix S13: GDM estimates of climatic effects (with geography as predictor)</h4>
+<p><img src="images/clipboard-525048963.png" class="img-fluid"></p>
+<p><img src="images/clipboard-604789010.png" class="img-fluid"></p>
+<p><img src="images/clipboard-531097028.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2782034406.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1443142333.png" class="img-fluid"></p>
+<p><img src="images/clipboard-46859423.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1302944083.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1282742235.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1159413635.png" class="img-fluid"></p>
+<p><img src="images/clipboard-228998274.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3252563147.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2122051303.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2020630722.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1449078820.png" class="img-fluid"></p>
+<p><img src="images/clipboard-4032000110.png" class="img-fluid"></p>
+<p><img src="images/clipboard-167134023.png" class="img-fluid"></p>
+</section>
+<section id="appendix-s14-gdm-estimates-of-climatic-effects-without-geography-as-predictor" class="level4" data-number="A.2.4.2">
+<h4 data-number="A.2.4.2" class="anchored" data-anchor-id="appendix-s14-gdm-estimates-of-climatic-effects-without-geography-as-predictor"><span class="header-section-number">A.2.4.2</span> Appendix S14: GDM estimates of climatic effects (without geography as predictor)</h4>
+<p><img src="images/clipboard-3331680206.png" class="img-fluid"></p>
+<p><img src="images/clipboard-770732193.png" class="img-fluid"></p>
+<p><img src="images/clipboard-92790056.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3581621061.png" class="img-fluid"></p>
+<p><img src="images/clipboard-524734484.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2376707034.png" class="img-fluid"></p>
+<p><img src="images/clipboard-516431007.png" class="img-fluid"></p>
+<p><img src="images/clipboard-444480305.png" class="img-fluid"></p>
+<p><img src="images/clipboard-4153130292.png" class="img-fluid"></p>
+<p><img src="images/clipboard-681358364.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3261848182.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3019523297.png" class="img-fluid"></p>
+<p><img src="images/clipboard-418841607.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1074757680.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2576097445.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1244980187.png" class="img-fluid"></p>
+</section>
+<section id="appendix-s15-sensitivity-of-spatial-and-temporal-effects" class="level4" data-number="A.2.4.3">
+<h4 data-number="A.2.4.3" class="anchored" data-anchor-id="appendix-s15-sensitivity-of-spatial-and-temporal-effects"><span class="header-section-number">A.2.4.3</span> Appendix S15: Sensitivity of spatial and temporal effects</h4>
+<div class="figure-grid">
+<p><img src="images/clipboard-3240866506.png" class="img-fluid"> <img src="images/clipboard-1309887032.png" class="img-fluid"> <img src="images/clipboard-536319792.png" class="img-fluid"> <img src="images/clipboard-3996220371.png" class="img-fluid"></p>
+<p><img src="images/clipboard-49576545.png" class="img-fluid"> <img src="images/clipboard-1559884790.png" class="img-fluid"> <img src="images/clipboard-1376337144.png" class="img-fluid"> <img src="images/clipboard-3143432390.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1410193762.png" class="img-fluid"> <img src="images/clipboard-3767302378.png" class="img-fluid"> <img src="images/clipboard-3569146556.png" class="img-fluid"> <img src="images/clipboard-215884396.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2918587373.png" class="img-fluid"> <img src="images/clipboard-3580947227.png" class="img-fluid"> <img src="images/clipboard-3137360043.png" class="img-fluid"> <img src="images/clipboard-2297830445.png" class="img-fluid"></p>
 </div>
 </section>
-<section id="sensitivity-to-mean-temperature" class="level5" data-number="A.3.1.3.3">
-<h5 data-number="A.3.1.3.3" class="anchored" data-anchor-id="sensitivity-to-mean-temperature"><span class="header-section-number">A.3.1.3.3</span> Sensitivity to mean temperature</h5>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3581474073.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S15: Effects of mean atmospheric temperature on ecological distance under alternative GAM smoothness settings.</strong> Partial ecological distance is plotted against mean atmospheric temperature (°C) for mammalian assemblages in North America (top row) and Europe (bottom row), separated by all mammals, herbivores, and carnivores. Curves represent generalized additive model (GAM) smooths fitted using different hyperparameter combinations controlling spline degrees of freedom (df = 4–2, 4–3, 6–3, and 8–3), shown in different colors. Each panel illustrates the fitted relationship between ecological distance and mean atmospheric temperature for the corresponding continent and trophic group under these alternative smoothing specifications.</figcaption>
-</figure>
-</div>
+<section id="appendix-s16-sensitivity-of-temporal-effects-without-geography-as-predictor" class="level4" data-number="A.2.4.4">
+<h4 data-number="A.2.4.4" class="anchored" data-anchor-id="appendix-s16-sensitivity-of-temporal-effects-without-geography-as-predictor"><span class="header-section-number">A.2.4.4</span> Appendix S16: Sensitivity of temporal effects (without geography as predictor)</h4>
+<p><img src="images/clipboard-1833084621.png" class="img-fluid"><img src="images/clipboard-3358164935.png" class="img-fluid"><img src="images/clipboard-2434015099.png" class="img-fluid"><img src="images/clipboard-87593238.png" class="img-fluid"><img src="images/clipboard-3264957396.png" class="img-fluid"><img src="images/clipboard-126375289.png" class="img-fluid"><img src="images/clipboard-3666338949.png" class="img-fluid"><img src="images/clipboard-464337036.png" class="img-fluid"><img src="images/clipboard-2338611898.png" class="img-fluid"><img src="images/clipboard-2572354602.png" class="img-fluid"><img src="images/clipboard-3518009819.png" class="img-fluid"><img src="images/clipboard-2388133945.png" class="img-fluid"><img src="images/clipboard-3673140606.png" class="img-fluid"><img src="images/clipboard-2552613282.png" class="img-fluid"><img src="images/clipboard-1950672687.png" class="img-fluid"><img src="images/clipboard-4064427302.png" class="img-fluid"></p>
 
 
-</section>
 </section>
 </section>
 </section>

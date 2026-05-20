@@ -228,8 +228,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ubers-hexagonal-hierarchical-spatial-index" id="toc-ubers-hexagonal-hierarchical-spatial-index" class="nav-link" data-scroll-target="#ubers-hexagonal-hierarchical-spatial-index"><span class="header-section-number">A.1.2</span> Uber’s hexagonal hierarchical spatial index</a></li>
   <li><a href="#spatial-binning-of-fossil-locations-into-fossil-paleoassemblages" id="toc-spatial-binning-of-fossil-locations-into-fossil-paleoassemblages" class="nav-link" data-scroll-target="#spatial-binning-of-fossil-locations-into-fossil-paleoassemblages"><span class="header-section-number">A.1.3</span> Spatial binning of fossil locations into fossil paleoassemblages</a></li>
   <li><a href="#temporal-trends-in-the-number-of-paleoassemblages-across-trophic-guilds" id="toc-temporal-trends-in-the-number-of-paleoassemblages-across-trophic-guilds" class="nav-link" data-scroll-target="#temporal-trends-in-the-number-of-paleoassemblages-across-trophic-guilds"><span class="header-section-number">A.1.4</span> Temporal trends in the number of paleoassemblages across trophic guilds</a></li>
-  <li><a href="#temporal-trends-in-genus-richness-of-continental-pools-across-trophic-guilds" id="toc-temporal-trends-in-genus-richness-of-continental-pools-across-trophic-guilds" class="nav-link" data-scroll-target="#temporal-trends-in-genus-richness-of-continental-pools-across-trophic-guilds"><span class="header-section-number">A.1.5</span> Temporal trends in genus richness of continental pools across trophic guilds</a></li>
-  <li><a href="#temporal-trends-in-mammal-lineage-replacement" id="toc-temporal-trends-in-mammal-lineage-replacement" class="nav-link" data-scroll-target="#temporal-trends-in-mammal-lineage-replacement"><span class="header-section-number">A.1.6</span> Temporal trends in mammal lineage replacement</a></li>
   </ul></li>
   <li><a href="#paleo-atmospheric-temperature-data" id="toc-paleo-atmospheric-temperature-data" class="nav-link" data-scroll-target="#paleo-atmospheric-temperature-data"><span class="header-section-number">A.2</span> Paleo-atmospheric temperature data</a>
   <ul class="collapse">
@@ -295,7 +293,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-320948014.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S3: Fossil occurrences were assigend to a discrete grid of hexagonal cells of approximately 100 × 100 km in geographic space (Uber’s H3 resolution)</strong>. Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single fossil paleoassemblage, which served as the fundamental unit for subsequent diversity analyses. The figure represent the coverage of hexagonal cells with Neogene fossil data for Europe (Longitude &gt; -50) and North America (Longitude &lt; -50). Darker shades represent a larger number of Genus level records.</figcaption>
+<figcaption><strong>Figure S3: Fossil location coordinates were used to assign fossil occurrences to a discrete grid of hexagonal cells of approximately 100 × 100 km in geographic space.</strong> Fossil occurrences falling within the same grid cell and Neogene stage were grouped into a single paleoassemblage, which served as the fundamental unit for subsequent diversity, compositional, and network analyses.</figcaption>
 </figure>
 </div>
 </section>
@@ -308,24 +306,6 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="temporal-trends-in-genus-richness-of-continental-pools-across-trophic-guilds" class="level3" data-number="A.1.5">
-<h3 data-number="A.1.5" class="anchored" data-anchor-id="temporal-trends-in-genus-richness-of-continental-pools-across-trophic-guilds"><span class="header-section-number">A.1.5</span> Temporal trends in genus richness of continental pools across trophic guilds</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3191521585.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S5: Temporal trends in fossil genus richness across trophic guilds and continents.</strong> Observed genus richness (points) and richness estimators (lines) are shown for carnivores, herbivores, and omnivores in Europe and North America. Solid and dashed lines represent smoothed trends from generalized additive models (GAMs) fitted to Chao and first-order jackknife estimators, respectively. Time is shown in millions of years before present (Ma), with values decreasing toward the present. Colours denote trophic guilds.</figcaption>
-</figure>
-</div>
-</section>
-<section id="temporal-trends-in-mammal-lineage-replacement" class="level3" data-number="A.1.6">
-<h3 data-number="A.1.6" class="anchored" data-anchor-id="temporal-trends-in-mammal-lineage-replacement"><span class="header-section-number">A.1.6</span> Temporal trends in mammal lineage replacement</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2239525509.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S6. Spatial-temporal distributions of mammalian families across trophic guilds in Europe and North America.</strong> Horizontal boxplots show the distribution of fossil occurrences through time (Ma) for each family, grouped by trophic guild (carnivores, omnivores, herbivores) and continent. Boxes represent the interquartile range, central lines indicate medians, and whiskers extend to the range of observed values; points denote outliers. Time is expressed in millions of years before present (Ma), decreasing toward the present. Colours denote trophic guilds.</figcaption>
-</figure>
-</div>
-</section>
 </section>
 <section id="paleo-atmospheric-temperature-data" class="level2" data-number="A.2">
 <h2 data-number="A.2" class="anchored" data-anchor-id="paleo-atmospheric-temperature-data"><span class="header-section-number">A.2</span> Paleo-atmospheric temperature data</h2>
@@ -333,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-3710998148.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S7: Spatiotemporal reconstruction of near-surface air temperature across the Neogene in North America and Europe.</strong> Panels show paleoclimatic reconstructions of mean atmospheric temperature (°C) from 23 to 2 Ma at ~1 Myr intervals, based on interpolated and smoothed climate surfaces (Hagen et al.&nbsp;2019) projected onto paleogeographic configurations. Each row represents a successive time slice (Ma), illustrating the progressive evolution of temperature patterns through deep time. Color gradients range from cooler conditions (blue) to warmer conditions (red).</figcaption>
+<figcaption><strong>Figure S5: Spatiotemporal reconstruction of near-surface air temperature across the Neogene in North America and Europe.</strong> Panels show paleoclimatic reconstructions of mean atmospheric temperature (°C) from 23 to 2 Ma at ~1 Myr intervals, based on interpolated and smoothed climate surfaces (Hagen et al.&nbsp;2019) projected onto paleogeographic configurations. Each row represents a successive time slice (Ma), illustrating the progressive evolution of temperature patterns through deep time. Color gradients range from cooler conditions (blue) to warmer conditions (red).</figcaption>
 </figure>
 </div>
 <section id="obtaining-the-rate-of-climate-change" class="level3" data-number="A.2.1">
@@ -342,7 +322,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-4291690922.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S8: Spatiotemporal reconstruction of near-surface air temperature change across the Neogene in North America and Europe.</strong> Panels show paleoclimatic reconstructions of mean atmospheric temperature change (°C/Ma) from 23 to 2 Ma at ~1 Myr intervals, based on interpolated and smoothed climate surfaces (Hagen et al.&nbsp;2019) projected onto paleogeographic configurations. Each row represents a successive time slice (Ma), illustrating the progressive evolution of temperature change patterns through deep time. Color gradients range from cooling trends (blue) to warming trends (red).</figcaption>
+<figcaption><strong>Figure S6: Spatiotemporal reconstruction of near-surface air temperature change across the Neogene in North America and Europe.</strong> Panels show paleoclimatic reconstructions of mean atmospheric temperature change (°C/Ma) from 23 to 2 Ma at ~1 Myr intervals, based on interpolated and smoothed climate surfaces (Hagen et al.&nbsp;2019) projected onto paleogeographic configurations. Each row represents a successive time slice (Ma), illustrating the progressive evolution of temperature change patterns through deep time. Color gradients range from cooling trends (blue) to warming trends (red).</figcaption>
 </figure>
 </div>
 </section>
@@ -352,7 +332,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-3915710011.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S9: Spatial patterns of paleoatmospheric temperature instability across the Neogene in North America and Europe.</strong> Maps show reconstructed paleoatmospheric temperature instability (°C Ma⁻¹) across North America (left panel) and Europe (right panel) from 22 Ma to 2 Ma. Each map represents a 1-Ma time slice, illustrating the spatial distribution of temperature variability across the continents. Warmer colors (yellow–red) indicate higher rates of temperature instability, whereas cooler colors (blue) indicate lower instability.</figcaption>
+<figcaption><strong>Figure S7: Spatial patterns of paleoatmospheric temperature instability across the Neogene in North America and Europe.</strong> Maps show reconstructed paleoatmospheric temperature instability (°C Ma⁻¹) across North America (left panel) and Europe (right panel) from 22 Ma to 2 Ma. Each map represents a 1-Ma time slice, illustrating the spatial distribution of temperature variability across the continents. Warmer colors (yellow–red) indicate higher rates of temperature instability, whereas cooler colors (blue) indicate lower instability.</figcaption>
 </figure>
 </div>
 </section>
@@ -364,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-1493583739.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S10. Non-metric multidimensional scaling (NMDS) ordinations of fossil taxonomic turnover among H3 paleoassemblages for North America and Europe across trophic guilds (all taxa, herbivores, and carnivores).</strong> Points represent spatiotemporal paleoassemblages and are coloured according to geological age (Ma), with older assemblages shown in darker colours and younger assemblages in lighter colours.</figcaption>
+<figcaption><strong>Figure S8. Non-metric multidimensional scaling (NMDS) ordinations of fossil taxonomic turnover among H3 paleoassemblages for North America and Europe across trophic guilds (all taxa, herbivores, and carnivores).</strong> Points represent spatiotemporal paleoassemblages and are coloured according to geological age (Ma), with older assemblages shown in darker colours and younger assemblages in lighter colours.</figcaption>
 </figure>
 </div>
 </section>
@@ -387,7 +367,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-4137080004.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S11. Fossil assemblage richness across time and spatial resolutions.</strong> Temporal variation in genus richness of fossil assemblages in Europe and North America across H3 spatial resolutions (h0–h3; coarse to fine). Boxplots summarize the distribution of genus richness within each time bin (Ma), with points indicating outliers. Richness is consistently higher and more variable at coarser resolutions (h0), reflecting spatial aggregation of assemblages, and declines with increasing spatial resolution (h1–h3) as assemblages become more spatially constrained. Both continents show substantial temporal heterogeneity, though patterns are more variable in Europe than in North America.</figcaption>
+<figcaption><strong>Figure S9. Fossil assemblage richness across time and spatial resolutions. Temporal variation in genus richness of fossil assemblages in Europe and North America across H3 spatial resolutions (h0–h3; coarse to fine).</strong> Boxplots summarize the distribution of genus richness within each time bin (Ma), with points indicating outliers. Richness is consistently higher and more variable at coarser resolutions (h0), reflecting spatial aggregation of assemblages, and declines with increasing spatial resolution (h1–h3) as assemblages become more spatially constrained. Both continents show substantial temporal heterogeneity, though patterns are more variable in Europe than in North America.</figcaption>
 </figure>
 </div>
 </section>
@@ -397,7 +377,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-756231444.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S12. Spatial patterns of genus richness across resolutions in Europe and North America.</strong> Maps of fossil assemblage genus richness (log-transformed) across H3 spatial resolutions (h0–h3; coarse to fine) for Europe and North America. Each hexagon represents a spatial cell, colored by log(richness). At coarse resolutions (h0), richness appears high and spatially smooth due to aggregation of occurrences within large cells. As spatial resolution increases (h1–h3), richness declines and spatial heterogeneity becomes more pronounced, revealing localized patterns and patchiness in diversity. Fine-resolution maps (h3) show sparse and fragmented assemblages, reflecting the underlying distribution of fossil occurrences.</figcaption>
+<figcaption><strong>Figure S10. Spatial patterns of genus richness across resolutions in Europe and North America.</strong> Maps of fossil assemblage genus richness (log-transformed) across H3 spatial resolutions (h0–h3; coarse to fine) for Europe and North America. Each hexagon represents a spatial cell, colored by log(richness). At coarse resolutions (h0), richness appears high and spatially smooth due to aggregation of occurrences within large cells. As spatial resolution increases (h1–h3), richness declines and spatial heterogeneity becomes more pronounced, revealing localized patterns and patchiness in diversity. Fine-resolution maps (h3) show sparse and fragmented assemblages, reflecting the underlying distribution of fossil occurrences.</figcaption>
 </figure>
 </div>
 </section>
@@ -413,19 +393,19 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-2759316063.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S13: Smoothed trajectories of mean atmospheric temperature across the Neogene under alternative GAM specifications.</strong> Mean atmospheric temperature (°C) from 23 to 2 Ma is shown as smoothed trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect the reconstructed temporal trajectory of temperature used in subsequent analyses.</figcaption>
+<figcaption><strong>Figure S11: Smoothed trajectories of mean atmospheric temperature across the Neogene under alternative GAM specifications.</strong> Mean atmospheric temperature (°C) from 23 to 2 Ma is shown as smoothed trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect the reconstructed temporal trajectory of temperature used in subsequent analyses.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-515109549.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S14: Estimated rates of temperature change across the Neogene under alternative GAM specifications.</strong> Mean rates of atmospheric temperature change (°C Myr⁻¹) from 23 to 2 Ma are shown for trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how different smoothing assumptions influence the estimated temporal pattern of temperature change used in subsequent analyses.</figcaption>
+<figcaption><strong>Figure S12: Estimated rates of temperature change across the Neogene under alternative GAM specifications.</strong> Mean rates of atmospheric temperature change (°C Myr⁻¹) from 23 to 2 Ma are shown for trajectories estimated using generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how different smoothing assumptions influence the estimated temporal pattern of temperature change used in subsequent analyses.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-3923543440.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S15: Temporal variation in temperature instability across the Neogene under alternative GAM specifications</strong>. Temperature instability (°C Myr⁻¹), calculated as the absolute rate of temperature change, is shown from 23 to 2 Ma using trajectories derived from generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect estimates of climatic instability used in subsequent analyses.</figcaption>
+<figcaption><strong>Figure S13: Temporal variation in temperature instability across the Neogene under alternative GAM specifications</strong>. Temperature instability (°C Myr⁻¹), calculated as the absolute rate of temperature change, is shown from 23 to 2 Ma using trajectories derived from generalized additive models (GAMs) with different smoothing parameters (df = 6, degree = 3; df = 4, degree = 3; df = 4, degree = 2; df = 8, degree = 3). Time is shown in millions of years ago (Ma), with older ages to the left. Lines illustrate how alternative smoothing assumptions affect estimates of climatic instability used in subsequent analyses.</figcaption>
 </figure>
 </div>
 </section>
@@ -435,14 +415,20 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clipboard-37643667.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure S16. Sensitivity of GDM predictive performance to spatial resolution and spline parameterization.</strong> Deviance explained (%) of GDM models for Europe and North America across (A) H3 spatial resolutions and (B) spline settings. Points represent individual model fits, with shapes indicating spatial resolution (h0–h3; coarse to fine) and colors indicating spline parameterizations (degrees of freedom and polynomial degree). Boxplots summarize the distribution of deviance explained for each continent. Model performance is consistently higher in North America than in Europe. Finer spatial resolutions (e.g., h3) tend to yield higher deviance explained, whereas coarser resolutions reduce explanatory power, indicating loss of ecological signal with spatial aggregation. In contrast, variation in spline settings has minimal influence on model performance, demonstrating that results are robust to smoothing choices and primarily driven by spatial scale rather than model specification.</figcaption>
+<figcaption><strong>Figure S14. Sensitivity of GDM predictive performance to spatial resolution and spline parameterization.</strong> Deviance explained (%) of GDM models for Europe and North America across (A) H3 spatial resolutions and (B) spline settings. Points represent individual model fits, with shapes indicating spatial resolution (h0–h3; coarse to fine) and colors indicating spline parameterizations (degrees of freedom and polynomial degree). Boxplots summarize the distribution of deviance explained for each continent. Model performance is consistently higher in North America than in Europe. Finer spatial resolutions (e.g., h3) tend to yield higher deviance explained, whereas coarser resolutions reduce explanatory power, indicating loss of ecological signal with spatial aggregation. In contrast, variation in spline settings has minimal influence on model performance, demonstrating that results are robust to smoothing choices and primarily driven by spatial scale rather than model specification.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1752654905.png" class="img-fluid figure-img"></p>
+<figcaption><strong>Figure S15. Relationship between spatial resolution (H3 cell size; km) and deviance explained (%) for GDM models across spline parameterizations (points colored by spline settings).</strong> Each point represents a model fit, and lines indicate fitted trends for each continent. Deviance explained declines consistently with increasing cell size (coarser spatial resolution), indicating loss of ecological signal through spatial aggregation. Orange line represents the trend of models with Geography included as predictor, while green line represents trend of modes without Geography included as predictor.</figcaption>
 </figure>
 </div>
 </section>
 <section id="sensitivity-of-gdm-effect-estimates-to-smoothing-model-parameters-and-spatial-resolution-of-hexagonal-bins" class="level3" data-number="A.4.4">
 <h3 data-number="A.4.4" class="anchored" data-anchor-id="sensitivity-of-gdm-effect-estimates-to-smoothing-model-parameters-and-spatial-resolution-of-hexagonal-bins"><span class="header-section-number">A.4.4</span> Sensitivity of GDM effect estimates to smoothing model parameters and spatial resolution of hexagonal bins</h3>
-<section id="appendix-s17-gdm-estimates-of-climatic-effects-with-geography-as-predictor" class="level4" data-number="A.4.4.1">
-<h4 data-number="A.4.4.1" class="anchored" data-anchor-id="appendix-s17-gdm-estimates-of-climatic-effects-with-geography-as-predictor"><span class="header-section-number">A.4.4.1</span> Appendix S17: GDM estimates of climatic effects (with geography as predictor)</h4>
+<section id="appendix-s16-gdm-estimates-of-climatic-effects-with-geography-as-predictor" class="level4" data-number="A.4.4.1">
+<h4 data-number="A.4.4.1" class="anchored" data-anchor-id="appendix-s16-gdm-estimates-of-climatic-effects-with-geography-as-predictor"><span class="header-section-number">A.4.4.1</span> Appendix S16: GDM estimates of climatic effects (with geography as predictor)</h4>
 <div class="figure-grid">
 <p><img src="images/clipboard-525048963.png" class="img-fluid"></p>
 <p><img src="images/clipboard-604789010.png" class="img-fluid"></p>
@@ -462,8 +448,8 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="images/clipboard-167134023.png" class="img-fluid"></p>
 </div>
 </section>
-<section id="appendix-s18-gdm-estimates-of-climatic-effects-without-geography-as-predictor" class="level4" data-number="A.4.4.2">
-<h4 data-number="A.4.4.2" class="anchored" data-anchor-id="appendix-s18-gdm-estimates-of-climatic-effects-without-geography-as-predictor"><span class="header-section-number">A.4.4.2</span> Appendix S18: GDM estimates of climatic effects (without geography as predictor)</h4>
+<section id="appendix-s17-gdm-estimates-of-climatic-effects-without-geography-as-predictor" class="level4" data-number="A.4.4.2">
+<h4 data-number="A.4.4.2" class="anchored" data-anchor-id="appendix-s17-gdm-estimates-of-climatic-effects-without-geography-as-predictor"><span class="header-section-number">A.4.4.2</span> Appendix S17: GDM estimates of climatic effects (without geography as predictor)</h4>
 <div class="figure-grid">
 <p><img src="images/clipboard-3331680206.png" class="img-fluid"></p>
 <p><img src="images/clipboard-770732193.png" class="img-fluid"></p>
@@ -483,8 +469,8 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="images/clipboard-1244980187.png" class="img-fluid"></p>
 </div>
 </section>
-<section id="appendix-s15-sensitivity-of-spatial-and-temporal-effects" class="level4" data-number="A.4.4.3">
-<h4 data-number="A.4.4.3" class="anchored" data-anchor-id="appendix-s15-sensitivity-of-spatial-and-temporal-effects"><span class="header-section-number">A.4.4.3</span> Appendix S15: Sensitivity of spatial and temporal effects</h4>
+<section id="appendix-s18-sensitivity-of-spatial-and-temporal-effects" class="level4" data-number="A.4.4.3">
+<h4 data-number="A.4.4.3" class="anchored" data-anchor-id="appendix-s18-sensitivity-of-spatial-and-temporal-effects"><span class="header-section-number">A.4.4.3</span> Appendix S18: Sensitivity of spatial and temporal effects</h4>
 <div class="figure-grid">
 <p><img src="images/clipboard-3240866506.png" class="img-fluid"> <img src="images/clipboard-1309887032.png" class="img-fluid"> <img src="images/clipboard-536319792.png" class="img-fluid"> <img src="images/clipboard-3996220371.png" class="img-fluid"></p>
 <p><img src="images/clipboard-49576545.png" class="img-fluid"> <img src="images/clipboard-1559884790.png" class="img-fluid"> <img src="images/clipboard-1376337144.png" class="img-fluid"> <img src="images/clipboard-3143432390.png" class="img-fluid"></p>
@@ -492,8 +478,8 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="images/clipboard-2918587373.png" class="img-fluid"> <img src="images/clipboard-3580947227.png" class="img-fluid"> <img src="images/clipboard-3137360043.png" class="img-fluid"> <img src="images/clipboard-2297830445.png" class="img-fluid"></p>
 </div>
 </section>
-<section id="appendix-s16-sensitivity-of-temporal-effects-without-geography-as-predictor" class="level4" data-number="A.4.4.4">
-<h4 data-number="A.4.4.4" class="anchored" data-anchor-id="appendix-s16-sensitivity-of-temporal-effects-without-geography-as-predictor"><span class="header-section-number">A.4.4.4</span> Appendix S16: Sensitivity of temporal effects (without geography as predictor)</h4>
+<section id="appendix-s19-sensitivity-of-temporal-effects-without-geography-as-predictor" class="level4" data-number="A.4.4.4">
+<h4 data-number="A.4.4.4" class="anchored" data-anchor-id="appendix-s19-sensitivity-of-temporal-effects-without-geography-as-predictor"><span class="header-section-number">A.4.4.4</span> Appendix S19: Sensitivity of temporal effects (without geography as predictor)</h4>
 <div class="appendix-figure-grid">
 <p><img src="images/clipboard-1833084621.png" class="img-fluid"> <img src="images/clipboard-3358164935.png" class="img-fluid"> <img src="images/clipboard-2434015099.png" class="img-fluid"> <img src="images/clipboard-87593238.png" class="img-fluid"></p>
 <p><img src="images/clipboard-3264957396.png" class="img-fluid"> <img src="images/clipboard-126375289.png" class="img-fluid"> <img src="images/clipboard-3666338949.png" class="img-fluid"> <img src="images/clipboard-464337036.png" class="img-fluid"></p>
